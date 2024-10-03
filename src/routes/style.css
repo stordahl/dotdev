@@ -1,0 +1,83 @@
+@layer reset, base, elements;
+
+@layer reset {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  * {
+    margin: 0;
+  }
+
+  body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+  }
+
+  input, button, textarea, select {
+    font: inherit;
+  }
+
+  p, h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+  }
+}
+
+@layer base {
+  @font-face {
+    font-family: "Basheq";
+    src: url("/fonts/BasheqVintageDemoVersionRegular-ov13x.ttf") format("truetype");
+  }
+  body {
+    --white: #FFFCF2;
+    --black: #252422;
+    --light-grey: #CCC5B9;
+    --grey: #403D39;
+    --orange: #EB5E28;
+
+    --border: 1px solid var(--white);
+
+    --font-size-large: clamp(2rem, calc(2rem + 5vw), 6rem);
+
+    background-color: var(--black);
+    background-image: url("/images/noise.svg");
+    color: var(--white);
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+    font-family: "Fraunces", serif;
+  }
+}
+
+@layer elements {
+  h1, h2, h3, h4 {
+    font-family: "Basheq", serif;
+    font-weight: 300;
+  }
+  a {
+    --link-color: var(--orange);
+    color: var(--link-color);
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    position: relative;
+    &:after {
+      content: "";
+      background-color: var(--link-color);
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 1px;
+      width: 0;
+      transition: 0.2s;
+    }
+    &:hover:after {
+      width: 100%;
+    }
+  }
+}
+

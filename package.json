@@ -20,8 +20,10 @@
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-svelte": "^2.36.0",
 		"globals": "^15.0.0",
+		"mdsvex": "^0.12.3",
 		"prettier": "^3.1.1",
 		"prettier-plugin-svelte": "^3.1.2",
+		"shiki": "^1.21.0",
 		"svelte": "^5.0.0-next.1",
 		"svelte-check": "^4.0.0",
 		"typescript": "^5.0.0",
@@ -29,8 +31,11 @@
 		"vite": "^5.0.3"
 	},
 	"type": "module",
-  "volta": {
+	"volta": {
 		"node": "18.18.0",
 		"pnpm": "9.7.0"
+	},
+	"dependencies": {
+		"just-kebab-case": "^4.2.0"
 	}
 }

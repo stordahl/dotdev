@@ -1,83 +1,167 @@
 @layer reset, base, elements;
 
 @layer reset {
-  *, *::before, *::after {
-    box-sizing: border-box;
-  }
+	*,
+	*::before,
+	*::after {
+		box-sizing: border-box;
+	}
 
-  * {
-    margin: 0;
-  }
+	* {
+		margin: 0;
+	}
 
-  body {
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-  }
+	body {
+		line-height: 1.5;
+		-webkit-font-smoothing: antialiased;
+	}
 
-  img, picture, video, canvas, svg {
-    display: block;
-    max-width: 100%;
-  }
+	img,
+	picture,
+	video,
+	canvas,
+	svg {
+		display: block;
+		max-width: 100%;
+	}
 
-  input, button, textarea, select {
-    font: inherit;
-  }
+	input,
+	button,
+	textarea,
+	select {
+		font: inherit;
+	}
 
-  p, h1, h2, h3, h4, h5, h6 {
-    overflow-wrap: break-word;
-  }
+	p,
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		overflow-wrap: break-word;
+	}
 }
 
 @layer base {
-  @font-face {
-    font-family: "Basheq";
-    src: url("/fonts/BasheqVintageDemoVersionRegular-ov13x.ttf") format("truetype");
+	@font-face {
+		font-family: 'Basheq';
+		src: url('/fonts/BasheqVintageDemoVersionRegular-ov13x.ttf') format('truetype');
+	}
+  html {
+    scroll-behavior: smooth;
   }
-  body {
-    --white: #FFFCF2;
-    --black: #252422;
-    --light-grey: #CCC5B9;
-    --grey: #403D39;
-    --orange: #EB5E28;
+	body {
+		--white: #fffcf2;
+		--black: #252422;
+		--light-grey: #ccc5b9;
+		--grey: #403d39;
+		--orange: #eb5e28;
 
-    --border: 1px solid var(--white);
+		--border: 1px solid var(--white);
 
-    --font-size-large: clamp(2rem, calc(2rem + 5vw), 6rem);
+		--font-size-large: clamp(2rem, calc(2rem + 5vw), 6rem);
 
-    background-color: var(--black);
-    background-image: url("/images/noise.svg");
-    color: var(--white);
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 0 20px;
-    font-family: "Fraunces", serif;
-  }
+		background-color: var(--black);
+		background-image: url('/images/noise.svg');
+		color: var(--white);
+		max-width: 1000px;
+		margin: 0 auto;
+		padding: 0 20px;
+		font-family: 'Fraunces', serif;
+		font-size: 14px;
+    scroll-behavior: smooth;
+	}
 }
 
 @layer elements {
-  h1, h2, h3, h4 {
-    font-family: "Basheq", serif;
-    font-weight: 300;
+	h1,
+	h2,
+	h3,
+	h4 {
+		font-family: 'Basheq', serif;
+		font-weight: 300;
+	}
+
+	h1 {
+		font-size: clamp(2rem, calc(2vw + 2rem), 2.3rem);
+	}
+	h2 {
+		font-size: clamp(1.25rem, calc(2vw + 1.25rem), 1.7rem);
+	}
+	h3 {
+		font-size: clamp(1.15rem, calc(2vw + 1.15rem), 1.3rem);
+	}
+
+	p {
+		font-size: clamp(1rem, calc(1vw + 1rem), 1.3rem);
+	}
+
+	a {
+		--link-color: var(--orange);
+		color: var(--link-color);
+		text-decoration: none;
+		border-bottom: 2px solid transparent;
+		position: relative;
+		&:after {
+			content: '';
+			background-color: var(--link-color);
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			height: 1px;
+			width: 0;
+			transition: 0.2s;
+		}
+		&:hover:after {
+			width: 100%;
+		}
+	}
+
+	blockquote {
+		margin: 3rem auto;
+		border-left: 1px solid var(--orange);
+		font-size: clamp(1rem, calc(0.5vw + 1.2rem), 1.8rem);
+		padding-left: 1.2rem;
+		font-style: italic;
+	}
+
+	blockquote p {
+		font-size: clamp(1rem, calc(0.5vw + 1.2rem), 1.4rem);
+		line-height: 1.8rem;
+	}
+
+	.twitter-tweet.twitter-tweet-rendered {
+		margin: 10px auto;
+	}
+  
+  code[class*='language-'],
+  pre[class*='language-'],
+  code * {
+    font-family: monospace !important;
   }
-  a {
-    --link-color: var(--orange);
-    color: var(--link-color);
-    text-decoration: none;
-    border-bottom: 2px solid transparent;
-    position: relative;
-    &:after {
-      content: "";
-      background-color: var(--link-color);
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      height: 1px;
-      width: 0;
-      transition: 0.2s;
-    }
-    &:hover:after {
-      width: 100%;
-    }
+
+  pre {
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    overflow-x: auto;
+  }
+
+  code:not(pre>code) {
+    background-color: #2e353b;
+    color: #d3c6aa;
+    font-size: 1rem;
+    padding: 3px 5px;
+    border-radius: 5px;
+  }
+
+  article *:is(h2, h3, h4, h5, h6) {
+    font-family: "Fraunces", serif;
+    margin-bottom: 0.75rem;
+  }
+
+  article p {
+    margin-bottom: 1.75rem;
   }
 }
-

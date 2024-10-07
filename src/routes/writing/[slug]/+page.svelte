@@ -10,12 +10,26 @@
   let header: HTMLElement | undefined = $state();
   const headerHeight = $derived(header?.clientHeight ?? 0)
   const headerOffset = $derived(header?.getBoundingClientRect().bottom ?? 0);
+  let headerIsStuck = $state(false);
 
   const handleScroll = function() {
-    const windowScrollTop = window.scrollY;
+    const scrollThreshold = 50; // Adjust this value as needed
+    const scrollPosition = window.scrollY;
+    
+    if (scrollPosition > scrollThreshold) {
+      headerIsStuck = true;
+    } else {
+      headerIsStuck = false;
+    }
+
     if (header && elementToHide) {
-      const clipAmount = Math.max(0, windowScrollTop - headerOffset + headerHeight);
+      const clipAmount = Math.max(0, scrollPosition - headerOffset + headerHeight);
       elementToHide.style.clipPath = `inset(${clipAmount}px 0 0 0)`;
+    }
+
+    // Update the CSS custom property for header height
+    if (aside && header) {
+      aside?.style.setProperty('--header-height', `${header.clientHeight}px`);
     }
   }
 
@@ -29,7 +43,7 @@
 
 <svelte:window on:scroll={handleScroll} on:resize={handleResize}/>
 
-<div class="header" bind:this={header}>
+<div class="header" class:is-stuck={headerIsStuck} bind:this={header}>
 	<h1>{data.meta.title}</h1>
 	<p class="date">Published {formatDate(data.meta.date)}</p>
 </div>
@@ -46,7 +60,12 @@
 	h1 {
 		font-size: clamp(2rem, calc(2rem + 2vw), 3.5rem);
 		text-align: center;
+    transition: font-size 0.2s ease-in-out 0s;
 	}
+
+  .header.is-stuck h1 {
+		font-size: clamp(1.2rem, calc(1.2rem + 2vw), 2.25rem);
+  }
 
 	.header {
 		padding: 2rem 0;
@@ -79,7 +98,7 @@
     gap: 10px;
     position: sticky;
     top: calc(var(--header-height) + 1rem);
-    max-height: calc(100vh - 6rem); /* Subtract header height and some padding */
+    max-height: calc(100vh - var(--header-height));
     overflow-y: auto;
     align-self: start;
   }

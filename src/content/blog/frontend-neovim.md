@@ -1,6 +1,6 @@
 ---
 title: Why frontend developers should pickup Neovim
-date: 05/08/23
+date: '2023-05-08'
 published: true
 ---
 

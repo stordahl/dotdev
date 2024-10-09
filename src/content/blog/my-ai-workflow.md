@@ -1,6 +1,6 @@
 ---
 title: How I'm Using AI as a Software Engineer
-date: '2023-12-4'
+date: '2023-12-04'
 published: true
 ---
 

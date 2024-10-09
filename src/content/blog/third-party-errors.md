@@ -26,15 +26,15 @@ You may be thinking, "but wait I thought this article was about errors" - don't 
 
 ```typescript
 class Logger {
-	public error({ error, message }) {
-		// send error to backend
-	}
+  public error({ error, message }) {
+    // send error to backend
+  }
 
-	public setupErrorDelegation() {
-		window.addEventListener('error', ({ error, message }) => {
-			this.error({ error, message });
-		});
-	}
+  public setupErrorDelegation() {
+    window.addEventListener('error', ({ error, message }) => {
+      this.error({ error, message });
+    });
+  }
 }
 ```
 
@@ -46,17 +46,17 @@ In the above example, notice that we're adding the event listener to the `window
 
 ```typescript
 class Logger {
-	public error({ error, message }) {
-		// send error to backend
-	}
+  public error({ error, message }) {
+    // send error to backend
+  }
 
-	public setupErrorDelegation() {
-		window.addEventListener('error', ({ error, filename, message }) => {
-			if (typeof filename === 'string' && filename.includes('cdn.my-domain.com/script.js')) {
-				this.error({ error, message });
-			}
-		});
-	}
+  public setupErrorDelegation() {
+    window.addEventListener('error', ({ error, filename, message }) => {
+      if (typeof filename === 'string' && filename.includes('cdn.my-domain.com/script.js')) {
+        this.error({ error, message });
+      }
+    });
+  }
 }
 ```
 

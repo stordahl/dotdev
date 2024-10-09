@@ -13,13 +13,13 @@ a function provided by the library.
 
 ```typescript
 class MyClass {
-    public async myMethod() {
-        try {
-            await someFunction();
-        } catch(error) {
-            handleError(error, someState, ...);
-        }
+  public async myMethod() {
+    try {
+      await someFunction();
+    } catch(error) {
+      handleError(error, someState, ...);
     }
+  }
 }
 ```
 
@@ -35,18 +35,18 @@ concept, lets look at a simple decorator example.
 
 ```typescript
 function logExecution<
-	This,
-	Args extends unknown[],
-	Return,
-	Fn extends (this: This, ...args: Args) => Return
+  This,
+  Args extends unknown[],
+  Return,
+  Fn extends (this: This, ...args: Args) => Return
 >(target: Fn, context: ClassMethodDecroatorContext<This, Fn>) {
-	const methodName = String(context.name);
-	function replacementMethod(this: This, ...args: Args): Return {
-		console.log(`LOG: Entering method ${methodName}.`);
-		const result = target.call(this, ...args);
-		console.log(`LOG: Exiting method ${methodName}.`);
-	}
-	return replacementMethod;
+  const methodName = String(context.name);
+  function replacementMethod(this: This, ...args: Args): Return {
+    console.log(`LOG: Entering method ${methodName}.`);
+    const result = target.call(this, ...args);
+    console.log(`LOG: Exiting method ${methodName}.`);
+  }
+  return replacementMethod;
 }
 
 class ExampleClass {
@@ -84,34 +84,34 @@ said, lets look at some code.
 
 ```typescript
 function wrapMethodFactory<
-	This,
-	Args extends unknown[],
-	Return,
-	Fn extends (this: This, ...args: Args) => Return
+  This,
+  Args extends unknown[],
+  Return,
+  Fn extends (this: This, ...args: Args) => Return
 >(callback: (error: Error) => void) {
-	return function wrapMethod(
-		target: Fn,
-		context: ClassMethodDecoratorContext<This, Fn>
-	): (this: This, ...args: Args) => unknown {
-		return function replacementMethod(this: This, ...args: Args): Return | Promise<void> | void {
-			try {
-				return target.call(this, ...args);
-			} catch (error) {
-				callback(error);
-			}
-		};
-	};
+  return function wrapMethod(
+    target: Fn,
+    context: ClassMethodDecoratorContext<This, Fn>
+  ): (this: This, ...args: Args) => unknown {
+    return function replacementMethod(this: This, ...args: Args): Return | Promise<void> | void {
+      try {
+        return target.call(this, ...args);
+      } catch (error) {
+        callback(error);
+      }
+    };
+  };
 }
 
 function myCallback(error: Error) {
-	console.error(error);
+  console.error(error);
 }
 
 class ExampleClass {
-	@wrapMethodFactory(myCallback)
-	add(a: number, b: number): number {
-		return a + b;
-	}
+  @wrapMethodFactory(myCallback)
+  add(a: number, b: number): number {
+    return a + b;
+  }
 }
 ```
 

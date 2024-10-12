@@ -15,7 +15,7 @@
 		twitterCreator?: string;
 	};
 
-	const baseUrl = $derived($page.url.href);
+	const baseUrl = $derived($page.url.origin);
 
 	// Define props for SEO component
 	let {

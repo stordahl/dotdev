@@ -31,8 +31,7 @@
 			service: 'Development',
 			link: 'https://evergreenfitness.net/',
 			linkText: 'visit',
-			description:
-				'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+			description: "Evergreen Fitness is a Fitness Club located in Port Townsend, Washington. I built their website as a contractor for a local agency, using Sapper and a Netlify serverless API to integrate with the clients existing POS/Membership system."
 		},
 		{
 			title: 'Standup',
@@ -40,7 +39,7 @@
 			link: 'https://github.com/stordahl/standup',
 			linkText: 'view source',
 			description:
-				'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+				'Stanup is a CLI tool I built to keep track of disparate notes, particularly related to recurring meetings I have. Standup allows you to easily create groups of notes, stored in a local SQLite database.'
 		}
 	];
 </script>

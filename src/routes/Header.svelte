@@ -27,4 +27,17 @@
 		color: var(--white);
 		font-size: 1.25rem;
 	}
+
+  a:has(img) {
+        transform: scale(0.8);
+    transition: transform 0.2s ease-in-out 0s;
+    border: none;
+    &:hover {
+      transform: scale(0.9);
+    }
+    &:after {
+      display: none;
+    }
+
+  }
 </style>

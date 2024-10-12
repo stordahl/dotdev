@@ -1,6 +1,7 @@
 ---
 title: My Case Against TypeScript Enums
 date: '2023-12-31'
+description: "I'm not a fan of enums. Here's why..."
 published: true
 ---
 
@@ -35,8 +36,8 @@ The API for this enum then feels oddly close to a JavaScript object, where we'd 
 
 ```typescript
 const Side = {
-  left: 'left',
-  right: 'right'
+	left: 'left',
+	right: 'right'
 } as const;
 ```
 

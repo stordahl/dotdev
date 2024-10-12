@@ -1,6 +1,7 @@
 ---
 title: Limiting Cognitive Overload
 date: '2022-05-30'
+description: 'How I manage my ADHD while working as a Software Engineer'
 published: true
 ---
 

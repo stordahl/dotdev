@@ -14,7 +14,7 @@
 	body {
 		line-height: 1.5;
 		-webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
+		overflow-x: hidden;
 	}
 
 	img,
@@ -49,9 +49,9 @@
 		font-family: 'Basheq';
 		src: url('/fonts/BasheqVintageDemoVersionRegular-ov13x.ttf') format('truetype');
 	}
-  html {
-    scroll-behavior: smooth;
-  }
+	html {
+		scroll-behavior: smooth;
+	}
 	body {
 		--white: #fffcf2;
 		--black: #252422;
@@ -71,7 +71,7 @@
 		padding: 0 20px;
 		font-family: 'Fraunces', serif;
 		font-size: 14px;
-    scroll-behavior: smooth;
+		scroll-behavior: smooth;
 	}
 }
 
@@ -135,34 +135,34 @@
 	.twitter-tweet.twitter-tweet-rendered {
 		margin: 10px auto;
 	}
-  
-  code[class*='language-'],
-  pre[class*='language-'],
-  code * {
-    font-family: monospace !important;
-  }
 
-  pre {
-    padding: 20px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    overflow-x: auto;
-  }
+	code[class*='language-'],
+	pre[class*='language-'],
+	code * {
+		font-family: monospace !important;
+	}
 
-  code:not(pre>code) {
-    background-color: #2e353b;
-    color: #d3c6aa;
-    font-size: 1rem;
-    padding: 3px 5px;
-    border-radius: 5px;
-  }
+	pre {
+		padding: 20px;
+		border-radius: 8px;
+		margin-bottom: 20px;
+		overflow-x: auto;
+	}
 
-  article *:is(h2, h3, h4, h5, h6) {
-    font-family: "Fraunces", serif;
-    margin-bottom: 0.75rem;
-  }
+	code:not(pre > code) {
+		background-color: #2e353b;
+		color: #d3c6aa;
+		font-size: 1rem;
+		padding: 3px 5px;
+		border-radius: 5px;
+	}
 
-  article p {
-    margin-bottom: 1.75rem;
-  }
+	article *:is(h2, h3, h4, h5, h6) {
+		font-family: 'Fraunces', serif;
+		margin-bottom: 0.75rem;
+	}
+
+	article p {
+		margin-bottom: 1.75rem;
+	}
 }

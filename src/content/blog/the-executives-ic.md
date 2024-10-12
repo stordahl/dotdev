@@ -1,6 +1,7 @@
 ---
 title: The Executive's Individual Contributor
 date: '2024-01-10'
+description: "How I'm thinking about IC work in the post-ZIRP age"
 published: true
 ---
 

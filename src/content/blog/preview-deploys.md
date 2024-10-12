@@ -1,6 +1,7 @@
 ---
 title: Implementing Preview Deploys via Github Actions
 date: '2024-04-08'
+description: 'Look ma, no Vercel!'
 published: true
 ---
 

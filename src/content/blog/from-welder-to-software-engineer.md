@@ -1,6 +1,7 @@
 ---
 title: From Welder to Software Engineer
 date: '2022-01-26'
+description: 'How I transitioned my career from the trades to tech.'
 published: true
 ---
 

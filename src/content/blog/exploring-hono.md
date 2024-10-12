@@ -1,6 +1,7 @@
 ---
 title: Exploring Hono
 date: '2023-11-08'
+description: 'Hono is a runtime agnostic, JavaScript web framework'
 published: true
 ---
 

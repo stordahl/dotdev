@@ -1,6 +1,7 @@
 ---
 title: Setting Up A Fresh Work Machine
 date: '2022-03-09'
+description: 'How I setup a Macbook in 2022'
 published: true
 ---
 

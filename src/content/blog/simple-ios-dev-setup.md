@@ -1,6 +1,7 @@
 ---
 title: A Simple iOS Development setup
 date: '2022-03-14'
+description: 'My strategy for debugging iOS Safari bugs'
 published: true
 ---
 

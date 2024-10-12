@@ -1,6 +1,7 @@
 ---
 title: Turbo-charge Your Workflow with zsh Aliases
 date: '2022-12-26'
+description: 'My strategy for zsh aliases'
 published: true
 ---
 

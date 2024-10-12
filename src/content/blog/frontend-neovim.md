@@ -1,6 +1,7 @@
 ---
 title: Why frontend developers should pickup Neovim
 date: '2023-05-08'
+description: 'My arguments for frontend developers to learn Neovim and the commandline in general'
 published: true
 ---
 

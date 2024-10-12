@@ -1,6 +1,7 @@
 ---
 title: How I'm Using AI as a Software Engineer
 date: '2023-12-04'
+description: "A look into how I've integrated AI into my workflow"
 published: true
 ---
 

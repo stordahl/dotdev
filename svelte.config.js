@@ -3,7 +3,7 @@ import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import { mdsvex, escapeSvelte } from 'mdsvex';
 import { createHighlighter } from 'shiki';
 
-const theme = 'everforest-dark'
+const theme = 'everforest-dark';
 
 /** @type {import('mdsvex').MdsvexOptions} */
 const mdsvexOptions = {

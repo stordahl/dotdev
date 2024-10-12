@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Seo from '$lib/Seo.svelte';
 	import type { Post } from '$lib/types';
 	import { formatDateToMonthYear, roman } from '$lib/utils';
 
@@ -9,11 +10,17 @@
 	};
 	const { data }: Props = $props();
 
-  let vw = $state(0);
-  let useShortDate = $derived(vw <= 500);
+	let vw = $state(0);
+	let useShortDate = $derived(vw <= 500);
 </script>
 
 <svelte:window bind:innerWidth={vw} />
+
+<Seo
+	title="Writing | Jacob Stordahl"
+	description="A collection of my writing"
+	ogImage="/images/og/writing.jpg"
+/>
 
 <h1>Writing</h1>
 
@@ -47,7 +54,7 @@
 		position: relative;
 		display: flex;
 		align-items: center;
-    gap: 10px;
+		gap: 10px;
 		font-size: clamp(1rem, calc(1rem + 1vw), 1.5rem);
 		a {
 			width: 100%;
@@ -60,13 +67,13 @@
 			.title {
 				max-width: 75%;
 			}
-      .date {
-        text-align: right;
-        width: min-content;
-        @media screen and (min-width: 550px) {
-         width: max-content;
-        }
-      }
+			.date {
+				text-align: right;
+				width: min-content;
+				@media screen and (min-width: 550px) {
+					width: max-content;
+				}
+			}
 		}
 		&:before {
 			position: absolute;

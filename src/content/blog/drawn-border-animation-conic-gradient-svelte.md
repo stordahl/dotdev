@@ -1,6 +1,7 @@
 ---
 title: Creating a Drawn Border Animation with Conic Gradient & Svelte
 date: '2022-09-25'
+description: 'Smoothly draw a border around and element with Svelte'
 published: true
 ---
 
@@ -26,11 +27,9 @@ The basic HTML strategy for this is based on a [CodePen example](https://codepen
 
 ```html
 <div style:border-radius="{borderRadius}" style="max-width: max-content;">
-  <div
-    style="border-radius: calc({borderRadius} - 2px); border: 2px solid transparent;"
-  >
-    <slot />
-  </div>
+	<div style="border-radius: calc({borderRadius} - 2px); border: 2px solid transparent;">
+		<slot />
+	</div>
 </div>
 ```
 
@@ -46,24 +45,22 @@ Since this is a reusable component, we want to allow the components user to cont
 
 ```html
 <script>
-  export let initialColor;
-  export let endColor;
-  export let borderRadius;
+	export let initialColor;
+	export let endColor;
+	export let borderRadius;
 
-  let gradientState = `${initialColor}, ${initialColor}`;
+	let gradientState = `${initialColor}, ${initialColor}`;
 </script>
 
 <div
-  style:border-radius="{borderRadius}"
-  style="max-width: max-content;"
-  style:background-color="{initialColor}"
-  style:background="{`conic-gradient(${gradientState})`}"
+	style:border-radius="{borderRadius}"
+	style="max-width: max-content;"
+	style:background-color="{initialColor}"
+	style:background="{`conic-gradient(${gradientState})`}"
 >
-  <div
-    style="border-radius: calc({borderRadius} - 2px); border: 2px solid transparent;"
-  >
-    <slot />
-  </div>
+	<div style="border-radius: calc({borderRadius} - 2px); border: 2px solid transparent;">
+		<slot />
+	</div>
 </div>
 ```
 
@@ -77,15 +74,15 @@ The first part of our logic is a small helper function that returns a CSS gradie
 
 ```html
 <script>
-  export let initialColor;
-  export let endColor;
-  export let borderRadius;
-  export let startingDeg;
+	export let initialColor;
+	export let endColor;
+	export let borderRadius;
+	export let startingDeg;
 
-  let gradientState = `${initialColor}, ${initialColor}`;
+	let gradientState = `${initialColor}, ${initialColor}`;
 
-  const createGradient = (deg) =>
-    `from ${startingDeg}deg, ${endColor} ${deg}deg, ${initialColor} ${deg}deg`;
+	const createGradient = (deg) =>
+		`from ${startingDeg}deg, ${endColor} ${deg}deg, ${initialColor} ${deg}deg`;
 </script>
 
 <div><!-- Template --></div>
@@ -97,18 +94,18 @@ Now that we have this helper, we can setup the main mechanism that will use this
 
 ```html
 <script>
-  export let initialColor;
-  export let endColor;
-  export let borderRadius;
-  export let startingDeg;
+	export let initialColor;
+	export let endColor;
+	export let borderRadius;
+	export let startingDeg;
 
-  let gradientState = `${initialColor}, ${initialColor}`;
-  let tick = 0;
-  let intervalFwd = undefined;
-  let intervalRev = undefined;
+	let gradientState = `${initialColor}, ${initialColor}`;
+	let tick = 0;
+	let intervalFwd = undefined;
+	let intervalRev = undefined;
 
-  const createGradient = (deg) =>
-    `from ${startingDeg}deg, ${endColor} ${deg}deg, ${initialColor} ${deg}deg`;
+	const createGradient = (deg) =>
+		`from ${startingDeg}deg, ${endColor} ${deg}deg, ${initialColor} ${deg}deg`;
 </script>
 
 <div><!-- Template --></div>
@@ -126,31 +123,31 @@ The last piece of the logic is a result of the value we are incrementing/decreme
 
 ```html
 <script>
-  export let initialColor;
-  export let endColor;
-  export let borderRadius;
-  export let startingDeg;
+	export let initialColor;
+	export let endColor;
+	export let borderRadius;
+	export let startingDeg;
 
-  let gradientState = `${initialColor}, ${initialColor}`;
-  let tick = 0;
-  let interval = undefined;
+	let gradientState = `${initialColor}, ${initialColor}`;
+	let tick = 0;
+	let interval = undefined;
 
-  const createGradient = (deg) =>
-    `from ${startingDeg}deg, ${endColor} ${deg}deg, ${initialColor} ${deg}deg`;
+	const createGradient = (deg) =>
+		`from ${startingDeg}deg, ${endColor} ${deg}deg, ${initialColor} ${deg}deg`;
 
-  const animation = (dir) => {
-    clearInterval(interval);
-    interval = setInterval(() => {
-      tick <= 360
-        ? (gradientState = createGradient(tick))
-        : (gradientState = `${endColor}, ${endColor}`);
-      if (dir === 'fwd') tick = tick + 3;
-      if (dir === 'rev') tick = tick - 3;
-    }, 0.001);
-  };
+	const animation = (dir) => {
+		clearInterval(interval);
+		interval = setInterval(() => {
+			tick <= 360
+				? (gradientState = createGradient(tick))
+				: (gradientState = `${endColor}, ${endColor}`);
+			if (dir === 'fwd') tick = tick + 3;
+			if (dir === 'rev') tick = tick - 3;
+		}, 0.001);
+	};
 
-  $: if (tick >= 361) tick = 360;
-  $: if (tick < 0) tick = 0;
+	$: if (tick >= 361) tick = 360;
+	$: if (tick < 0) tick = 0;
 </script>
 
 <div><!-- Template --></div>
@@ -162,43 +159,40 @@ The final step in building this component is using the animation function and at
 
 ```html
 <script>
-  export let initialColor;
-  export let endColor;
-  export let borderRadius;
-  export let startingDeg;
+	export let initialColor;
+	export let endColor;
+	export let borderRadius;
+	export let startingDeg;
 
-  let gradientState = `${initialColor}, ${initialColor}`;
-  let tick = 0;
-  let interval = undefined;
+	let gradientState = `${initialColor}, ${initialColor}`;
+	let tick = 0;
+	let interval = undefined;
 
-  const createGradient = (deg) =>
-    `from ${startingDeg}deg, ${endColor} ${deg}deg, ${initialColor} ${deg}deg`;
+	const createGradient = (deg) =>
+		`from ${startingDeg}deg, ${endColor} ${deg}deg, ${initialColor} ${deg}deg`;
 
-  const animation = (dir) => {
-    clearInterval(interval);
-    interval = setInterval(() => {
-      tick <= 360
-        ? (gradientState = createGradient(tick))
-        : (gradientState = `${endColor}, ${endColor}`);
-      if (dir === 'fwd') tick = tick + 3;
-      if (dir === 'rev') tick = tick - 3;
-    }, 0.001);
-  };
+	const animation = (dir) => {
+		clearInterval(interval);
+		interval = setInterval(() => {
+			tick <= 360
+				? (gradientState = createGradient(tick))
+				: (gradientState = `${endColor}, ${endColor}`);
+			if (dir === 'fwd') tick = tick + 3;
+			if (dir === 'rev') tick = tick - 3;
+		}, 0.001);
+	};
 
-  $: if (tick >= 361) tick = 360;
-  $: if (tick < 0) tick = 0;
+	$: if (tick >= 361) tick = 360;
+	$: if (tick < 0) tick = 0;
 </script>
 
 <div on:mouseenter="{()" ="">
-  animation('fwd')} on:mouseleave={() => animation('rev')} style:border-radius={borderRadius}
-  style="max-width: max-content;" style:background-color={initialColor}
-  style:background={`conic-gradient(${gradientState})`}
->
-  <div
-    style="border-radius: calc({borderRadius} - 2px); border: 2px solid transparent;"
-  >
-    <slot />
-  </div>
+	animation('fwd')} on:mouseleave={() => animation('rev')} style:border-radius={borderRadius}
+	style="max-width: max-content;" style:background-color={initialColor}
+	style:background={`conic-gradient(${gradientState})`} >
+	<div style="border-radius: calc({borderRadius} - 2px); border: 2px solid transparent;">
+		<slot />
+	</div>
 </div>
 ```
 

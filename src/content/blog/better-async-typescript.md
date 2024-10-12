@@ -1,6 +1,7 @@
 ---
 title: Better Async TypeScript
 date: '2024-01-25'
+description: "Let's explore how to write better async TypeScript by implementing errors as values"
 published: true
 ---
 
@@ -16,8 +17,8 @@ I'm sure you've seen code like this before...
 
 ```typescript
 async function getData(): Promise<Record<string, any>> {
-  const res = await fetch('https://api.example.com');
-  return await res.json();
+	const res = await fetch('https://api.example.com');
+	return await res.json();
 }
 ```
 
@@ -27,12 +28,12 @@ The first thing you might do to address this problem is simply wrap the function
 
 ```typescript
 async function getData(): Promise<Record<string, any>> {
-  try {
-    const res = await fetch('https://api.example.com');
-    return await res.json();
-  } catch (error) {
-    throw new Error(error);
-  }
+	try {
+		const res = await fetch('https://api.example.com');
+		return await res.json();
+	} catch (error) {
+		throw new Error(error);
+	}
 }
 ```
 
@@ -57,9 +58,9 @@ So how can we develop a pattern like we see in Golang? First lets define a type 
 
 ```typescript
 type AsyncError = {
-  type: '_network' | '_runtime';
-  error: Error;
-  message: string;
+	type: '_network' | '_runtime';
+	error: Error;
+	message: string;
 };
 ```
 
@@ -67,8 +68,8 @@ This is where you can adjust this pattern to fit your use case. In the example, 
 
 ```typescript
 type AsyncReturn = {
-  data: Record<string, unknown> | null;
-  error: AsyncError | null;
+	data: Record<string, unknown> | null;
+	error: AsyncError | null;
 };
 ```
 
@@ -76,20 +77,20 @@ With this AsyncReturn type, we can now refactor our `getData` function to have a
 
 ```typescript
 async function getData(): Promise<AsyncReturn> {
-  try {
-    const res = await fetch('https://api.example.com');
-    const data = await res.json();
-    return { data, error: null };
-  } catch (error) {
-    return {
-      data: null,
-      error: {
-        type: '_network',
-        error,
-        message: 'Network Error from getData'
-      }
-    };
-  }
+	try {
+		const res = await fetch('https://api.example.com');
+		const data = await res.json();
+		return { data, error: null };
+	} catch (error) {
+		return {
+			data: null,
+			error: {
+				type: '_network',
+				error,
+				message: 'Network Error from getData'
+			}
+		};
+	}
 }
 ```
 

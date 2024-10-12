@@ -1,6 +1,7 @@
 ---
 title: On Opinions
 date: '2023-11-23'
+description: 'Having opinions is a double edged sword'
 published: true
 ---
 

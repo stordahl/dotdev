@@ -32,9 +32,9 @@ export function roman(num: number): string {
 
 export function formatDateToMonthYear(dateString: string, shortMonth: boolean = false): string {
 	const date = new Date(dateString);
-	return new Intl.DateTimeFormat('en-US', { 
-		year: 'numeric', 
-		month: shortMonth ? 'short' : 'long' 
+	return new Intl.DateTimeFormat('en-US', {
+		year: 'numeric',
+		month: shortMonth ? 'short' : 'long'
 	}).format(date);
 }
 

@@ -1,6 +1,7 @@
 ---
 title: Losing Faith in Bun
 date: '2024-05-01'
+description: "Recent decisions by the Bun team have me doubting it's long term stability"
 published: true
 ---
 

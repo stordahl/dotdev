@@ -1,6 +1,7 @@
 ---
 title: Renaming your 'master' git branch to 'main'
 date: '2021-01-16'
+description: 'One of my goals for 2021 is to bring some of my opinions around ethics in tech to this blog'
 published: true
 ---
 

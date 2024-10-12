@@ -1,33 +1,33 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
 	import { formatDate } from '$lib/utils';
 	import type { PageData } from './$types';
   import { sidebar } from "./sidebar.svelte";
 
 	const { data }: { data: PageData } = $props();
 
+	let isMobile = $state(false);
+
+	function checkIfMobile() {
+		isMobile = window.innerWidth <= 768;
+	}
+
   let aside: HTMLElement | undefined = $state();
   let showAside = $state(true);
   let header: HTMLElement | undefined = $state();
   const headerHeight = $derived(header?.clientHeight ?? 0)
   const headerOffset = $derived(header?.getBoundingClientRect().bottom ?? 0);
-  let headerIsStuck = $state(false);
 
   const handleScroll = function() {
-    const scrollThreshold = 50; // Adjust this value as needed
     const scrollPosition = window.scrollY;
     
-    if (scrollPosition > scrollThreshold) {
-      headerIsStuck = true;
-    } else {
-      headerIsStuck = false;
-    }
-
-    if (header && elementToHide) {
+    if (header && elementToHide && !isMobile) {
       const clipAmount = Math.max(0, scrollPosition - headerOffset + headerHeight);
       elementToHide.style.clipPath = `inset(${clipAmount}px 0 0 0)`;
+    } else if (elementToHide) {
+      elementToHide.style.clipPath = 'none';
     }
 
-    // Update the CSS custom property for header height
     if (aside && header) {
       aside?.style.setProperty('--header-height', `${header.clientHeight}px`);
     }
@@ -35,15 +35,21 @@
 
   let elementToHide: HTMLElement | undefined;
 
-  const handleResize = function () {
-    if (aside && window.innerWidth < 1065) showAside = false; 
-    if (!aside && window.innerWidth >= 1065) showAside = true;
-  }
+  	const handleResize = function () {
+  		checkIfMobile();
+  		if (aside && window.innerWidth < 1065) showAside = false; 
+  		if (!aside && window.innerWidth >= 1065) showAside = true;
+  	}
+
+  	onMount(() => {
+  		handleResize();
+  		checkIfMobile();
+  	});
 </script>
 
 <svelte:window on:scroll={handleScroll} on:resize={handleResize}/>
 
-<div class="header" class:is-stuck={headerIsStuck} bind:this={header}>
+<div class="header" class:is-mobile={isMobile} bind:this={header}>
 	<h1>{data.meta.title}</h1>
 	<p class="date">Published {formatDate(data.meta.date)}</p>
 </div>
@@ -58,14 +64,14 @@
 
 <style>
 	h1 {
-		font-size: clamp(2rem, calc(2rem + 2vw), 3.5rem);
+		font-size: clamp(1.2rem, calc(1.2rem + 2vw), 2.25rem);
 		text-align: center;
-    transition: font-size 0.2s ease-in-out 0s;
+		height: 45px;
 	}
 
-  .header.is-stuck h1 {
-		font-size: clamp(1.2rem, calc(1.2rem + 2vw), 2.25rem);
-  }
+	.header.is-mobile h1 {
+		height: initial;
+	}
 
 	.header {
 		padding: 2rem 0;
@@ -73,6 +79,11 @@
     position: sticky;
     top: 0;
     background:inherit;
+    &.is-mobile {
+      z-index: 1;
+      background-color: var(--black);
+      background-image: url("/images/noise.svg")
+    }
 	}
 
   article {
@@ -109,7 +120,7 @@
 
   @media screen and (max-width: 1065px) {
     article {
-      grid-template-columns: 1fr;
+      grid-template-columns: 100%;
     }
     aside {
       display: none;

@@ -8,7 +8,7 @@
 		<div class="currently">
 			<p class="title">Currently</p>
 			<p class="content">
-				I’m a Product Engineer at <a href="https://stylitics.com">Stylitics</a>, an e-commerce B2B
+				I’m a Software Engineer at <a href="https://stylitics.com">Stylitics</a>, an e-commerce B2B
 				SaaS company.
 			</p>
 		</div>

@@ -30,9 +30,12 @@ export function roman(num: number): string {
 	return result;
 }
 
-export function formatDateToMonthYear(dateString: string): string {
+export function formatDateToMonthYear(dateString: string, shortMonth: boolean = false): string {
 	const date = new Date(dateString);
-	return new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long' }).format(date);
+	return new Intl.DateTimeFormat('en-US', { 
+		year: 'numeric', 
+		month: shortMonth ? 'short' : 'long' 
+	}).format(date);
 }
 
 type DateStyle = Intl.DateTimeFormatOptions['dateStyle'];

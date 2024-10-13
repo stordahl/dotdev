@@ -20,7 +20,7 @@
 				'In Q4 2023 I began designing our shared component library that would power all of our products. The goal was not to build a true design system, but a library that could provide common UI functionality while still being easily stylable by consumers. I chose SvelteKit to build the library as it would allow us to build a Storybook-like sandbox to develop components in, and has a handy CLI for building libraries. The library has expanded greatly and is now being used (to some extent) in all of our products.',
 			title: 'Svelte Component Library',
 			link: 'https://web-assets.stylitics.com/ui/latest/index.html',
-			linkText: 'check it out!'
+			linkText: 'check it out'
 		}
 	];
 </script>

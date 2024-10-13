@@ -13,7 +13,7 @@
 {#if browser && import.meta.env.PROD}
   <script
     id="counterscale-script"
-    src="https://counterscale.stordahldev.workers.dev/tracker.js"
+    src="https://tracking.hacksaw.software/tracker.js"
     defer
   ></script>
 {/if}

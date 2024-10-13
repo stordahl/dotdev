@@ -1,4 +1,14 @@
-<section>
+<script lang="ts">
+	import { onMount } from 'svelte';
+
+	let isLoaded = false;
+
+	onMount(() => {
+		isLoaded = true;
+	});
+</script>
+
+<section class:loaded={isLoaded}>
 	<h1>
 		Don't be careful,<br />
 		you'll
@@ -15,6 +25,17 @@
 	section {
 		padding-top: 90px;
 		margin-bottom: 480px;
+    h1, img {
+      filter: blur(15px);
+		  transition: filter 1.2s ease-out;
+      will-change: filter;
+    }
+	}
+
+  section.loaded {
+    h1, img {
+		  filter: blur(0);
+    }
 	}
 
 	h1 {

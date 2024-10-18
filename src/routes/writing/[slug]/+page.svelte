@@ -53,7 +53,7 @@
 <Seo
 	title={`${data.meta.title} | Jacob Stordahl`}
 	description={data.meta.description}
-	ogImage="/images/og/work.jpg"
+	ogImage="/images/og/writing.jpg"
 	author="Jacob Stordahl"
 />
 

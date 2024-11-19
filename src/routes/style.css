@@ -119,6 +119,11 @@
 		}
 	}
 
+  ul, ol {
+    padding-left: 2ch;
+    font-size: clamp(1rem, calc(1vw + 1rem), 1.3rem);
+  }
+
 	blockquote {
 		margin: 3rem auto;
 		border-left: 1px solid var(--orange);
@@ -131,6 +136,26 @@
 		font-size: clamp(1rem, calc(0.5vw + 1.2rem), 1.4rem);
 		line-height: 1.8rem;
 	}
+
+  table {
+    width: 100%;
+    text-align: left;
+    font-family: monospace;
+    border-collapse: collapse;
+    border: 1px solid var(--white);
+    padding: 0.5rem;
+    margin-bottom: 2rem;
+  }
+
+  table th {
+    font-size: 0.9rem;
+  }
+
+  table td,
+  table th {
+    border:1px solid var(--white);
+    padding: 5px;
+  }
 
 	.twitter-tweet.twitter-tweet-rendered {
 		margin: 10px auto;
@@ -162,7 +187,9 @@
 		margin-bottom: 0.75rem;
 	}
 
-	article p {
+	article p,
+  article ul,
+  article ol {
 		margin-bottom: 1.75rem;
 	}
 }

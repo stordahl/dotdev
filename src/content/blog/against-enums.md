@@ -27,8 +27,8 @@ Thankfully, modern TypeScript versions provide an interoperable way to have an e
 
 ```typescript
 enum Side {
-  left: "left",
-  right: "right",
+  left = "left",
+  right = "right",
 }
 ```
 
@@ -36,8 +36,8 @@ The API for this enum then feels oddly close to a JavaScript object, where we'd 
 
 ```typescript
 const Side = {
-	left: 'left',
-	right: 'right'
+  left: 'left',
+  right: 'right'
 } as const;
 ```
 

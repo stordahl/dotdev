@@ -19,9 +19,10 @@
 		<div class="links">
 			<p class="title">Links</p>
 			<div>
+        <a href="mailto:jacob@stordahl.dev">Email</a>
 				<a href="https://github.com/stordahl">Github</a>
 				<a href="https://www.linkedin.com/in/jacobstordahl/">LinkedIn</a>
-				<a href="https://x.com/stordahldotdev">Twitter</a>
+				<a href="https://bsky.app/profile/stordahl.dev">Bluesky</a>
 			</div>
 		</div>
 	</div>

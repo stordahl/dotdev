@@ -17,13 +17,12 @@
 	let showAside = $state(true);
 	let header: HTMLElement | undefined = $state();
 	const headerHeight = $derived(header?.clientHeight ?? 0);
-	const headerOffset = $derived(header?.getBoundingClientRect().bottom ?? 0);
 
 	const handleScroll = function () {
 		const scrollPosition = window.scrollY;
 
 		if (header && elementToHide && !isMobile) {
-			const clipAmount = Math.max(0, scrollPosition - headerOffset + headerHeight);
+			const clipAmount = Math.max(0, scrollPosition - header?.getBoundingClientRect().bottom + 58);
 			elementToHide.style.clipPath = `inset(${clipAmount}px 0 0 0)`;
 		} else if (elementToHide) {
 			elementToHide.style.clipPath = 'none';
@@ -45,6 +44,7 @@
 	onMount(() => {
 		handleResize();
 		checkIfMobile();
+    handleScroll();
 	});
 </script>
 

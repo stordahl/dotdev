@@ -11,7 +11,7 @@ export const load: PageLoad = async ({ params }) => {
 };
 
 async function loadComponent(dir: string) {
-    const path = `/src/content/sketches/${dir}/sketch.svelte`;
+    const path = `../../../content/sketches/${dir}/sketch.svelte`;
     const component = (await import(path)).default; 
     const rawCode = (await import(`${path}?raw`)).default;
     const code = await codeToHtml(rawCode, {

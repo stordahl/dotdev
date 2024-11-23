@@ -5,3 +5,10 @@ export type Post = {
 	date: string;
 	published: boolean;
 };
+
+export type Sketch = {
+  title: string;
+  slug: string;
+  date: string;
+  published: string;
+}

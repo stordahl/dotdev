@@ -1,49 +1,29 @@
 <script lang="ts">
-  import type { Component as TComponent } from "svelte";
 	import type { Sketch } from "$lib/types";
   import { page } from '$app/stores';
 	import { browser } from "$app/environment";
-  import { codeToHtml } from 'shiki/bundle/web'
 	import Seo from "$lib/Seo.svelte";
+	import type { PageData } from "./$types";
 
-  const sketch = $derived($page.data.sketches.find((s: Sketch) => s.slug === $page.params.sketch))
+  const { data }: { data: PageData } = $props();
 
-  async function loadComponent(dir: string) {
-    const path = `/src/content/sketches/${dir}/sketch.svelte`;
-    const component = (await import(path)).default; 
-    const rawCode = (await import(`${path}?raw`)).default
-    const code = await codeToHtml(rawCode, {
-      lang: 'svelte',
-      theme: 'everforest-dark',
-    })
+  const { code, component: Component, sketches } = $derived(data);
+  const sketch = $derived(sketches.find((s: Sketch) => s.slug === $page.params.sketch))
 
-    return { component, code }
-  }
-
-  let Component: TComponent | undefined = $state();
-  let code: string | undefined = $state();
   let visibleTab: "code" | "preview" = $state("preview");
-
-  $effect(() => {
-    loadComponent(sketch.slug)
-      .then(({ code: _code, component }) => {
-        Component = component;
-        code = _code;
-      }); 
-  });
 
 /* eslint-disable svelte/no-at-html-tags */
 </script>
 
 <Seo
-	title="{sketch.title} | Jacob Stordahl"
+	title="{sketch?.title} | Jacob Stordahl"
 	description="from my sketchbook"
 	ogImage="/images/og/sketches.jpg"
 />
 
 <article>
   <a href="/sketch-book" class="back">&larr; Back</a>
-  <h1>{sketch.title}</h1>
+  <h1>{sketch?.title}</h1>
 
   <div class="tabs">
     <button 

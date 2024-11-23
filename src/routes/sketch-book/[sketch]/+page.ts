@@ -4,21 +4,17 @@ import type { PageLoad } from './$types';
 
 export const load: PageLoad = async ({ params }) => {
 	try {
-		return await loadComponent(params.sketch);
-	} catch (e) {
-		error(404, `Could not find ${params.sketch}`);
-	}
-};
+    const component = await import(`../../../content/sketches/${params.sketch}/sketch.svelte`); 
+    const rawCode = await import(`../../../content/sketches/${params.sketch}/sketch.svelte?raw`);
 
-async function loadComponent(dir: string) {
-    const path = `../../../content/sketches/${dir}/sketch.svelte`;
-    const component = (await import(path)).default; 
-    const rawCode = (await import(`${path}?raw`)).default;
-    const code = await codeToHtml(rawCode, {
+    const code = await codeToHtml(rawCode.default, {
       lang: 'svelte',
       theme: 'everforest-dark',
     });
 
-    return { component, code };
-  }
+    return { component: component.default, code };
+	} catch (e) {
+		error(404, `Could not find ${params.sketch}`);
+	}
+};
 

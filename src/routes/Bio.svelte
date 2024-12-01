@@ -1,5 +1,9 @@
+<script lang="ts">
+	import { stagger } from '$lib/actions/stagger';
+</script>
+
 <section>
-	<h2>Hi, I'm Jacob</h2>
+	<h2 use:stagger>Hi, I'm Jacob</h2>
 	<p class="byline">
 		Design Engineer, Web Developer, and recovering artist. I’ve been building stuff on the web for a
 		decade, and still love crafting exceptional user experiences.
@@ -19,7 +23,7 @@
 		<div class="links">
 			<p class="title">Links</p>
 			<div>
-        <a href="mailto:jacob@stordahl.dev">Email</a>
+				<a href="mailto:jacob@stordahl.dev">Email</a>
 				<a href="https://github.com/stordahl">Github</a>
 				<a href="https://www.linkedin.com/in/jacobstordahl/">LinkedIn</a>
 				<a href="https://bsky.app/profile/stordahl.dev">Bluesky</a>

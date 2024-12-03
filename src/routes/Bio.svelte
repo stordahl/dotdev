@@ -5,13 +5,13 @@
 		decade, and still love crafting exceptional user experiences.
 	</p>
 	<div class="grid">
-		<div class="currently">
+		<!--<div class="currently">
 			<p class="title">Currently</p>
 			<p class="content">
 				I’m a Software Engineer at <a href="https://stylitics.com">Stylitics</a>, an e-commerce B2B
 				SaaS company.
 			</p>
-		</div>
+		</div>-->
 		<div class="availability">
 			<p class="title">Availability</p>
 			<p class="content">I’m currently available for freelance projects through the end of 2024.</p>
@@ -70,9 +70,9 @@
 		line-height: 1.3;
 	}
 
-	.currently {
+	/*.currently {
 		grid-area: currently;
-	}
+	}*/
 	.availability {
 		grid-area: availability;
 	}

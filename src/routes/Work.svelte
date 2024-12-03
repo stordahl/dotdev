@@ -2,14 +2,14 @@
 	import Detail from '../lib/Detail.svelte';
 
 	const workItems = [
-		{
+		/*{
 			title: 'Stylitics',
 			service: 'Development',
 			link: '/work/stylitics',
 			linkText: 'read more',
 			description:
 				'In January 2022, I joined the Experiences Team at Stylitics where we build a number of Third Party JavaScript widgets that provide user experiences on top of the content produced by our platform. Aside from directly contributing to our products, most of my contributions are related to tooling and infrastructure that supports the team.'
-		},
+		},*/
 		{
 			title: 'Realms',
 			service: 'Design & Development',

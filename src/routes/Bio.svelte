@@ -9,12 +9,13 @@
 			<p class="title">Currently</p>
 			<p class="content">
 				I’m a Software Engineer at <a href="https://stylitics.com">Stylitics</a>, an e-commerce B2B
-				SaaS company.
+				SaaS company. I'm also a maintainer of the <a href="https://counterscale.dev">Counterscale</a>
+        open source analytics project.
 			</p>
 		</div>
 		<div class="availability">
 			<p class="title">Availability</p>
-			<p class="content">I’m currently available for freelance projects through the end of 2024.</p>
+			<p class="content">I’m currently available for freelance projects through the end of 2025.</p>
 		</div>
 		<div class="links">
 			<p class="title">Links</p>

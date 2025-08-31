@@ -2,6 +2,13 @@
 	import Detail from '../lib/Detail.svelte';
 
 	const workItems = [
+    {
+			title: 'Counterscale',
+			service: 'Development',
+			link: 'https://counterscale.dev',
+			linkText: 'visit',
+			description: 'In July 2025, I joined Ben Vinegar as a maintainer of the Counterscale open source web analytics project. Counterscale is a self-hosted analytics service you deploy to your own Cloudflare account, making use of Workers and Analytics Engine. The project consists of a cli, fullstack web applications, and a third-party JS client/npm package for tracking analytics in your websites.'
+    },
 		{
 			title: 'Stylitics',
 			service: 'Development',
@@ -33,14 +40,6 @@
 			linkText: 'visit',
 			description: "Evergreen Fitness is a Fitness Club located in Port Townsend, Washington. I built their website as a contractor for a local agency, using Sapper and a Netlify serverless API to integrate with the clients existing POS/Membership system."
 		},
-		{
-			title: 'Standup',
-			service: 'Development',
-			link: 'https://github.com/stordahl/standup',
-			linkText: 'view source',
-			description:
-				'Stanup is a CLI tool I built to keep track of disparate notes, particularly related to recurring meetings I have. Standup allows you to easily create groups of notes, stored in a local SQLite database.'
-		}
 	];
 </script>
 

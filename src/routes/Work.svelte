@@ -1,5 +1,6 @@
 <script lang="ts">
-	import Detail from '../lib/Detail.svelte';
+	import { stagger } from '$lib/actions/stagger';
+	import Detail from '$lib/Detail.svelte';
 
 	const workItems = [
     {
@@ -38,12 +39,13 @@
 			service: 'Development',
 			link: 'https://evergreenfitness.net/',
 			linkText: 'visit',
-			description: "Evergreen Fitness is a Fitness Club located in Port Townsend, Washington. I built their website as a contractor for a local agency, using Sapper and a Netlify serverless API to integrate with the clients existing POS/Membership system."
+			description:
+				'Evergreen Fitness is a Fitness Club located in Port Townsend, Washington. I built their website as a contractor for a local agency, using Sapper and a Netlify serverless API to integrate with the clients existing POS/Membership system.'
 		},
 	];
 </script>
 
-<h2>Selected Work</h2>
+<h2 use:stagger>Selected Work</h2>
 
 {#each workItems as item, index}
 	<Detail

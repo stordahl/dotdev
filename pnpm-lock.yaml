@@ -15,6 +15,9 @@ importers:
       '@clack/prompts':
         specifier: ^0.7.0
         version: 0.7.0
+      '@eslint/js':
+        specifier: ^9.39.1
+        version: 9.39.1
       '@sveltejs/adapter-cloudflare':
         specifier: ^4.7.3
         version: 4.7.3(@sveltejs/kit@2.6.1(@sveltejs/vite-plugin-svelte@4.0.0-next.7(svelte@5.0.0-next.260)(vite@5.4.8(@types/node@22.8.4)))(svelte@5.0.0-next.260)(vite@5.4.8(@types/node@22.8.4)))(wrangler@3.80.4(@cloudflare/workers-types@4.20241011.0))
@@ -436,6 +439,10 @@ packages:
 
   '@eslint/js@9.11.1':
     resolution: {integrity: sha512-/qu+TWz8WwPWc7/HcIJKi+c+MOm46GdVaSlTTQcaqaL53+GsoA6MxWp5PtTx48qbSP7ylM1Kn7nhvkugfJvRSA==}
+    engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  '@eslint/js@9.39.1':
+    resolution: {integrity: sha512-S26Stp4zCy88tH94QbBv3XCuzRQiZ9yXofEILmglYTh/Ug/a9/umqvgFtYBAo3Lp0nsI/5/qH1CCrbdK3AP1Tw==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
   '@eslint/object-schema@2.1.4':
@@ -1914,6 +1921,8 @@ snapshots:
       - supports-color
 
   '@eslint/js@9.11.1': {}
+
+  '@eslint/js@9.39.1': {}
 
   '@eslint/object-schema@2.1.4': {}
 

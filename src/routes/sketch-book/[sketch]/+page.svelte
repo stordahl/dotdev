@@ -52,7 +52,7 @@
     {/if}
   {:else}
     <div class="code">
-      {#if dev}
+      {#if !dev}
         {#await parsedCodeFn()}
           <p>loading code...</p>
         {:then parsedCode}

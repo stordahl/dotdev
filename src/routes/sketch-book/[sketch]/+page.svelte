@@ -8,12 +8,12 @@
 
   const { code = undefined, component: Component, content, metadata } = $derived(data);
 
-  const parsedCode = $derived.by(async () => {
+  const parsedCodeFn = $derived(async () => {
     return code ? await codeToHtml(code, {
 			lang: 'svelte',
 			theme: 'everforest-dark'
 		}) : undefined;
-  })
+  });
 
   let visibleTab: "code" | "preview" = $state("preview");
 
@@ -52,11 +52,15 @@
     {/if}
   {:else}
     <div class="code">
-    {#if !dev}
-      {@html parsedCode?.toString()}
-    {:else}
-      <p>No code in dev</p>
-    {/if}
+      {#if dev}
+        {#await parsedCodeFn()}
+          <p>loading code...</p>
+        {:then parsedCode}
+          {@html parsedCode}
+        {/await}
+      {:else}
+        <p>No code in dev</p>
+      {/if}
     </div>
   {/if}
   </div>

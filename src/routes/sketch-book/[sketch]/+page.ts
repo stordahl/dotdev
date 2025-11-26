@@ -28,7 +28,7 @@ export const load: PageLoad = async ({ params, fetch }) => {
 			content: markdown.default,
 			metadata: markdown.metadata
 		};
-	} catch {
-		error(404, `Could not find ${params.sketch}`);
+	} catch (e) {
+		error(404, `Could not find ${params.sketch}. ${e}`);
 	}
 };

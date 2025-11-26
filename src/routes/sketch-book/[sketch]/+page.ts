@@ -1,5 +1,4 @@
 import { error } from '@sveltejs/kit';
-import { codeToHtml } from 'shiki/bundle/web';
 import type { PageLoad } from './$types';
 
 export const load: PageLoad = async ({ params, fetch }) => {
@@ -17,14 +16,9 @@ export const load: PageLoad = async ({ params, fetch }) => {
 		}
 		const rawCode = await response.text();
 
-		const code = await codeToHtml(rawCode, {
-			lang: 'svelte',
-			theme: 'everforest-dark'
-		});
-
 		return {
 			component: component.default,
-			code,
+			code: rawCode,
 			content: markdown.default,
 			metadata: markdown.metadata
 		};

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { codeToHtml } from "shiki/bundle/web"
 	import { browser, dev } from "$app/environment";
 	import Seo from "$lib/Seo.svelte";
 	import type { PageData } from "./$types";
@@ -6,6 +7,13 @@
   const { data }: { data: PageData } = $props();
 
   const { code = undefined, component: Component, content, metadata } = $derived(data);
+
+  const parsedCode = $derived.by(async () => {
+    return code ? await codeToHtml(code, {
+			lang: 'svelte',
+			theme: 'everforest-dark'
+		}) : undefined;
+  })
 
   let visibleTab: "code" | "preview" = $state("preview");
 
@@ -45,7 +53,7 @@
   {:else}
     <div class="code">
     {#if !dev}
-      {@html code?.toString()}
+      {@html parsedCode?.toString()}
     {:else}
       <p>No code in dev</p>
     {/if}

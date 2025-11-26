@@ -4,14 +4,15 @@
 	"private": true,
 	"scripts": {
 		"dev": "vite dev --host",
-		"build": "vite build",
+		"build": "pnpm copy:sketches && vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "prettier --check . && eslint .",
 		"format": "prettier --write .",
+		"copy:sketches": "pnpm dlx jiti ./scripts/copy-sketches.ts",
 		"create:post": "pnpm dlx jiti ./scripts/create.ts post",
-    "create:sketch": "pnpm dlx jiti ./scripts/create.ts sketch"
+		"create:sketch": "pnpm dlx jiti ./scripts/create.ts sketch"
 	},
 	"devDependencies": {
 		"@clack/prompts": "^0.7.0",

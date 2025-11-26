@@ -2,25 +2,20 @@ import { error } from '@sveltejs/kit';
 import { codeToHtml } from 'shiki/bundle/web';
 import type { PageLoad } from './$types';
 
-export const load: PageLoad = async ({ params }) => {
+export const load: PageLoad = async ({ params, fetch }) => {
 	try {
+		// Import markdown and component
 		const markdown = await import(`../../../content/sketches/${params.sketch}/sketch.md`);
 		const component = await import(`../../../content/sketches/${params.sketch}/sketch.svelte`);
 
-		// Use glob import with ?raw query
-		const sketchRawModules = import.meta.glob('../../../content/sketches/*/sketch.svelte', {
-			query: '?raw'
-		});
-		const rawPath = `../../../content/sketches/${params.sketch}/sketch.svelte`;
-
-		if (!(rawPath in sketchRawModules)) {
-			throw new Error(`Raw module not found: ${rawPath}`);
+		// Fetch the raw Svelte file from static directory
+		const response = await fetch(`/sketches/${params.sketch}.svelte`);
+		if (!response.ok) {
+			throw new Error('Failed to fetch sketch code');
 		}
+		const rawCode = await response.text();
 
-		const rawCodeModule = await sketchRawModules[rawPath]();
-
-    // @ts-expect-error duh
-		const code = await codeToHtml(rawCodeModule.default, {
+		const code = await codeToHtml(rawCode, {
 			lang: 'svelte',
 			theme: 'everforest-dark'
 		});
@@ -31,8 +26,7 @@ export const load: PageLoad = async ({ params }) => {
 			content: markdown.default,
 			metadata: markdown.metadata
 		};
-	} catch (e) {
-		console.error('Error loading sketch:', e);
+	} catch {
 		error(404, `Could not find ${params.sketch}`);
 	}
 };

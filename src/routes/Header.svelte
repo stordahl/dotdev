@@ -6,6 +6,7 @@
 	<nav>
 		<a href="/work">work</a>
 		<a href="/writing">writing</a>
+    <a href="/sketch-book">sketches</a>
 	</nav>
 </header>
 

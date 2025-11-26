@@ -1,14 +1,11 @@
 <script lang="ts">
-	import type { Sketch } from "$lib/types";
-  import { page } from '$app/stores';
 	import { browser } from "$app/environment";
 	import Seo from "$lib/Seo.svelte";
 	import type { PageData } from "./$types";
 
   const { data }: { data: PageData } = $props();
 
-  const { code, component: Component, sketches } = $derived(data);
-  const sketch = $derived(sketches.find((s: Sketch) => s.slug === $page.params.sketch))
+  const { code, component: Component, content, metadata } = $derived(data);
 
   let visibleTab: "code" | "preview" = $state("preview");
 
@@ -16,14 +13,19 @@
 </script>
 
 <Seo
-	title="{sketch?.title} | Jacob Stordahl"
+	title="{metadata?.title} | Jacob Stordahl"
 	description="from my sketchbook"
 	ogImage="/images/og/sketches.jpg"
 />
 
 <article>
   <a href="/sketch-book" class="back">&larr; Back</a>
-  <h1>{sketch?.title}</h1>
+  <h1>{metadata?.title}</h1>
+  {#if content}
+  <div>
+    {@render content()}
+  </div>
+  {/if}
 
   <div class="tabs">
     <button 

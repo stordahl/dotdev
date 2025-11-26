@@ -100,7 +100,7 @@
   }
 
   .number > div {
-    background: var(--grey);
+    background: #2f2d2a;
     border-radius: 1px;
   }
 

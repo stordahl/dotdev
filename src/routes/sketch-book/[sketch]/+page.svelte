@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { browser } from "$app/environment";
+	import { browser, dev } from "$app/environment";
 	import Seo from "$lib/Seo.svelte";
 	import type { PageData } from "./$types";
 
   const { data }: { data: PageData } = $props();
 
-  const { code, component: Component, content, metadata } = $derived(data);
+  const { code = undefined, component: Component, content, metadata } = $derived(data);
 
   let visibleTab: "code" | "preview" = $state("preview");
 
@@ -44,7 +44,11 @@
     {/if}
   {:else}
     <div class="code">
-    {@html code?.toString()}
+    {#if !dev}
+      {@html code?.toString()}
+    {:else}
+      <p>No code in dev</p>
+    {/if}
     </div>
   {/if}
   </div>

@@ -8,8 +8,10 @@ export const load: PageLoad = async ({ params, fetch }) => {
 		const markdown = await import(`../../../content/sketches/${params.sketch}/sketch.md`);
 		const component = await import(`../../../content/sketches/${params.sketch}/sketch.svelte`);
 
+    const rawCodeUrl = `https://raw.githubusercontent.com/stordahl/dotdev/refs/heads/main/src/content/sketches/${params.sketch}/sketch.svelte`;
+
 		// Fetch the raw Svelte file from static directory
-		const response = await fetch(`/sketches/${params.sketch}.svelte`);
+		const response = await fetch(rawCodeUrl);
 		if (!response.ok) {
 			throw new Error('Failed to fetch sketch code');
 		}

@@ -9,7 +9,7 @@
   const { code = undefined, component: Component, content, metadata } = $derived(data);
 
   const parsedCodeFn = $derived(async () => {
-    return code ? await codeToHtml(code, {
+    return code && !dev ? await codeToHtml(code, {
 			lang: 'svelte',
 			theme: 'everforest-dark'
 		}) : undefined;
@@ -68,7 +68,6 @@
 
 <style>
   article {
-    max-width: 700px;
     margin: 2rem auto;
   }
 
@@ -98,8 +97,7 @@
   }
 
   .tabs-content {
-    max-width: 700px;
-    height: 500px;
+    min-height: 500px;
     display: flex;
     align-items: center;
     justify-content: center;

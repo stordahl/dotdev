@@ -37,7 +37,7 @@
     border: 1px solid var(--grey);
     border-radius: var(--radius);
     width: 100%;
-    height: 100%;
+    height: 500px;
     overflow: hidden;
   }
   .window {

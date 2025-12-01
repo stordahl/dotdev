@@ -1,5 +1,6 @@
 import { error } from '@sveltejs/kit';
 import type { PageLoad } from './$types';
+import { dev } from '$app/environment';
 
 export const load: PageLoad = async ({ params, fetch }) => {
 	try {
@@ -8,13 +9,17 @@ export const load: PageLoad = async ({ params, fetch }) => {
 		const component = await import(`../../../content/sketches/${params.sketch}/sketch.svelte`);
 
     const rawCodeUrl = `https://raw.githubusercontent.com/stordahl/dotdev/refs/heads/main/src/content/sketches/${params.sketch}/sketch.svelte`;
+    let rawCode = undefined;
 
-		// Fetch the raw Svelte file from static directory
-		const response = await fetch(rawCodeUrl);
-		if (!response.ok) {
-			throw new Error('Failed to fetch sketch code');
-		}
-		const rawCode = await response.text();
+    if (!dev) {
+
+		  // Fetch the raw Svelte file from static directory
+		  const response = await fetch(rawCodeUrl);
+		  if (!response.ok) {
+			  throw new Error('Failed to fetch sketch code');
+		  }
+		  rawCode = await response.text();
+    }
 
 		return {
 			component: component.default,

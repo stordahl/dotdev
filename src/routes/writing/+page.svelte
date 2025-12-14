@@ -1,11 +1,11 @@
 <script lang="ts">
 	import Seo from '$lib/Seo.svelte';
-	import type { Post } from '$lib/types';
 	import { formatDateToMonthYear, roman } from '$lib/utils';
+	import type { allPosts } from 'content-collections';
 
 	type Props = {
 		data: {
-			posts: Post[];
+			posts: typeof allPosts;
 		};
 	};
 	const { data }: Props = $props();

@@ -6,7 +6,7 @@
 
   const { data }: { data: PageData } = $props();
 
-  const { code = undefined, component: Component, content, metadata } = $derived(data);
+  const { code = undefined, component: Component, markdown } = $derived(data);
 
   const parsedCodeFn = $derived(async () => {
     return code && !dev ? await codeToHtml(code, {
@@ -21,17 +21,17 @@
 </script>
 
 <Seo
-	title="{metadata?.title} | Jacob Stordahl"
+	title="{markdown?.title} | Jacob Stordahl"
 	description="from my sketchbook"
 	ogImage="/images/og/sketches.jpg"
 />
 
 <article>
   <a href="/sketch-book" class="back">&larr; Back</a>
-  <h1>{metadata?.title}</h1>
-  {#if content}
+  <h1>{markdown?.title}</h1>
+  {#if markdown?.content}
   <div>
-    {@render content()}
+    {@html markdown.content}
   </div>
   {/if}
 

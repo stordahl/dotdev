@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Detail from '../lib/Detail.svelte';
+  import DetailList from '$lib/DetailList.svelte';
 
 	const workItems = [
     {
@@ -41,29 +41,24 @@
 			description: "Evergreen Fitness is a Fitness Club located in Port Townsend, Washington. I built their website as a contractor for a local agency, using Sapper and a Netlify serverless API to integrate with the clients existing POS/Membership system."
 		},
 	];
+
+  const openSourceItems = [
+    {
+      title: 'Moleskin',
+      service: 'Design & Development',
+			link: 'https://github.com/stordahl/moleskin',
+			linkText: 'source',
+			description: "Moleskin is a self-hosted journal app that you deploy in your own Cloudflare Account. Moleskin is designed to be extremely small, extendable, and customizable. The application is a Hypermedia based web server implemented in Hono, with a sprinkling of HTMX and client side Javascript for interactivity."
+    },
+    {
+      title: 'TinyKv',
+      service: 'Development',
+      link: 'https://github.com/stordahl/tiny-kv',
+      linkText: 'source',
+      description: 'TinyKv is a tiny in-memory key-value store with schema validation via Standard Schema and TTL support for TypeScript/JavaScript applications.',
+    },
+  ];
 </script>
 
-<h2>Selected Work</h2>
-
-{#each workItems as item, index}
-	<Detail
-		title={item.title}
-		service={item.service}
-		index={index + 1}
-		link={item.link}
-		linkText={item.linkText}
-	>
-		<p>{item.description}</p>
-	</Detail>
-{/each}
-
-<style>
-	h2 {
-		font-family: 'Basheq', serif;
-		font-size: clamp(2rem, calc(2rem + 5vw), 6rem);
-		font-weight: 300;
-		text-align: center;
-		margin-top: 3rem;
-		margin-bottom: 2rem;
-	}
-</style>
+<DetailList items={workItems} title="Selected Work" />
+<DetailList items={openSourceItems} title="Open Source" />

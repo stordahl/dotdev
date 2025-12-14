@@ -1,11 +1,11 @@
 import { error } from '@sveltejs/kit';
 import type { PageLoad } from './$types';
 import { dev } from '$app/environment';
+import { allSketches } from 'content-collections';
 
 export const load: PageLoad = async ({ params, fetch }) => {
 	try {
-		// Import markdown and component
-		const markdown = await import(`../../../content/sketches/${params.sketch}/sketch.md`);
+    const sketchMd = allSketches.find((sketch) => sketch.slug == params.sketch)
 		const component = await import(`../../../content/sketches/${params.sketch}/sketch.svelte`);
 
     const rawCodeUrl = `https://raw.githubusercontent.com/stordahl/dotdev/refs/heads/main/src/content/sketches/${params.sketch}/sketch.svelte`;
@@ -24,8 +24,7 @@ export const load: PageLoad = async ({ params, fetch }) => {
 		return {
 			component: component.default,
 			code: rawCode,
-			content: markdown.default,
-			metadata: markdown.metadata
+			markdown: sketchMd,
 		};
 	} catch (e) {
 		error(404, `Could not find ${params.sketch}. ${e}`);

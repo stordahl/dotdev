@@ -1,3 +1,5 @@
+import type { allPosts, allSketches } from "content-collections";
+
 export function roman(num: number): string {
 	if (num < 1 || num > 3999) {
 		throw new Error('Number out of range (1-3999)');
@@ -45,4 +47,10 @@ export function formatDate(date: string, dateStyle: DateStyle = 'medium', locale
 	const dateToFormat = new Date(date.replaceAll('-', '/'));
 	const dateFormatter = new Intl.DateTimeFormat(locales, { dateStyle });
 	return dateFormatter.format(dateToFormat);
+}
+
+export function sortByDateProperty(arr: typeof allPosts | typeof allSketches) {
+  return arr.sort(
+		(first, second) => new Date(second.date).getTime() - new Date(first.date).getTime()
+	);
 }

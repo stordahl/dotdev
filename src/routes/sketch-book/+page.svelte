@@ -1,11 +1,11 @@
 <script lang="ts">
 	import Seo from '$lib/Seo.svelte';
-	import type { Sketch } from '$lib/types';
 	import { formatDateToMonthYear, roman } from '$lib/utils';
+	import type { allSketches } from 'content-collections';
 
 	type Props = {
 		data: {
-			sketches: Sketch[];
+			sketches: typeof allSketches;
 		};
 	};
 	const { data }: Props = $props();

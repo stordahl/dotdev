@@ -6,6 +6,7 @@
 	import Seo from '$lib/Seo.svelte';
 
 	const { data }: { data: PageData } = $props();
+  const post = $derived(data.post);
 
 	let isMobile = $state(false);
 
@@ -51,19 +52,19 @@
 <svelte:window on:scroll={handleScroll} on:resize={handleResize} />
 
 <Seo
-	title={`${data.meta.title} | Jacob Stordahl`}
-	description={data.meta.description}
+	title={`${post.title} | Jacob Stordahl`}
+	description={post.description}
 	ogImage="/images/og/writing.jpg"
 	author="Jacob Stordahl"
 />
 
 <div class="header" class:is-mobile={isMobile} bind:this={header}>
-	<h1>{data.meta.title}</h1>
-	<p class="date">Published {formatDate(data.meta.date)}</p>
+	<h1>{post.title}</h1>
+	<p class="date">Published {formatDate(post.date)}</p>
 </div>
 <article bind:this={elementToHide}>
 	<div class="content">
-		{@render data.content()}
+		{@html post.content}
 	</div>
 	{#if showAside}
 		<aside

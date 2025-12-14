@@ -1,9 +1,9 @@
-import type { Sketch } from '$lib/types';
+import { allSketches } from 'content-collections';
 import type { LayoutServerLoad } from './$types';
+import { sortByDateProperty } from '$lib/utils';
 
-export const load: LayoutServerLoad = async ({ fetch }) => {
-	const response = await fetch('/api/sketches');
-	const sketches: Sketch[] = await response.json();
+export const load: LayoutServerLoad = async () => {
+	const sketches = sortByDateProperty(allSketches);
 	return { sketches };
 };
 

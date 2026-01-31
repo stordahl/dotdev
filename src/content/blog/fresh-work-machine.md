@@ -3,6 +3,7 @@ title: Setting Up A Fresh Work Machine
 date: '2022-03-09'
 description: 'How I setup a Macbook in 2022'
 published: true
+atUri: "at://did:plc:6ghbu76mogjyfcvx446mep5o/site.standard.document/3mdoplf3xzm2h"
 ---
 
 Being that I recently started a new Software Engineering role, I've also had the opportunity to purchase a new work machine. I upgraded from my ancient 2013 Macbook Pro to the new 2021 Macbook Pro with the M1 Pro chip. After refining my setup over the past month, it's finally at a spot I'm happy with and I wanted to walk through the different components here. I wanted to take my time designing this setup and fit some specific guidelines; minimal and dark UI, maximize keyboard navigation, limit electron apps, & prioritize apps that provide customization. With those guidelines in mind, let's start at the heart of any dev setup - the shell!

@@ -3,6 +3,7 @@ title: On Opinions
 date: '2023-11-23'
 description: 'Having opinions is a double edged sword'
 published: true
+atUri: "at://did:plc:6ghbu76mogjyfcvx446mep5o/site.standard.document/3mdoplefbf62o"
 ---
 
 I started properly teaching myself to code in the winter of 2019 - I was living the [#VanLife](https://en.wikipedia.org/wiki/Van-dwelling), hating my job and desperately needing a drastic change in my life. Recently I was thinking back on that time, and wanted to reminisce on something I see many new tech workers do early in their career.

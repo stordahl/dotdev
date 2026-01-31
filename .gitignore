@@ -21,3 +21,5 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
 .content-collections
+
+.sequoia-state.json

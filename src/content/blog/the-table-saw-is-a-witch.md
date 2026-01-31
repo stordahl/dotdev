@@ -3,6 +3,7 @@ title: The Table Saw is a Witch
 date: '2024-01-18'
 description: "and she'll take your finger"
 published: true
+atUri: "at://did:plc:6ghbu76mogjyfcvx446mep5o/site.standard.document/3mdople5twy2y"
 ---
 
 When I was working as a welder, one day I was standing in the shop with headphones on. Heads down and focused on my work, suddenly I heard a loud noise from behind me. I turned around and saw a co-worker, standing at the table saw clutching his hand. My heart sank. I ran to grab someone for help, they got him into a car and brought him to the hospital. Thankfully he only needed stitches on his thumb; nothing was completely cut off. As a relatively new professional, I was shocked that this had happened to the person with the most experience of anyone in the shop. This co-worker had been operating a table saw for longer than I had been alive.

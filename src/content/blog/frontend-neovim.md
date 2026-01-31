@@ -3,6 +3,7 @@ title: Why frontend developers should pickup Neovim
 date: '2023-05-08'
 description: 'My arguments for frontend developers to learn Neovim and the commandline in general'
 published: true
+atUri: "at://did:plc:6ghbu76mogjyfcvx446mep5o/site.standard.document/3mdopleot6d26"
 ---
 
 Lately I've been hearing a lot of discussion about [Neovim](https://neovim.io/) in frontend circles (mainly on Twitter), and I wanted to quickly jot down my case for why I think a lot of frontend developers can benefit from adopting Neovim into their workflows. For context, I made the switch from [VSCode](https://code.visualstudio.com/) to Neovim about a year ago (at the time of publishing) and it has had a very positive impact on my productivity and my excitement around programming in general.

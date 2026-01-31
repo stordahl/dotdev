@@ -3,6 +3,7 @@ title: My Case Against TypeScript Enums
 date: '2023-12-31'
 description: "I'm not a fan of enums. Here's why..."
 published: true
+atUri: "at://did:plc:6ghbu76mogjyfcvx446mep5o/site.standard.document/3mdoplebghl26"
 ---
 
 Over the past year, I've been a main contributor to an internal re-write of my teams core library (our business logic) from JavaScript to TypeScript. Through this process, my team has been able to safely refactor architectural level components of our products, because we now have the type level safety TypeScript provides. If you've been writing TypeScript for a while, you've likely noticed that the TypeScript team occasionally adds features to the language that are not supported by JavaScript. This is why TypeScript describes itself as a programming language that builds on JavaScript, rather than a strong typing layer on top of JavaScript. These decisions to add non-standard features can be somewhat controversial in the community. The main arguments I've seen about these non-standard features all boils down to the fact that TypeScript is almost never the target for the code at _runtime_, and thus we should only use features that exist in the target environment; TypeScript should only aim to solve the dynamically typed nature of JavaScript. Lately I've formed the same opinion, and today I'd like to explain why.

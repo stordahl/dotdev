@@ -3,6 +3,7 @@ title: Losing Faith in Bun
 date: '2024-05-01'
 description: "Recent decisions by the Bun team have me doubting it's long term stability"
 published: true
+atUri: "at://did:plc:6ghbu76mogjyfcvx446mep5o/site.standard.document/3mdopldtivy2r"
 ---
 
 Over the past year, like many JavaScript developers, I have fallen in love with [Bun](https://bun.sh/). If you aren't familiar, Bun is a JavaScript tool chain including a runtime, package manager, bundler, and test runner, among other killer features. As a seasoned Node.js user, there are so many little features in Bun that make my development flow better overall. However, recent choices made by the Bun team have started to taint these feelings.

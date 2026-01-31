@@ -3,6 +3,7 @@ title: Better Async TypeScript
 date: '2024-01-25'
 description: "Let's explore how to write better async TypeScript by implementing errors as values"
 published: true
+atUri: "at://did:plc:6ghbu76mogjyfcvx446mep5o/site.standard.document/3mdople3wgy2r"
 ---
 
 Over the past year, my team has been rebuilding our internal core library from a set of first principles as we migrate said library to TypeScript. Throughout this process we have had the opportunity to develop some really great patterns, and today I'd like to share one of them with you; errors as values in asynchronous TypeScript.

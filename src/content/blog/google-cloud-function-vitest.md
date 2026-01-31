@@ -3,6 +3,7 @@ title: Testing Google Cloud Functions with Vitest
 date: '2023-09-17'
 description: 'Learn how to unit test your Google Cloud Functions using the modern JavaScript test runner, Vitest'
 published: true
+atUri: "at://did:plc:6ghbu76mogjyfcvx446mep5o/site.standard.document/3mdopleli7f2k"
 ---
 
 Recently I was tasked with building a system for logging client side errors from

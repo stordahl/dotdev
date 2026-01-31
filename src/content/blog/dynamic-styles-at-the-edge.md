@@ -4,6 +4,7 @@ slug: dynamic-styles-at-the-edge
 description: Serving dynamic stylesheets faster than a CDN
 date: '2024-11-18'
 published: true
+atUri: "at://did:plc:6ghbu76mogjyfcvx446mep5o/site.standard.document/3mdopldpq732y"
 ---
 
 I recently deployed a really interesting service to production at my day job, and wanted to write a bit about it.

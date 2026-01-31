@@ -3,6 +3,7 @@ title: Simplify Error Handling with TypeScript Decorators
 date: '2023-09-30'
 description: "Let's explore one of TypeScripts less used features; Decorators."
 published: true
+atUri: "at://did:plc:6ghbu76mogjyfcvx446mep5o/site.standard.document/3mdopleiwtl2y"
 ---
 
 Recently at my day job I was tasked with designing a library to provide a

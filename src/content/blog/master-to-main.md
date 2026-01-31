@@ -3,6 +3,7 @@ title: Renaming your 'master' git branch to 'main'
 date: '2021-01-16'
 description: 'One of my goals for 2021 is to bring some of my opinions around ethics in tech to this blog'
 published: true
+atUri: "at://did:plc:6ghbu76mogjyfcvx446mep5o/site.standard.document/3mdoplf7jsn2k"
 ---
 
 One of my goals for 2021 is to bring some of my opinions around ethics in tech to this blog. It is my belief that technology is a tool that must be democratized if it is to be a large portion of our day to day lives. Without this democratization, technology is used to harm, abuse, &amp; further marginalize many groups of people around the world.

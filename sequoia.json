@@ -1,0 +1,12 @@
+{
+  "siteUrl": "https://stordahl.dev",
+  "contentDir": "./src/content/blog",
+  "publicDir": "./static",
+  "outputDir": "./.svelte-kit",
+  "pathPrefix": "/writing",
+  "publicationUri": "at://did:plc:6ghbu76mogjyfcvx446mep5o/site.standard.publication/3mdopamu4pi2k",
+  "pdsUrl": "https://puffball.us-east.host.bsky.network",
+  "frontmatter": {
+    "publishDate": "date"
+  }
+}

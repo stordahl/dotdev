@@ -3,6 +3,7 @@ title: How I'm Using AI as a Software Engineer
 date: '2023-12-04'
 description: "A look into how I've integrated AI into my workflow"
 published: true
+atUri: "at://did:plc:6ghbu76mogjyfcvx446mep5o/site.standard.document/3mdopledjpw2o"
 ---
 
 When ChatGPT was first released in 2022, I was very skeptical of the tool and the underlying LLM technology that was (and still is) buzzing around the tech world. After some research and experimenting, I quickly realized how powerful the underlying technology is for Software Engineering in particular. So, since the start of 2023, I've been exploring different applications of AI in my daily workflow as a Software Engineer. During the [AI Engineer Summit](https://twitter.com/aiDotengineer) in October of 2023, [Shawn Wang (Swyx)](https://twitter.com/swyx) perfectly summed up my intention with this work when he described the AI Enhanced Engineer in his talk [The 1000x AI Engineer](https://youtu.be/qaJXBMwUkoE?si=QW_cpk50M45UBEI0). Shawn describes three different types of AI Engineers we can expect to evolve as this new tech revolution unfolds, the first being an AI Enhanced Engineer. This is someone that utilizes AI technologies and tools in their existing workflows to improve productivity. This is the archetype I most align with at the moment, and what I've spent the last year working on in my workflows.

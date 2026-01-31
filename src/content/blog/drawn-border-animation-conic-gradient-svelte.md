@@ -3,6 +3,7 @@ title: Creating a Drawn Border Animation with Conic Gradient & Svelte
 date: '2022-09-25'
 description: 'Smoothly draw a border around and element with Svelte'
 published: true
+atUri: "at://did:plc:6ghbu76mogjyfcvx446mep5o/site.standard.document/3mdopletod62o"
 ---
 
 If you've worked with CSS & Animation on the web for a while, you've likely run into a very common animation that is rather difficult to implement - smoothly drawing a border around a DOM element. There are a few different approaches out there, but they all have limitations that have disqualified them from projects in the past. The first approach I've explored is wrapping your element in an SVG path which can easily be animated with Javascript or using something like [Svelte's](https://svelte.dev) built in draw animation. However, this requires knowledge of the inner elements dimensions. If the element is a submit button, that will always contain the text 'Submit', for example, this approach is adequate.

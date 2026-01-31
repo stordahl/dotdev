@@ -2,7 +2,7 @@ import { defineCollection, defineConfig } from "@content-collections/core";
 import { compileMarkdown } from "@content-collections/markdown";
 import rehypeShiki from '@shikijs/rehype'
 import * as v from "valibot";
- 
+
 const posts = defineCollection({
   name: "posts",
   directory: "src/content/blog",
@@ -13,6 +13,7 @@ const posts = defineCollection({
     description: v.string(),
     published: v.boolean(),
     content: v.string(),
+    atUri: v.string(),
   }),
   transform: async (doc, context) => {
     if (!doc.published) {
@@ -46,7 +47,7 @@ const sketches = defineCollection({
       return context.skip("document is a draft");
     }
     const content = await compileMarkdown(context, doc)
-    
+
     return {
       ...doc,
       slug: doc._meta.filePath.toLowerCase().replace('/sketch.md', '').replace(/ /g, '-'),
@@ -54,7 +55,7 @@ const sketches = defineCollection({
     }
   },
 });
- 
+
 export default defineConfig({
   collections: [posts, sketches],
 });

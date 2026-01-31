@@ -6,7 +6,7 @@
 	import Seo from '$lib/Seo.svelte';
 
 	const { data }: { data: PageData } = $props();
-  const post = $derived(data.post);
+	const post = $derived(data.post);
 
 	let isMobile = $state(false);
 
@@ -45,11 +45,15 @@
 	onMount(() => {
 		handleResize();
 		checkIfMobile();
-    handleScroll();
+		handleScroll();
 	});
 </script>
 
 <svelte:window on:scroll={handleScroll} on:resize={handleResize} />
+
+<svelte:head>
+	<link rel="site.standard.document" href={post.atUri} />
+</svelte:head>
 
 <Seo
 	title={`${post.title} | Jacob Stordahl`}

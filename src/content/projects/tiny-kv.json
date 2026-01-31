@@ -1,0 +1,8 @@
+{
+	"title": "TinyKv",
+	"service": "Development",
+	"link": "https://github.com/stordahl/tiny-kv",
+	"linkText": "source",
+	"description": "TinyKv is a tiny in-memory key-value store with schema validation via Standard Schema and TTL support for TypeScript/JavaScript applications.",
+	"type": "open-source"
+}

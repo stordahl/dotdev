@@ -1,0 +1,8 @@
+{
+	"title": "Counterscale",
+	"service": "Development",
+	"link": "https://counterscale.dev",
+	"linkText": "visit",
+	"description": "In July 2025, I joined Ben Vinegar as a maintainer of the Counterscale open source web analytics project. Counterscale is a self-hosted analytics service you deploy to your own Cloudflare account, making use of Workers and Analytics Engine. The project consists of a cli, fullstack web applications, and a third-party JS client/npm package for tracking analytics in your websites.",
+	"type": "work"
+}

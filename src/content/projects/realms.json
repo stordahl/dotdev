@@ -1,0 +1,8 @@
+{
+	"title": "Realms",
+	"service": "Design & Development",
+	"link": "https://realms.house",
+	"linkText": "visit",
+	"description": "Realms is a Minneapolis based Entertainment company that hosts dance parties around the Twin Cities. I worked with the Realms team to build a custom SvelteKit website powered by Sanity for content management. The site also integrates with Realms existing ticketing provider to allow customers to buy tickets without leaving the site.",
+	"type": "work"
+}

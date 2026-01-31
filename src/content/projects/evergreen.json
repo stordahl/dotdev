@@ -1,0 +1,8 @@
+{
+	"title": "Evergreen",
+	"service": "Development",
+	"link": "https://evergreenfitness.net/",
+	"linkText": "visit",
+	"description": "Evergreen Fitness is a Fitness Club located in Port Townsend, Washington. I built their website as a contractor for a local agency, using Sapper and a Netlify serverless API to integrate with the clients existing POS/Membership system.",
+	"type": "work"
+}

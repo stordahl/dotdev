@@ -1,0 +1,8 @@
+{
+	"title": "Moleskin",
+	"service": "Design & Development",
+	"link": "https://github.com/stordahl/moleskin",
+	"linkText": "source",
+	"description": "Moleskin is a self-hosted journal app that you deploy in your own Cloudflare Account. Moleskin is designed to be extremely small, extendable, and customizable. The application is a Hypermedia based web server implemented in Hono, with a sprinkling of HTMX and client side Javascript for interactivity.",
+	"type": "open-source"
+}

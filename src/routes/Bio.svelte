@@ -9,8 +9,9 @@
 			<p class="title">Currently</p>
 			<p class="content">
 				I’m a Software Engineer at <a href="https://stylitics.com">Stylitics</a>, an e-commerce B2B
-				SaaS company. I'm also a maintainer of the <a href="https://counterscale.dev">Counterscale</a>
-        open source analytics project.
+				SaaS company. I'm also a maintainer of the
+				<a href="https://counterscale.dev">Counterscale</a>
+				open source analytics project.
 			</p>
 		</div>
 		<div class="availability">
@@ -20,7 +21,7 @@
 		<div class="links">
 			<p class="title">Links</p>
 			<div>
-        <a href="mailto:jacob@stordahl.dev">Email</a>
+				<a href="mailto:jacob@stordahl.dev">Email</a>
 				<a href="https://github.com/stordahl">Github</a>
 				<a href="https://www.linkedin.com/in/jacobstordahl/">LinkedIn</a>
 				<a href="https://bsky.app/profile/stordahl.dev">Bluesky</a>

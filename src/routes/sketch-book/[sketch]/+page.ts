@@ -5,26 +5,25 @@ import { allSketches } from 'content-collections';
 
 export const load: PageLoad = async ({ params, fetch }) => {
 	try {
-    const sketchMd = allSketches.find((sketch) => sketch.slug == params.sketch)
+		const sketchMd = allSketches.find((sketch) => sketch.slug == params.sketch);
 		const component = await import(`../../../content/sketches/${params.sketch}/sketch.svelte`);
 
-    const rawCodeUrl = `https://raw.githubusercontent.com/stordahl/dotdev/refs/heads/main/src/content/sketches/${params.sketch}/sketch.svelte`;
-    let rawCode = undefined;
+		const rawCodeUrl = `https://raw.githubusercontent.com/stordahl/dotdev/refs/heads/main/src/content/sketches/${params.sketch}/sketch.svelte`;
+		let rawCode = undefined;
 
-    if (!dev) {
-
-		  // Fetch the raw Svelte file from static directory
-		  const response = await fetch(rawCodeUrl);
-		  if (!response.ok) {
-			  throw new Error('Failed to fetch sketch code');
-		  }
-		  rawCode = await response.text();
-    }
+		if (!dev) {
+			// Fetch the raw Svelte file from static directory
+			const response = await fetch(rawCodeUrl);
+			if (!response.ok) {
+				throw new Error('Failed to fetch sketch code');
+			}
+			rawCode = await response.text();
+		}
 
 		return {
 			component: component.default,
 			code: rawCode,
-			markdown: sketchMd,
+			markdown: sketchMd
 		};
 	} catch (e) {
 		error(404, `Could not find ${params.sketch}. ${e}`);

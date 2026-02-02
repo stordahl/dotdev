@@ -7,9 +7,9 @@ const config = {
 	preprocess: [vitePreprocess()],
 	kit: {
 		adapter: adapter(),
-    alias: {
-      "content-collections": "./.content-collections/generated",
-    },
+		alias: {
+			'content-collections': './.content-collections/generated'
+		}
 	}
 };
 

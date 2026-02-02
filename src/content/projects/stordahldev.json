@@ -1,8 +1,8 @@
 {
-  "title": "stordahl.dev",
-  "service": "Design & Development",
-  "link": "https://github.com/stordahl/dotdev",
-  "linkText": "source",
-  "description": "View the source code for this website!",
-  "type": "open-source"
+	"title": "stordahl.dev",
+	"service": "Design & Development",
+	"link": "https://github.com/stordahl/dotdev",
+	"linkText": "source",
+	"description": "View the source code for this website!",
+	"type": "open-source"
 }

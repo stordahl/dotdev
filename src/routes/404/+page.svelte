@@ -1,6 +1,6 @@
 <div>
-  <h1>404</h1> 
-  <p>Not Found</p>
+	<h1>404</h1>
+	<p>Not Found</p>
 </div>
 
 <style>
@@ -21,4 +21,3 @@
 		font-size: 2rem;
 	}
 </style>
-

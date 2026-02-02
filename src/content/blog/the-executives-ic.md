@@ -3,7 +3,7 @@ title: The Executive's Individual Contributor
 date: '2024-01-10'
 description: "How I'm thinking about IC work in the post-ZIRP age"
 published: true
-atUri: "at://did:plc:6ghbu76mogjyfcvx446mep5o/site.standard.document/3mdople7krg2o"
+atUri: 'at://did:plc:6ghbu76mogjyfcvx446mep5o/site.standard.document/3mdople7krg2o'
 ---
 
 As we move past the zero interest rate era in the tech industry, I think it's important to share perspectives on the future of tech work, especially for those that are just getting into this industry. I've seen a lot of new devs express uncertainty on their future tech careers, given the recent hiring climate, and wanted to share some of the things I've learned over the past few years.

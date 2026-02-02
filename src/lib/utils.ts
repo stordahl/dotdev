@@ -1,4 +1,4 @@
-import type { allPosts, allSketches } from "content-collections";
+import type { allPosts, allSketches } from 'content-collections';
 
 export function roman(num: number): string {
 	if (num < 1 || num > 3999) {
@@ -50,7 +50,7 @@ export function formatDate(date: string, dateStyle: DateStyle = 'medium', locale
 }
 
 export function sortByDateProperty(arr: typeof allPosts | typeof allSketches) {
-  return arr.sort(
+	return arr.sort(
 		(first, second) => new Date(second.date).getTime() - new Date(first.date).getTime()
 	);
 }

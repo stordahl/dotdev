@@ -3,7 +3,7 @@ title: Implementing Preview Deploys via Github Actions
 date: '2024-04-08'
 description: 'Look ma, no Vercel!'
 published: true
-atUri: "at://did:plc:6ghbu76mogjyfcvx446mep5o/site.standard.document/3mdopldxxgm22"
+atUri: 'at://did:plc:6ghbu76mogjyfcvx446mep5o/site.standard.document/3mdopldxxgm22'
 ---
 
 Lately over on tech twitter, there's been quite a bit of talk around [Platform as a Service (PaaS)](https://en.wikipedia.org/wiki/Platform_as_a_service) infrastructure providers like Vercel and Netlify. I've been a user of these kinds of platforms for years, but recently have had a hard time recommending them for any projects that have considerable scale. We've seen these platforms [eliminate free plans](https://blog.heroku.com/next-chapter), [increase prices](https://www.netlify.com/blog/announcing-changes-to-netlify-plans/), and in general show signs of change as VC's come looking for profits.

@@ -3,7 +3,7 @@ title: Limiting Cognitive Overload
 date: '2022-05-30'
 description: 'How I manage my ADHD while working as a Software Engineer'
 published: true
-atUri: "at://did:plc:6ghbu76mogjyfcvx446mep5o/site.standard.document/3mdoplex3t326"
+atUri: 'at://did:plc:6ghbu76mogjyfcvx446mep5o/site.standard.document/3mdoplex3t326'
 ---
 
 Transitioning from agency to startup work life has been a non-stop learning experience since I joined [Stylitics](http://stylitics.com) four months ago. I've had the opportunity to see how other engineers at the company have their workflows setup which has encouraged me to experiment with my own workflow. My current goal in this experiment is to limit cognitive overhead while working, which has included adoption of aggressive time block planning for work days and utilizing the pomodoro technique during work blocks. Accounting for all of my daily tasks ahead of time has been incredibly helpful with managing my ADHD, including getting exercise & enough to eat in a day.

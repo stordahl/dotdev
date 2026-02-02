@@ -4,7 +4,7 @@ slug: dynamic-styles-at-the-edge
 description: Serving dynamic stylesheets faster than a CDN
 date: '2024-11-18'
 published: true
-atUri: "at://did:plc:6ghbu76mogjyfcvx446mep5o/site.standard.document/3mdopldpq732y"
+atUri: 'at://did:plc:6ghbu76mogjyfcvx446mep5o/site.standard.document/3mdopldpq732y'
 ---
 
 I recently deployed a really interesting service to production at my day job, and wanted to write a bit about it.
@@ -27,29 +27,30 @@ For e-commerce retailers, unified UI styles are critical for cohesive pages, esp
 <!-- before update -->
 <!-- HTML -->
 <div class="container">
-  <button>
-    <span>Shop</span>
-  </button>
+	<button>
+		<span>Shop</span>
+	</button>
 </div>
 
 <!-- Client Custom CSS --->
 <style>
-  .container button span {
-    color: red;
-  }
+	.container button span {
+		color: red;
+	}
 </style>
 
 <!-- after update -->
 <!-- HTML -->
 <div class="container">
-  <button>Shop</button>
+	<button>Shop</button>
 </div>
 ```
+
 This kind of update would break the CSS our client has added to their pages. The end result of this is that we can't improve our HTML structure, which is especially painful for older products that were built before elements like `dialog` were added to the platform.
 
 The second problem is that, we want the ability to provide "no-lift" updates for high tier clients that often have little engineering resources, or during extensive code-freeze periods around the holiday shopping season. With our previous method for handling CSS, it was difficult to handle client specific styling edge cases as we scaled to more clients.
 
-The last issue is around granular a/b testing of UI styles. As is common in e-commerce, we like to perform very granular a/b tests around small bits of UI; a call to action button size or color, product promotion label color, and sale price treatment, are all examples of meaningful a/b tests we could perform using only CSS. Previously, the strategy has been to provide any number of classes that can dynamically be applied based on the a/b test. However, this means our components are a lot larger than they need to be, and we are shipping styles for every single variant, to every single user. 
+The last issue is around granular a/b testing of UI styles. As is common in e-commerce, we like to perform very granular a/b tests around small bits of UI; a call to action button size or color, product promotion label color, and sale price treatment, are all examples of meaningful a/b tests we could perform using only CSS. Previously, the strategy has been to provide any number of classes that can dynamically be applied based on the a/b test. However, this means our components are a lot larger than they need to be, and we are shipping styles for every single variant, to every single user.
 
 ## Project Constraints
 
@@ -57,7 +58,7 @@ There is one huge constraint we had for this project - we need to continue to on
 
 ## A Serverless CSS API
 
-If we need to serve a single stylesheet, and we don't know what stylesheets we need until the widget loads in the client (remember we need a/b testing data for the users session), it's pretty obvious we need a server of some kind. My team has previously deployed a few services using Google Cloud Functions, which made it an obvious consideration. However, I know traditional lambda serverless functions suffer from [cold start](https://mikhail.io/serverless/coldstarts/aws/), which could be an issue when serving a response that needs to be fast in order to not result in a flash of unstyled HTML. 
+If we need to serve a single stylesheet, and we don't know what stylesheets we need until the widget loads in the client (remember we need a/b testing data for the users session), it's pretty obvious we need a server of some kind. My team has previously deployed a few services using Google Cloud Functions, which made it an obvious consideration. However, I know traditional lambda serverless functions suffer from [cold start](https://mikhail.io/serverless/coldstarts/aws/), which could be an issue when serving a response that needs to be fast in order to not result in a flash of unstyled HTML.
 
 During the planning of this project, I had been building a few side projects with Cloudflare workers which are architecturally different than lambdas, so I decided to build two prototypes; one with Google Cloud Functions, and one with Cloudflare Workers.
 
@@ -76,11 +77,11 @@ The main difference here is that Cloudflare Workers have a feature called the Wo
 
 Since we already have multiple GCP Functions in our codebase, we need to make a pretty good case for diverging from that norm, so I set out to do some basic testing of these two prototypes. For these tests I used [autocannon](https://github.com/mcollina/autocannon), a popular Node based http 1.1 testing tool. Besides testing the prototypes, I wanted some kind of control so I ran autocannon against a static CSS file from our storage bucket. For each test I spawned 100 connections. The results were pretty convincing...
 
-| Service | Total requests | p50 | p90 | p99 |
-| --- | --- | --- | --- | --- |
-| Static File | 11k | 89ms | 117ms | 188ms |
-| GCP | 9k | 96ms | 117ms | 1255ms |
-| CF  | 25k | 36ms | 48ms | 70ms |
+| Service     | Total requests | p50  | p90   | p99    |
+| ----------- | -------------- | ---- | ----- | ------ |
+| Static File | 11k            | 89ms | 117ms | 188ms  |
+| GCP         | 9k             | 96ms | 117ms | 1255ms |
+| CF          | 25k            | 36ms | 48ms  | 70ms   |
 
 The GCP function wasn't too far behind the control in terms of total requests served, however the p99 was extremely unsatisfactory for this use case. The CF Worker on the other hand, was 18x faster than the GCP function and 2.5x faster than even the static file. These numbers were enough to convince us that a CF Worker was the right choice for this service.
 

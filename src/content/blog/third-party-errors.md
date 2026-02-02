@@ -3,7 +3,7 @@ title: Monitoring Errors in Third-Party JavaScript Applications
 date: '2024-03-29'
 description: "A deep dive on what I've learned about monitoring JavaScript errors in a Third Party context"
 published: true
-atUri: "at://did:plc:6ghbu76mogjyfcvx446mep5o/site.standard.document/3mdopldzyl326"
+atUri: 'at://did:plc:6ghbu76mogjyfcvx446mep5o/site.standard.document/3mdopldzyl326'
 ---
 
 Over the past 9 months I've been designing, building, and iterating an error monitoring system for the suite of Third-Party JavaScript widgets I contribute to at my day job. I recently re-designed the client portion of this system and wanted to walk through the solution we ended up with.

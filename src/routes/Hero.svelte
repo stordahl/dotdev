@@ -25,17 +25,19 @@
 	section {
 		padding-top: 90px;
 		margin-bottom: 480px;
-    h1, img {
-      filter: blur(15px);
-		  transition: filter 1.2s ease-out;
-      will-change: filter;
-    }
+		h1,
+		img {
+			filter: blur(15px);
+			transition: filter 1.2s ease-out;
+			will-change: filter;
+		}
 	}
 
-  section.loaded {
-    h1, img {
-		  filter: blur(0);
-    }
+	section.loaded {
+		h1,
+		img {
+			filter: blur(0);
+		}
 	}
 
 	h1 {

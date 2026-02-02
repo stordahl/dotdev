@@ -6,4 +6,3 @@ export const load: LayoutServerLoad = async () => {
 	const sketches = sortByDateProperty(allSketches);
 	return { sketches };
 };
-

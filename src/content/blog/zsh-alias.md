@@ -3,7 +3,7 @@ title: Turbo-charge Your Workflow with zsh Aliases
 date: '2022-12-26'
 description: 'My strategy for zsh aliases'
 published: true
-atUri: "at://did:plc:6ghbu76mogjyfcvx446mep5o/site.standard.document/3mdoplerqsg2o"
+atUri: 'at://did:plc:6ghbu76mogjyfcvx446mep5o/site.standard.document/3mdoplerqsg2o'
 ---
 
 After building out my neovim workflow for a few months, I wanted to bring a similar feel to my raw zsh workflow. I've found myself jumping into neovim to utilize different plugins when doing things that I really should handled in the shell. Mostly, I wanted to create short 2-3 character aliases that allow me to more easily run common commands. This process kickstarted me creating aliases to cover a large variety of commands.

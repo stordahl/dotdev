@@ -1,21 +1,20 @@
 <script lang="ts">
 	import Detail from '../lib/Detail.svelte';
 
-  type ListItem = {
-    title: string;
-    service: 'Design' | 'Development' | 'Design & Development' | string;
-    link: string;
-    linkText: string;
-    description: string;
-  }
+	type ListItem = {
+		title: string;
+		service: 'Design' | 'Development' | 'Design & Development' | string;
+		link: string;
+		linkText: string;
+		description: string;
+	};
 
-  type Props = {
-    items: ListItem[];
-    title: string;
-  }
+	type Props = {
+		items: ListItem[];
+		title: string;
+	};
 
-  const { items, title }: Props = $props()
-
+	const { items, title }: Props = $props();
 </script>
 
 <h2>{title}</h2>
@@ -42,4 +41,3 @@
 		margin-bottom: 2rem;
 	}
 </style>
-

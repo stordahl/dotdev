@@ -3,7 +3,7 @@ title: A Simple iOS Development setup
 date: '2022-03-14'
 description: 'My strategy for debugging iOS Safari bugs'
 published: true
-atUri: "at://did:plc:6ghbu76mogjyfcvx446mep5o/site.standard.document/3mdopleysz322"
+atUri: 'at://did:plc:6ghbu76mogjyfcvx446mep5o/site.standard.document/3mdopleysz322'
 ---
 
 For many engineers who work in the browser, iOS Safari can be the scourge of building web apps. The key to squashing the bugs presented by iOS Safari is to have a polished development environment for the platform. The first take away from working with this mobile browser is that the iOS WebKit engine is fundamentally different from desktop browsers, and the only reliable way to catch bugs is by observing them on an actual iOS device. If you work for a company, or are a full-time freelancer, I highly recommend picking up a refurbished iPhone 7/8 which will run around $200.

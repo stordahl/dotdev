@@ -73,11 +73,11 @@
 		font-size: 14px;
 		scroll-behavior: smooth;
 
-    @supports (-moz-appearance:none) {
-      & {
-        background-blend-mode: soft-light;
-      }
-    }
+		@supports (-moz-appearance: none) {
+			& {
+				background-blend-mode: soft-light;
+			}
+		}
 	}
 }
 
@@ -125,10 +125,11 @@
 		}
 	}
 
-  ul, ol {
-    padding-left: 2ch;
-    font-size: clamp(1rem, calc(1vw + 1rem), 1.3rem);
-  }
+	ul,
+	ol {
+		padding-left: 2ch;
+		font-size: clamp(1rem, calc(1vw + 1rem), 1.3rem);
+	}
 
 	blockquote {
 		margin: 3rem auto;
@@ -143,25 +144,25 @@
 		line-height: 1.8rem;
 	}
 
-  table {
-    width: 100%;
-    text-align: left;
-    font-family: monospace;
-    border-collapse: collapse;
-    border: 1px solid var(--white);
-    padding: 0.5rem;
-    margin-bottom: 2rem;
-  }
+	table {
+		width: 100%;
+		text-align: left;
+		font-family: monospace;
+		border-collapse: collapse;
+		border: 1px solid var(--white);
+		padding: 0.5rem;
+		margin-bottom: 2rem;
+	}
 
-  table th {
-    font-size: 0.9rem;
-  }
+	table th {
+		font-size: 0.9rem;
+	}
 
-  table td,
-  table th {
-    border:1px solid var(--white);
-    padding: 5px;
-  }
+	table td,
+	table th {
+		border: 1px solid var(--white);
+		padding: 5px;
+	}
 
 	.twitter-tweet.twitter-tweet-rendered {
 		margin: 10px auto;
@@ -194,8 +195,8 @@
 	}
 
 	article p,
-  article ul,
-  article ol {
+	article ul,
+	article ol {
 		margin-bottom: 1.75rem;
 	}
 }

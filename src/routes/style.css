@@ -1,202 +1,212 @@
 @layer reset, base, elements;
 
 @layer reset {
-	*,
-	*::before,
-	*::after {
-		box-sizing: border-box;
-	}
 
-	* {
-		margin: 0;
-	}
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
 
-	body {
-		line-height: 1.5;
-		-webkit-font-smoothing: antialiased;
-		overflow-x: hidden;
-	}
+  * {
+    margin: 0;
+  }
 
-	img,
-	picture,
-	video,
-	canvas,
-	svg {
-		display: block;
-		max-width: 100%;
-	}
+  body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
 
-	input,
-	button,
-	textarea,
-	select {
-		font: inherit;
-	}
+  img,
+  picture,
+  video,
+  canvas,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
 
-	p,
-	h1,
-	h2,
-	h3,
-	h4,
-	h5,
-	h6 {
-		overflow-wrap: break-word;
-	}
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    overflow-wrap: break-word;
+  }
 }
 
 @layer base {
-	@font-face {
-		font-family: 'Basheq';
-		src: url('/fonts/BasheqVintageDemoVersionRegular-ov13x.ttf') format('truetype');
-	}
-	html {
-		scroll-behavior: smooth;
-	}
-	body {
-		--white: #fffcf2;
-		--black: #1c1c1b;
-		--light-grey: #ccc5b9;
-		--grey: #403d39;
-		--orange: #eb5e28;
+  @font-face {
+    font-family: 'Basheq';
+    src: url('/fonts/BasheqVintageDemoVersionRegular-ov13x.ttf') format('truetype');
+  }
 
-		--border: 1px solid var(--white);
+  html {
+    scroll-behavior: smooth;
+  }
 
-		--font-size-large: clamp(2rem, calc(2rem + 5vw), 6rem);
+  body {
+    --white: #fffcf2;
+    --black: #1c1c1b;
+    --light-grey: #ccc5b9;
+    --grey: #403d39;
+    --orange: #eb5e28;
 
-		background-color: var(--black);
-		background-image: url('/images/noise.svg');
-		color: var(--white);
-		max-width: 1000px;
-		margin: 0 auto;
-		padding: 0 20px;
-		font-family: 'Fraunces', serif;
-		font-size: 14px;
-		scroll-behavior: smooth;
+    --border: 1px solid var(--white);
 
-		@supports (-moz-appearance: none) {
-			& {
-				background-blend-mode: soft-light;
-			}
-		}
-	}
+    --font-size-large: clamp(2rem, calc(2rem + 5vw), 6rem);
+
+    background-color: var(--black);
+    background-image: url('/images/noise.svg');
+    color: var(--white);
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+    font-family: 'Fraunces', serif;
+    font-size: 14px;
+    scroll-behavior: smooth;
+
+    @supports (-moz-appearance: none) {
+      & {
+        background-blend-mode: soft-light;
+      }
+    }
+  }
 }
 
 @layer elements {
-	h1,
-	h2,
-	h3,
-	h4 {
-		font-family: 'Basheq', serif;
-		font-weight: 300;
-	}
 
-	h1 {
-		font-size: clamp(2rem, calc(2vw + 2rem), 2.3rem);
-	}
-	h2 {
-		font-size: clamp(1.25rem, calc(2vw + 1.25rem), 1.7rem);
-	}
-	h3 {
-		font-size: clamp(1.15rem, calc(2vw + 1.15rem), 1.3rem);
-	}
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: 'Basheq', serif;
+    font-weight: 300;
+  }
 
-	p {
-		font-size: clamp(1rem, calc(1vw + 1rem), 1.3rem);
-	}
+  h1 {
+    font-size: clamp(2rem, calc(2vw + 2rem), 2.3rem);
+  }
 
-	a {
-		--link-color: var(--orange);
-		color: var(--link-color);
-		text-decoration: none;
-		border-bottom: 2px solid transparent;
-		position: relative;
-		&:after {
-			content: '';
-			background-color: var(--link-color);
-			position: absolute;
-			bottom: 0;
-			left: 0;
-			height: 1px;
-			width: 0;
-			transition: 0.2s;
-		}
-		&:hover:after {
-			width: 100%;
-		}
-	}
+  h2 {
+    font-size: clamp(1.25rem, calc(2vw + 1.25rem), 1.7rem);
+  }
 
-	ul,
-	ol {
-		padding-left: 2ch;
-		font-size: clamp(1rem, calc(1vw + 1rem), 1.3rem);
-	}
+  h3 {
+    font-size: clamp(1.15rem, calc(2vw + 1.15rem), 1.3rem);
+  }
 
-	blockquote {
-		margin: 3rem auto;
-		border-left: 1px solid var(--orange);
-		font-size: clamp(1rem, calc(0.5vw + 1.2rem), 1.8rem);
-		padding-left: 1.2rem;
-		font-style: italic;
-	}
+  p {
+    font-size: clamp(1rem, calc(1vw + 1rem), 1.2rem);
+    font-weight: 300;
+  }
 
-	blockquote p {
-		font-size: clamp(1rem, calc(0.5vw + 1.2rem), 1.4rem);
-		line-height: 1.8rem;
-	}
+  a {
+    --link-color: var(--orange);
+    color: var(--link-color);
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    position: relative;
 
-	table {
-		width: 100%;
-		text-align: left;
-		font-family: monospace;
-		border-collapse: collapse;
-		border: 1px solid var(--white);
-		padding: 0.5rem;
-		margin-bottom: 2rem;
-	}
+    &:after {
+      content: '';
+      background-color: var(--link-color);
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 1px;
+      width: 0;
+      transition: 0.2s;
+    }
 
-	table th {
-		font-size: 0.9rem;
-	}
+    &:hover:after {
+      width: 100%;
+    }
+  }
 
-	table td,
-	table th {
-		border: 1px solid var(--white);
-		padding: 5px;
-	}
+  ul,
+  ol {
+    padding-left: 2ch;
+    font-size: clamp(1rem, calc(1vw + 1rem), 1.3rem);
+    font-weight: 300;
+  }
 
-	.twitter-tweet.twitter-tweet-rendered {
-		margin: 10px auto;
-	}
+  blockquote {
+    margin: 3rem auto;
+    border-left: 1px solid var(--orange);
+    font-size: clamp(1rem, calc(0.5vw + 1.2rem), 1.8rem);
+    padding-left: 1.2rem;
+    font-style: italic;
+  }
 
-	code[class*='language-'],
-	pre[class*='language-'],
-	code * {
-		font-family: monospace !important;
-	}
+  blockquote p {
+    font-size: clamp(1rem, calc(0.5vw + 1.2rem), 1.4rem);
+    line-height: 1.8rem;
+  }
 
-	pre {
-		padding: 20px;
-		border-radius: 8px;
-		margin-bottom: 20px;
-		overflow-x: auto;
-	}
+  table {
+    width: 100%;
+    text-align: left;
+    font-family: monospace;
+    border-collapse: collapse;
+    border: 1px solid var(--white);
+    padding: 0.5rem;
+    margin-bottom: 2rem;
+  }
 
-	code:not(pre > code) {
-		background-color: #2e353b;
-		color: #d3c6aa;
-		font-size: 1rem;
-		padding: 3px 5px;
-		border-radius: 5px;
-	}
+  table th {
+    font-size: 0.9rem;
+  }
 
-	article *:is(h2, h3, h4, h5, h6) {
-		font-family: 'Fraunces', serif;
-		margin-bottom: 0.75rem;
-	}
+  table td,
+  table th {
+    border: 1px solid var(--white);
+    padding: 5px;
+  }
 
-	article p,
-	article ul,
-	article ol {
-		margin-bottom: 1.75rem;
-	}
+  .twitter-tweet.twitter-tweet-rendered {
+    margin: 10px auto;
+  }
+
+  code[class*='language-'],
+  pre[class*='language-'],
+  code * {
+    font-family: monospace !important;
+  }
+
+  pre {
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    overflow-x: auto;
+  }
+
+  code:not(pre > code) {
+    background-color: #2e353b;
+    color: #d3c6aa;
+    font-size: 1rem;
+    padding: 3px 5px;
+    border-radius: 5px;
+  }
+
+  article *:is(h2, h3, h4, h5, h6) {
+    font-family: 'Fraunces', serif;
+    margin-bottom: 0.75rem;
+  }
+
+  article p,
+  article ul,
+  article ol {
+    margin-bottom: 1.75rem;
+  }
 }

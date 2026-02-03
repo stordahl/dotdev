@@ -35,7 +35,7 @@
 
 <Seo
 	title="Ping Me | Jacob Stordahl"
-	description="Ask me a question ananymously."
+	description="Ask me a question anonymously."
 	ogImage="/images/og/base.jpg"
 	author="Jacob Stordahl"
 />

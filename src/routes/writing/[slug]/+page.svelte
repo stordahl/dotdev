@@ -81,8 +81,9 @@
 
 <style>
 	h1 {
-		font-size: clamp(1.2rem, calc(1.2rem + 2vw), 2.25rem);
-		text-align: center;
+		font-family: 'Fraunces', serif;
+		font-size: clamp(1.2rem, calc(1.2rem + 2vw), 2rem);
+		font-weight: 300;
 		height: 45px;
 	}
 
@@ -91,6 +92,10 @@
 	}
 
 	.header {
+		min-height: 140px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
 		padding: 2rem 0;
 		border-bottom: 1px solid var(--orange);
 		position: sticky;
@@ -100,6 +105,11 @@
 			z-index: 1;
 			background-color: var(--black);
 			background-image: url('/images/noise.svg');
+			@supports (-moz-appearance: none) {
+				& {
+					background-blend-mode: soft-light;
+				}
+			}
 		}
 	}
 
@@ -141,6 +151,12 @@
 		}
 		aside {
 			display: none;
+		}
+	}
+
+	@media screen and (max-width: 680px) {
+		.header {
+			flex-direction: column;
 		}
 	}
 </style>

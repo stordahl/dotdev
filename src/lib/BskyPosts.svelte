@@ -1,41 +1,12 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import type { Snippet } from 'svelte';
+	import type { BlueskyPost } from './types';
 
-	interface Post {
-		uri: string;
-		cid: string;
-		author: {
-			did: string;
-			handle: string;
-			displayName?: string;
-			avatar?: string;
-		};
-		record: {
-			text: string;
-			createdAt: string;
-		};
-		indexedAt: string;
+	interface Props {
+		posts: BlueskyPost[];
 	}
 
-	let posts: Post[] = $state([]);
-	let loading = $state(true);
-	let error = $state(false);
-
-	async function fetchPosts() {
-		try {
-			const response = await fetch('/api/bluesky-posts');
-			const data = await response.json();
-			posts = data.posts || [];
-		} catch {
-			error = true;
-		} finally {
-			loading = false;
-		}
-	}
-
-	onMount(() => {
-		fetchPosts();
-	});
+	let { posts }: Props = $props();
 
 	function formatDate(dateString: string): string {
 		return new Date(dateString).toLocaleDateString('en-US', {
@@ -58,18 +29,12 @@
 			.replace(/https?:\/\/[^\s]+/g, '<a href="$&" target="_blank" rel="noopener">$&</a>')
 			.replace(/@([a-zA-Z0-9.-]+\.bsky\.social)/g, '<a href="https://bsky.app/profile/$1">@$1</a>');
 	}
-
-	$inspect(posts);
 </script>
 
 <div class="bsky-posts">
 	<h2>Recent Posts</h2>
 
-	{#if loading}
-		<div class="placeholder">Loading posts...</div>
-	{:else if error}
-		<div class="placeholder">Unable to load posts</div>
-	{:else if posts.length === 0}
+	{#if posts.length === 0}
 		<div class="placeholder">No posts yet</div>
 	{:else}
 		<div class="post-list">

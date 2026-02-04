@@ -1,5 +1,4 @@
 <script lang="ts">
-	import type { Snippet } from 'svelte';
 	import type { BlueskyPost } from './types';
 
 	interface Props {
@@ -31,12 +30,9 @@
 	}
 </script>
 
-<div class="bsky-posts">
-	<h2>Recent Posts</h2>
-
-	{#if posts.length === 0}
-		<div class="placeholder">No posts yet</div>
-	{:else}
+{#if posts.length}
+	<div class="bsky-posts">
+		<h2>Recent Posts</h2>
 		<div class="post-list">
 			{#each posts as post}
 				<a class="post" href={getPostUrl(post.uri)} target="_blank" rel="noopener">
@@ -47,8 +43,8 @@
 				</a>
 			{/each}
 		</div>
-	{/if}
-</div>
+	</div>
+{/if}
 
 <style>
 	.bsky-posts {
@@ -61,12 +57,6 @@
 		margin-bottom: 1rem;
 		color: var(--white);
 		font-size: clamp(1.75rem, calc(1.75rem + 2vw), 2.5rem);
-	}
-
-	.placeholder {
-		color: var(--grey);
-		font-size: 0.9rem;
-		padding: 1rem 0;
 	}
 
 	.post-list {

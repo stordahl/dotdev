@@ -13,7 +13,7 @@ const posts = defineCollection({
 		description: v.string(),
 		published: v.boolean(),
 		content: v.string(),
-		atUri: v.string()
+		atUri: v.optional(v.string())
 	}),
 	transform: async (doc, context) => {
 		if (!doc.published) {

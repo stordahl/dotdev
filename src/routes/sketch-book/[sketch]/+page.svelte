@@ -18,8 +18,6 @@
 	});
 
 	let visibleTab: 'code' | 'preview' = $state('preview');
-
-	/* eslint-disable svelte/no-at-html-tags */
 </script>
 
 <Seo

@@ -80,5 +80,5 @@ const projects = defineCollection({
 });
 
 export default defineConfig({
-	collections: [posts, sketches, projects]
+	content: [posts, sketches, projects]
 });

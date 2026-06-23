@@ -18,6 +18,11 @@ export const actions: Actions = {
 		const url = env.PING_ENDPOINT_URL;
 		const token = env.PING_BEARER_TOKEN;
 
+		if (!url) {
+			console.error('PING_ENDPOINT_URL environment variable is not set');
+			return fail(500, { error: 'Server configuration error' });
+		}
+
 		if (!token) {
 			console.error('PING_BEARER_TOKEN environment variable is not set');
 			return fail(500, { error: 'Server configuration error' });

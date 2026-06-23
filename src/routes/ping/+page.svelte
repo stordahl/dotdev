@@ -80,8 +80,7 @@
 					placeholder="Type your question here..."
 					rows="3"
 					disabled={status === 'loading'}
-					aria-describedby="char-count"
-				></textarea>
+					aria-describedby="char-count"></textarea>
 				<span id="char-count" class="char-count" class:over-limit={isOverLimit}>
 					{charCount}/{MAX_CHARS}
 				</span>

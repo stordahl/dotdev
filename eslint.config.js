@@ -20,11 +20,28 @@ export default [
 		}
 	},
 	{
+		files: ['**/*.{ts,svelte}'],
+		rules: {
+			'no-undef': 'off'
+		}
+	},
+	{
 		files: ['**/*.svelte'],
 		languageOptions: {
 			parserOptions: {
 				parser: ts.parser
 			}
+		},
+		rules: {
+			'svelte/no-at-html-tags': 'off',
+			'svelte/no-navigation-without-resolve': 'off',
+			'svelte/require-each-key': 'off'
+		}
+	},
+	{
+		files: ['**/*.svelte.ts'],
+		languageOptions: {
+			parser: ts.parser
 		}
 	},
 	{

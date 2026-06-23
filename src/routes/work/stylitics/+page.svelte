@@ -34,8 +34,8 @@
 <section>
 	<h1>Stylitics</h1>
 	<p>
-		<a href="https://stylitics.com">Stylitics</a> is an e-commerce content platform that provides an
-		end to end solution for product bundling. In January 2022, I joined the Experiences Team at Stylitics
+		<a href="https://stylitics.com">Stylitics</a> is an e-commerce content platform that provides an end
+		to end solution for product bundling. In January 2022, I joined the Experiences Team at Stylitics
 		where we build a number of Third Party JavaScript widgets that provide user experiences on top of
 		the content produced by our platform. Aside from directly contributing to our products, most of my
 		contributions are related to tooling and infrastructure that supports the team.

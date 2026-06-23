@@ -4,7 +4,7 @@
 
 	let videoElement: HTMLVideoElement;
 	let canvasElement: HTMLCanvasElement;
-	let ctx: CanvasRenderingContext2D | null;
+	let ctx: CanvasRenderingContext2D | null = null;
 	let animationFrame: number | null = null;
 	let error = '';
 

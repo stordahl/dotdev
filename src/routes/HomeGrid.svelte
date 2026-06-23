@@ -10,7 +10,6 @@
 	let selectedCard = $state<HomeGridCard | null>(null);
 
 	const externalHref = (href: string | undefined) => Boolean(href && /^https?:\/\//.test(href));
-	const cardStyle = (card: HomeGridCard) => `--card-index: ${card.x + card.y};`;
 
 	function openCard(card: HomeGridCard) {
 		selectedCard = card;
@@ -25,29 +24,20 @@
 
 <main class="home-grid" aria-labelledby="home-grid-title">
 	<header class="home-grid__bar" aria-label="Homepage navigation">
-		<a class="home-grid__mark" href="/" aria-label="Jacob Stordahl homepage">
-			<span>JS</span>
-		</a>
-
 		<nav class="home-grid__nav" aria-label="Primary">
-			<a href="/work">Work</a>
-			<a href="/writing">Writing</a>
-			<a href="/sketch-book">Sketch Book</a>
+			<a class="home-grid__mark" href="/" aria-label="Jacob Stordahl homepage">
+				<img src="/images/star.svg" alt="" />
+			</a>
+			<div class="home-grid__links">
+				<a href="/work">Work</a>
+				<a href="/writing">Writing</a>
+				<a href="/sketch-book">Sketch Book</a>
+				<a href="mailto:jacob@stordahl.dev">Contact</a>
+			</div>
 		</nav>
-
-		<div class="home-grid__search" aria-hidden="true">
-			<span class="home-grid__collection">stordahl.dev</span>
-			<span>Search...</span>
-		</div>
-
-		<div class="home-grid__actions">
-			<a href="https://github.com/stordahl" target="_blank" rel="noopener noreferrer">GitHub</a>
-			<a class="home-grid__contact" href="mailto:jacob@stordahl.dev">Contact</a>
-		</div>
 	</header>
 
 	<section class="home-grid__intro" aria-label="Homepage introduction">
-		<p>public archive / selected work</p>
 		<h1 id="home-grid-title">
 			Jacob Stordahl — design engineer, web developer, recovering artist.
 		</h1>
@@ -57,8 +47,7 @@
 		{#each cards as card (card.slug)}
 			{#if card.interaction === 'link' && card.href}
 				<a
-					class={`home-card home-card--${card.size}`}
-					style={cardStyle(card)}
+					class="home-card"
 					href={card.href}
 					target={externalHref(card.href) ? '_blank' : undefined}
 					rel={externalHref(card.href) ? 'noopener noreferrer' : undefined}
@@ -72,8 +61,7 @@
 				</a>
 			{:else}
 				<button
-					class={`home-card home-card--${card.size}`}
-					style={cardStyle(card)}
+					class="home-card"
 					type="button"
 					onclick={() => openCard(card)}
 					aria-label={`Open ${card.title}: ${card.label}`}
@@ -87,15 +75,6 @@
 			{/if}
 		{/each}
 	</section>
-
-	<button
-		class="home-grid__info"
-		type="button"
-		onclick={() => openCard(cards.find((card) => card.label === 'About') ?? cards[0])}
-		aria-label="About this page"
-	>
-		i
-	</button>
 
 	{#if selectedCard}
 		<div class="home-grid__overlay" role="presentation">
@@ -146,7 +125,7 @@
 		--home-ink: #0d0d0d;
 		--home-muted: #9a9791;
 		--home-line: #dedbd4;
-		--home-pill: rgba(255, 255, 255, 0.74);
+		--home-pill: rgba(255, 255, 255, 0.76);
 
 		min-height: 100vh;
 		padding: 0 0 6rem;
@@ -157,49 +136,52 @@
 	}
 
 	.home-grid__bar {
-		position: sticky;
+		position: fixed;
 		top: 0;
+		left: 0;
+		right: 0;
 		z-index: 5;
-		display: grid;
-		grid-template-columns: auto auto minmax(18rem, 26rem) auto;
-		align-items: center;
-		gap: 0.6rem;
-		width: max(100%, 74rem);
 		padding: 1.55rem 2rem 1.35rem;
-		background: linear-gradient(var(--home-bg) 72%, rgba(247, 246, 243, 0));
+		background: linear-gradient(var(--home-bg) 70%, rgba(247, 246, 243, 0));
+		pointer-events: none;
 	}
 
-	.home-grid__mark,
-	.home-grid__nav,
-	.home-grid__search,
-	.home-grid__contact {
+	.home-grid__nav {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		width: 100%;
+		min-height: 3.35rem;
+		padding: 0.35rem;
 		border: 1px solid var(--home-line);
+		border-radius: 999px;
 		background: var(--home-pill);
 		backdrop-filter: blur(16px);
+		pointer-events: auto;
 	}
 
 	.home-grid__mark {
 		display: grid;
 		place-items: center;
-		width: 3.35rem;
-		height: 3.35rem;
+		width: 2.65rem;
+		height: 2.65rem;
+		border: 0;
 		border-radius: 999px;
-		color: var(--home-ink);
-		font-weight: 750;
-		font-size: 0.72rem;
-		letter-spacing: -0.04em;
 	}
 
-	.home-grid__nav {
+	.home-grid__mark img {
+		width: 1.25rem;
+		height: 1.25rem;
+	}
+
+	.home-grid__links {
 		display: flex;
-		gap: 0.15rem;
 		align-items: center;
-		padding: 0.35rem 0.65rem;
-		border-radius: 999px;
+		justify-content: flex-end;
+		gap: 0.15rem;
 	}
 
-	.home-grid__nav a,
-	.home-grid__actions a {
+	.home-grid__links a {
 		padding: 0.75rem 1rem;
 		color: var(--home-ink);
 		font-size: 0.95rem;
@@ -209,53 +191,11 @@
 		border: 0;
 	}
 
-	.home-grid__nav a::after,
-	.home-grid__actions a::after,
+	.home-grid__links a::after,
 	.home-grid__mark::after,
 	.home-card::after,
 	.home-grid__detail a::after {
 		display: none;
-	}
-
-	.home-grid__search {
-		display: flex;
-		justify-self: center;
-		align-items: center;
-		gap: 0.9rem;
-		width: min(100%, 26rem);
-		min-height: 3.35rem;
-		padding: 0 1.35rem;
-		border-radius: 999px;
-		color: var(--home-muted);
-		font-weight: 600;
-	}
-
-	.home-grid__search::before {
-		content: '';
-		width: 0.72rem;
-		height: 0.72rem;
-		border: 2px solid #b8b5ae;
-		border-radius: 999px;
-		box-shadow: 0.38rem 0.38rem 0 -0.28rem #b8b5ae;
-		transform: translateY(-1px) rotate(-8deg);
-	}
-
-	.home-grid__collection {
-		color: #d0cdc6;
-	}
-
-	.home-grid__actions {
-		display: flex;
-		justify-self: end;
-		align-items: center;
-		gap: 0.55rem;
-	}
-
-	.home-grid__actions .home-grid__contact {
-		padding: 1rem 1.25rem;
-		border-radius: 999px;
-		color: #fff;
-		background: #0b0b0b;
 	}
 
 	.home-grid__intro {
@@ -271,7 +211,7 @@
 		column-gap: 1.9rem;
 		width: max(100vw, 92rem);
 		min-height: calc(100vh - 6.5rem);
-		padding: 0 2rem 4rem;
+		padding: 6.5rem 2rem 4rem;
 	}
 
 	.home-card {
@@ -282,24 +222,17 @@
 		padding: 0;
 		break-inside: avoid;
 		border: 0;
-		border-radius: 0.2rem;
+		border-radius: 0;
 		appearance: none;
-		background: #e8e3d6;
+		background: transparent;
 		color: var(--home-ink);
 		cursor: pointer;
-		overflow: hidden;
-		transition:
-			filter 140ms ease,
-			opacity 140ms ease,
-			transform 140ms ease;
+		overflow: visible;
 	}
 
 	.home-card:hover,
 	.home-card:focus-visible {
-		filter: saturate(1.04) contrast(1.02);
-		opacity: 0.94;
 		outline: none;
-		transform: translateY(-2px);
 	}
 
 	.home-card:focus-visible {
@@ -308,28 +241,9 @@
 
 	.home-card img {
 		width: 100%;
-		height: 100%;
-		object-fit: cover;
-	}
-
-	.home-card--sm {
-		aspect-ratio: 1.22;
-	}
-
-	.home-card--md {
-		aspect-ratio: 1;
-	}
-
-	.home-card--lg {
-		aspect-ratio: 0.86;
-	}
-
-	.home-card--wide {
-		aspect-ratio: 1.55;
-	}
-
-	.home-card--tall {
-		aspect-ratio: 0.68;
+		height: auto;
+		border-radius: 0;
+		object-fit: contain;
 	}
 
 	.home-card__meta {
@@ -371,26 +285,6 @@
 		line-height: 1.1;
 	}
 
-	.home-grid__info {
-		position: fixed;
-		right: 2rem;
-		bottom: 2rem;
-		z-index: 4;
-		display: grid;
-		place-items: center;
-		width: 2.8rem;
-		height: 2.8rem;
-		border: 0;
-		border-radius: 999px;
-		background: rgba(255, 255, 255, 0.88);
-		box-shadow: 0 0.75rem 2rem rgba(0, 0, 0, 0.12);
-		color: var(--home-ink);
-		font-family: Georgia, serif;
-		font-size: 1.1rem;
-		font-style: italic;
-		cursor: pointer;
-	}
-
 	.home-grid__overlay {
 		position: fixed;
 		inset: 0;
@@ -428,7 +322,7 @@
 		width: 100%;
 		max-height: 82vh;
 		object-fit: contain;
-		border-radius: 0.5rem;
+		border-radius: 0;
 		background: #eee8dc;
 	}
 
@@ -490,37 +384,32 @@
 		}
 
 		.home-grid__bar {
-			grid-template-columns: auto 1fr auto;
-			width: 100%;
 			padding: 1rem;
 		}
 
 		.home-grid__nav {
-			display: none;
+			min-height: 3rem;
 		}
 
-		.home-grid__search {
-			justify-self: stretch;
-			min-width: 0;
+		.home-grid__links {
+			gap: 0;
 		}
 
-		.home-grid__collection {
-			display: none;
+		.home-grid__links a {
+			padding: 0.65rem 0.55rem;
+			font-size: 0.82rem;
 		}
 
-		.home-grid__actions a:first-child {
-			display: none;
-		}
-
-		.home-grid__actions .home-grid__contact {
-			padding: 0.9rem 1rem;
+		.home-grid__mark {
+			width: 2.35rem;
+			height: 2.35rem;
 		}
 
 		.home-grid__board {
 			column-width: 10.5rem;
 			column-gap: 1rem;
 			width: 100%;
-			padding: 0 1rem 5rem;
+			padding: 5.75rem 1rem 5rem;
 		}
 
 		.home-card {
@@ -538,7 +427,6 @@
 	}
 
 	@media (prefers-reduced-motion: reduce) {
-		.home-card,
 		.home-card__meta {
 			transition: none;
 		}

@@ -1,0 +1,11 @@
+{
+	"title": "Jacob Stordahl",
+	"label": "About",
+	"image": "/home-grid/r1-05434-015a.jpg",
+	"alt": "A film photograph used as an about card for Jacob Stordahl.",
+	"interaction": "flip-text",
+	"revealText": "Design engineer and web developer with a background in art, sculpture, fabrication, and new media. I like small tools, durable interfaces, and the strange overlap between physical systems and software systems.",
+	"size": "wide",
+	"x": 7,
+	"y": 10
+}

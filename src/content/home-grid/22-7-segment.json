@@ -1,0 +1,11 @@
+{
+	"title": "7 Segment",
+	"label": "Sketch",
+	"image": "/home-grid/7.jpg",
+	"alt": "A photographic image used to represent a seven-segment display sketch.",
+	"interaction": "link",
+	"href": "/sketch-book/seven-segment",
+	"size": "md",
+	"x": 1,
+	"y": 9
+}

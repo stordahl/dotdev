@@ -1,0 +1,11 @@
+{
+	"title": "Currently",
+	"label": "Availability",
+	"image": "/home-grid/2013-04-02-08-53-53pm.jpg",
+	"alt": "A low-light photograph used as a current-status card.",
+	"interaction": "flip-text",
+	"revealText": "Currently focused on frontend systems, SvelteKit, Cloudflare, open-source tools, and practical AI-assisted development workflows. For project inquiries, email jacob@stordahl.dev.",
+	"size": "md",
+	"x": 2,
+	"y": 12
+}

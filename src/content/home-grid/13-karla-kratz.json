@@ -1,0 +1,11 @@
+{
+	"title": "Karla Kratz",
+	"label": "Work project",
+	"image": "/home-grid/232323232-fp4384-nu-37-2-5-2-238-28-35-2329233ot1lsi.jpg",
+	"alt": "A scanned or film image used to represent a poetry website built with SvelteKit and Sanity.",
+	"interaction": "link",
+	"href": "https://www.karlakratz.com/",
+	"size": "md",
+	"x": 6,
+	"y": 5
+}

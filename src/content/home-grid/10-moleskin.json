@@ -1,0 +1,11 @@
+{
+	"title": "Moleskin",
+	"label": "Open source journal app",
+	"image": "/home-grid/2013-04-02-08-53-53pm.jpg",
+	"alt": "A low-light image used to represent a private, self-hosted journal app.",
+	"interaction": "link",
+	"href": "https://github.com/stordahl/moleskin",
+	"size": "tall",
+	"x": 0,
+	"y": 3
+}

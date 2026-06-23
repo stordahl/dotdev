@@ -1,0 +1,11 @@
+{
+	"title": "Recovering Artist",
+	"label": "Background",
+	"image": "/home-grid/r1-05434-0014.jpg",
+	"alt": "A film photograph used as a personal background card about art and fabrication.",
+	"interaction": "flip-text",
+	"revealText": "Before software, my work moved through welding, sculpture, installation, and studio practice. That material history still shapes how I think about interfaces: joints, tolerances, surfaces, and maintenance.",
+	"size": "tall",
+	"x": 0,
+	"y": 11
+}

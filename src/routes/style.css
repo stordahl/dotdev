@@ -68,9 +68,6 @@
 		background-color: var(--black);
 		background-image: url('/images/noise.svg');
 		color: var(--white);
-		max-width: 1000px;
-		margin: 0 auto;
-		padding: 0 20px;
 		font-family: 'Fraunces', serif;
 		font-size: 14px;
 		scroll-behavior: smooth;
@@ -84,6 +81,12 @@
 }
 
 @layer elements {
+	.page-shell {
+		max-width: 1000px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+
 	h1,
 	h2,
 	h3,

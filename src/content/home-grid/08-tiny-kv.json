@@ -1,0 +1,11 @@
+{
+	"title": "tiny-kv",
+	"label": "Open source TypeScript",
+	"image": "/home-grid/r1-05434-015a.jpg",
+	"alt": "A film photograph used to represent a small TypeScript key-value store.",
+	"interaction": "link",
+	"href": "https://github.com/stordahl/tiny-kv",
+	"size": "sm",
+	"x": 5,
+	"y": 2
+}

@@ -1,0 +1,11 @@
+{
+	"title": "Writing",
+	"label": "Navigation",
+	"image": "/home-grid/screen-shot-2017-04-13-12-26-38-pm.jpg",
+	"alt": "A screenshot-style visual composition used as an abstract writing index image.",
+	"interaction": "link",
+	"href": "/writing",
+	"size": "md",
+	"x": 2,
+	"y": 0
+}

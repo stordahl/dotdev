@@ -79,6 +79,37 @@ const projects = defineCollection({
 	}
 });
 
+const homeGridCards = defineCollection({
+	name: 'homeGridCard',
+	directory: 'src/content/home-grid',
+	include: '**/*.json',
+	parser: 'json',
+	schema: v.object({
+		title: v.string(),
+		label: v.string(),
+		image: v.string(),
+		alt: v.string(),
+		interaction: v.union([v.literal('focus-image'), v.literal('link'), v.literal('flip-text')]),
+		href: v.optional(v.string()),
+		revealText: v.optional(v.string()),
+		size: v.union([
+			v.literal('sm'),
+			v.literal('md'),
+			v.literal('lg'),
+			v.literal('wide'),
+			v.literal('tall')
+		]),
+		x: v.number(),
+		y: v.number()
+	}),
+	transform: async (doc) => {
+		return {
+			...doc,
+			slug: doc._meta.filePath.toLowerCase().replace('.json', '').replace(/ /g, '-')
+		};
+	}
+});
+
 export default defineConfig({
-	content: [posts, sketches, projects]
+	content: [posts, sketches, projects, homeGridCards]
 });

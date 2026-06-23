@@ -1,0 +1,11 @@
+{
+	"title": "stordahl.dev",
+	"label": "This website",
+	"image": "/home-grid/r1-05434-0014.jpg",
+	"alt": "A film photograph used to represent the source code for this website.",
+	"interaction": "link",
+	"href": "https://github.com/stordahl/dotdev",
+	"size": "md",
+	"x": 6,
+	"y": 3
+}

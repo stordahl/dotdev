@@ -1,0 +1,11 @@
+{
+	"title": "Bluesky",
+	"label": "External",
+	"image": "/home-grid/7.jpg",
+	"alt": "A photographic image used as a visual entry point to Jacob Stordahl's Bluesky profile.",
+	"interaction": "link",
+	"href": "https://bsky.app/profile/stordahl.dev",
+	"size": "sm",
+	"x": 7,
+	"y": 1
+}

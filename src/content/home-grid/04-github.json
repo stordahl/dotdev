@@ -1,0 +1,11 @@
+{
+	"title": "GitHub",
+	"label": "External",
+	"image": "/home-grid/10.jpg",
+	"alt": "A photographic image used as a visual entry point to Jacob Stordahl's GitHub profile.",
+	"interaction": "link",
+	"href": "https://github.com/stordahl",
+	"size": "sm",
+	"x": 6,
+	"y": 0
+}

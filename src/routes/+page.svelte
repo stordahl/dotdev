@@ -1,20 +1,14 @@
 <script lang="ts">
-	import Hero from './Hero.svelte';
-	import Bio from './Bio.svelte';
-	import Work from './Work.svelte';
 	import Seo from '$lib/Seo.svelte';
-	import BskyPosts from '$lib/BskyPosts.svelte';
 	import type { PageData } from './$types';
+	import HomeGrid from './HomeGrid.svelte';
 
 	type Props = {
 		data: PageData;
 	};
+
 	let { data }: Props = $props();
 </script>
 
 <Seo />
-
-<Hero />
-<Bio />
-<BskyPosts posts={data.posts} />
-<Work />
+<HomeGrid cards={data.cards} />

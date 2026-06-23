@@ -1,0 +1,11 @@
+{
+	"title": "Work",
+	"label": "Navigation",
+	"image": "/home-grid/house.jpg",
+	"alt": "A house-like sculptural form photographed in a gallery or studio setting.",
+	"interaction": "link",
+	"href": "/work",
+	"size": "wide",
+	"x": 0,
+	"y": 0
+}

@@ -1,0 +1,11 @@
+{
+	"title": "Evergreen Fitness",
+	"label": "Work project",
+	"image": "/home-grid/scan-0076.jpg",
+	"alt": "A scanned photograph used to represent the Evergreen Fitness website project.",
+	"interaction": "link",
+	"href": "https://evergreenfitness.net/",
+	"size": "sm",
+	"x": 1,
+	"y": 5
+}

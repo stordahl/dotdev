@@ -1,0 +1,11 @@
+{
+	"title": "Sketch Book",
+	"label": "Navigation",
+	"image": "/home-grid/32.jpg",
+	"alt": "A dense digital image with a sketch-like abstract texture.",
+	"interaction": "link",
+	"href": "/sketch-book",
+	"size": "lg",
+	"x": 4,
+	"y": 0
+}

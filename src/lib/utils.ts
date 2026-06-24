@@ -32,8 +32,11 @@ export function roman(num: number): string {
 	return result;
 }
 
-export function formatDateToMonthYear(dateString: string, shortMonth: boolean = false): string {
-	const date = new Date(dateString);
+export function formatDateToMonthYear(
+	dateInput: Date | string,
+	shortMonth: boolean = false
+): string {
+	const date = typeof dateInput === 'string' ? new Date(dateInput) : dateInput;
 	return new Intl.DateTimeFormat('en-US', {
 		year: 'numeric',
 		month: shortMonth ? 'short' : 'long'
@@ -42,15 +45,16 @@ export function formatDateToMonthYear(dateString: string, shortMonth: boolean = 
 
 type DateStyle = Intl.DateTimeFormatOptions['dateStyle'];
 
-export function formatDate(date: string, dateStyle: DateStyle = 'medium', locales = 'en') {
-	// Safari is mad about dashes in the date
-	const dateToFormat = new Date(date.replaceAll('-', '/'));
+export function formatDate(date: Date | string, dateStyle: DateStyle = 'medium', locales = 'en') {
+	const dateToFormat = typeof date === 'string' ? new Date(date.replaceAll('-', '/')) : date;
 	const dateFormatter = new Intl.DateTimeFormat(locales, { dateStyle });
 	return dateFormatter.format(dateToFormat);
 }
 
 export function sortByDateProperty(arr: typeof allPosts | typeof allSketches) {
-	return arr.sort(
-		(first, second) => new Date(second.date).getTime() - new Date(first.date).getTime()
-	);
+	return arr.sort((first, second) => {
+		const firstDate = first.date instanceof Date ? first.date : new Date(first.date);
+		const secondDate = second.date instanceof Date ? second.date : new Date(second.date);
+		return secondDate.getTime() - firstDate.getTime();
+	});
 }

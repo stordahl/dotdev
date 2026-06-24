@@ -9,7 +9,11 @@ const posts = defineCollection({
 	include: '**/*.md',
 	schema: v.object({
 		title: v.string(),
-		date: v.string(),
+		date: v.pipe(
+			v.string(),
+			v.isoDate(),
+			v.transform((input) => new Date(input))
+		),
 		description: v.string(),
 		published: v.boolean(),
 		content: v.string(),
@@ -36,7 +40,11 @@ const sketches = defineCollection({
 	include: '**/*.md',
 	schema: v.object({
 		title: v.string(),
-		date: v.string(),
+		date: v.pipe(
+			v.string(),
+			v.isoDate(),
+			v.transform((input) => new Date(input))
+		),
 		published: v.boolean(),
 		content: v.string()
 	}),

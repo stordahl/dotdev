@@ -37,12 +37,16 @@ function parseValibotSchema(schema: unknown): FieldInfo[] {
 	if (schemaObj.type === 'object' && schemaObj.entries) {
 		for (const [name, entry] of Object.entries(schemaObj.entries as Record<string, unknown>)) {
 			if (entry && typeof entry === 'object') {
+				const entryObj = entry as Record<string, unknown>;
+				const isOptional = entryObj.type === 'optional';
+				// Get the actual schema (unwrap optional if needed)
+				const actualSchema = isOptional ? entryObj.wrapped : entry;
 				fields.push({
 					name,
-					type: getFieldType(entry),
-					optional: (entry as Record<string, unknown>).issues !== undefined, // v.optional() adds issues property
-					enumValues: getEnumValues(entry),
-					description: getDescription(entry)
+					type: getFieldType(actualSchema),
+					optional: isOptional,
+					enumValues: getEnumValues(actualSchema),
+					description: getDescription(actualSchema)
 				});
 			}
 		}
@@ -55,6 +59,15 @@ function getFieldType(entry: unknown): string {
 	if (!entry || typeof entry !== 'object') return 'unknown';
 
 	const entryObj = entry as Record<string, unknown>;
+
+	// Handle piped schemas (v.pipe()) - check pipe array for date validations
+	const pipe = entryObj.pipe as Array<Record<string, unknown>> | undefined;
+	if (pipe?.length) {
+		// Check if any item in the pipe is an iso_date validation
+		if (pipe.some((item) => item.type === 'iso_date' || item.type === 'isoDate')) {
+			return 'date';
+		}
+	}
 
 	// Handle v.literal()
 	if (entryObj.type === 'literal') {
@@ -150,6 +163,11 @@ async function selectCollection(): Promise<CollectionInfo> {
 	return selected as CollectionInfo;
 }
 
+function getCurrentDate(): string {
+	const now = new Date();
+	return now.toISOString().split('T')[0];
+}
+
 async function promptForFields(fields: FieldInfo[]): Promise<Record<string, unknown>> {
 	const data: Record<string, unknown> = {};
 
@@ -188,6 +206,31 @@ async function promptForFields(fields: FieldInfo[]): Promise<Record<string, unkn
 
 			if (selected || !field.optional) {
 				data[field.name] = selected;
+			}
+		} else if (field.type === 'date') {
+			const defaultDate = getCurrentDate();
+
+			const input = await p.text({
+				message: field.name,
+				placeholder: defaultDate,
+				initialValue: defaultDate,
+				validate: !field.optional
+					? (value) => {
+							if (!value || value.trim() === '') {
+								return `${field.name} is required`;
+							}
+							return undefined;
+						}
+					: undefined
+			});
+
+			if (p.isCancel(input)) {
+				p.cancel('Operation cancelled.');
+				process.exit(0);
+			}
+
+			if (input || !field.optional) {
+				data[field.name] = input;
 			}
 		} else {
 			const placeholder = getPlaceholderForType(field.type);

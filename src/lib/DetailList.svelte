@@ -17,27 +17,35 @@
 	const { items, title }: Props = $props();
 </script>
 
-<h2>{title}</h2>
-
-{#each items as item, index}
-	<Detail
-		title={item.title}
-		service={item.service}
-		index={index + 1}
-		link={item.link}
-		linkText={item.linkText}
-	>
-		<p>{item.description}</p>
-	</Detail>
-{/each}
+<section>
+	<h2>{title}</h2>
+	<ul>
+		{#each items as item, index}
+			<li>
+				<Detail
+					title={item.title}
+					service={item.service}
+					index={index + 1}
+					link={item.link}
+					linkText={item.linkText}
+				>
+					<p>{item.description}</p>
+				</Detail>
+			</li>
+		{/each}
+	</ul>
+</section>
 
 <style>
 	h2 {
-		font-family: 'Basheq', serif;
-		font-size: clamp(2rem, calc(2rem + 5vw), 6rem);
-		font-weight: 300;
-		text-align: center;
-		margin-top: 3rem;
-		margin-bottom: 2rem;
+		font-size: var(--font-md);
+		margin-bottom: 7px;
+		font-style: italic;
+	}
+
+	ul {
+		margin-bottom: 20px;
+		list-style: none;
+		padding: 0;
 	}
 </style>

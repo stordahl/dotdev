@@ -142,7 +142,6 @@
 		border-radius: 0px;
 		color: var(--white);
 		font-size: 1.1rem;
-		font-family: 'Fraunces', serif;
 		resize: vertical;
 		transition: border-color 0.2s;
 		resize: none;
@@ -186,7 +185,6 @@
 		color: var(--white);
 		border-radius: 0px;
 		font-size: 1.1rem;
-		font-family: 'Fraunces', serif;
 		font-weight: 500;
 		cursor: pointer;
 	}

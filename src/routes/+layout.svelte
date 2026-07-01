@@ -7,8 +7,17 @@
 	let { children } = $props();
 </script>
 
-<Header />
-{@render children()}
-<Footer />
+<div>
+	<Header />
+	{@render children()}
+	<Footer />
+</div>
 
 <Scripts />
+
+<style>
+	div {
+		max-width: 525px;
+		margin: auto;
+	}
+</style>

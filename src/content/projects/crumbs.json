@@ -1,8 +1,8 @@
 {
 	"title": "Crumbs",
-	"service": "Development",
+	"service": "dev",
 	"link": "https://github.com/stordahl/crumbs",
 	"linkText": "source",
 	"description": "Crumbs is a CLI for local AI agent and human task sharing",
-	"type": "open-source"
+	"type": "tools"
 }

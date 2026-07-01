@@ -1,3 +1,17 @@
+export interface ContributionDay {
+	count: number;
+	date: string;
+}
+
+export interface ContributionWeek {
+	days: ContributionDay[];
+}
+
+export interface Contributions {
+	total: number;
+	weeks: ContributionWeek[];
+}
+
 export interface BlueskyPost {
 	uri: string;
 	cid: string;

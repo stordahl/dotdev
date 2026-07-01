@@ -222,16 +222,15 @@
   }
 
   blockquote {
-    margin: 3rem auto;
-    border-left: 1px solid var(--orange);
-    font-size: clamp(1rem, calc(0.5vw + 1.2rem), 1.8rem);
-    padding-left: 1.2rem;
+    margin: 30px auto;
+    border-left: 1px solid var(--secondary);
+    font-size: var(--font-md);
+    padding-left: 1rem;
     font-style: italic;
   }
 
   blockquote p {
-    font-size: clamp(1rem, calc(0.5vw + 1.2rem), 1.4rem);
-    line-height: 1.8rem;
+    font-size: var(--font-sm);
   }
 
   table {
@@ -270,6 +269,20 @@
     border-radius: 8px;
     margin-bottom: 20px;
     overflow-x: auto;
+    border: 1px solid light-dark(var(--grey), transparent);
+  }
+
+  /* Shiki dual theme: dark mode via --shiki-dark CSS vars */
+  @media (prefers-color-scheme: dark) {
+
+    .shiki,
+    .shiki span {
+      color: var(--shiki-dark) !important;
+      background-color: var(--shiki-dark-bg) !important;
+      font-style: var(--shiki-dark-font-style) !important;
+      font-weight: var(--shiki-dark-font-weight) !important;
+      text-decoration: var(--shiki-dark-text-decoration) !important;
+    }
   }
 
   code:not(pre > code) {

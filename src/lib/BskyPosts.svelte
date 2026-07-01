@@ -10,8 +10,7 @@
 	function formatDate(dateString: string): string {
 		return new Date(dateString).toLocaleDateString('en-US', {
 			month: 'short',
-			day: 'numeric',
-			year: 'numeric'
+			day: 'numeric'
 		});
 	}
 
@@ -32,14 +31,12 @@
 
 {#if posts.length}
 	<div class="bsky-posts">
-		<h2>Recent Posts</h2>
-		<div class="post-list">
+		<h2>Posts</h2>
+		<div class="swiper">
 			{#each posts as post}
-				<a class="post" href={getPostUrl(post.uri)} target="_blank" rel="noopener">
-					<div class="content">
-						<p class="text">{@html formatText(post.record.text)}</p>
-						<span class="date">{formatDate(post.record.createdAt)}</span>
-					</div>
+				<a class="card" href={getPostUrl(post.uri)} target="_blank" rel="noopener">
+					<div class="text">{@html formatText(post.record.text)}</div>
+					<span class="date">{formatDate(post.record.createdAt)}</span>
 				</a>
 			{/each}
 		</div>
@@ -49,49 +46,76 @@
 <style>
 	.bsky-posts {
 		margin: auto;
-		margin-top: 2rem;
+		margin: 30px 0;
 		max-width: 800px;
 	}
 
 	.bsky-posts h2 {
 		margin-bottom: 1rem;
-		color: var(--white);
-		font-size: clamp(1.75rem, calc(1.75rem + 2vw), 2.5rem);
+		color: var(--foreground);
+		font-size: var(--font-md);
 	}
 
-	.post-list {
+	.swiper {
+		display: flex;
+		gap: 1rem;
+		overflow-x: auto;
+		scroll-snap-type: x mandatory;
+		-webkit-overflow-scrolling: touch;
+		padding-bottom: 0.5rem;
+	}
+
+	.swiper::-webkit-scrollbar {
+		height: 6px;
+	}
+
+	.swiper::-webkit-scrollbar-track {
+		background: transparent;
+	}
+
+	.swiper::-webkit-scrollbar-thumb {
+		background: var(--light-grey);
+		border-radius: 3px;
+	}
+
+	.card {
+		flex: 0 0 200px;
+		height: 200px;
+		scroll-snap-align: start;
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
-	}
-
-	.post {
-		display: block;
-		padding: 0.8rem;
-		transition: padding 0.2s ease;
+		justify-content: space-between;
+		padding: 1rem;
+		border: 1px solid color-mix(in srgb, var(--white) 20%, transparent);
+		background-color: color-mix(in srgb, var(--secondary) 2%, transparent);
 		text-decoration: none;
 		color: inherit;
+		transition: border-color 0.2s;
 	}
 
-	.post:hover {
-		background-color: rgba(255, 255, 255, 0.03);
+	.card:hover {
+		border-color: var(--secondary);
 	}
 
 	.text {
-		color: var(--white);
-		font-size: 1.2rem;
+		font-size: var(--font-sm);
 		line-height: 1.5;
-		margin: 0;
-		margin-bottom: 0.5rem;
+		overflow: hidden;
+		display: -webkit-box;
+		-webkit-line-clamp: 7;
+		-webkit-box-orient: vertical;
+		line-clamp: 7;
+		word-break: break-word;
+	}
+
+	.text :global(a) {
+		color: var(--secondary);
+		text-decoration: underline;
 	}
 
 	.date {
-		color: color-mix(in srgb, var(--orange) 70%, var(--light-grey));
-		font-size: 0.85rem;
-	}
-
-	.post:hover::after {
-		display: none;
-		width: 0;
+		color: color-mix(in srgb, var(--secondary) 70%, var(--light-grey));
+		font-size: var(--font-xs);
+		flex-shrink: 0;
 	}
 </style>

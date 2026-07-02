@@ -3,6 +3,26 @@
 
 <head>
   <meta charset="utf-8" />
+  <script>
+    (function () {
+      var t = localStorage.getItem('theme');
+      if (t) {
+        var m = {
+          blue: ['#0412e3', 'blue'],
+          green: ['#2e7d32', 'green']
+        };
+        if (m[t]) {
+          var d = document.documentElement;
+          d.style.setProperty('--theme-secondary', m[t][0]);
+          d.style.setProperty('--banner-light', "url('/images/" + m[t][1] + "-light.jpg')");
+        }
+      }
+      var mode = localStorage.getItem('mode');
+      if (mode === 'light' || mode === 'dark') {
+        document.documentElement.setAttribute('data-mode', mode);
+      }
+    })();
+  </script>
   <link rel="icon" href="%sveltekit.assets%/favicon.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="me" href="https://sifa.id/p/stordahl.dev">

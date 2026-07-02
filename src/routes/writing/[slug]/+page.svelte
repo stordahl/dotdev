@@ -18,29 +18,24 @@
 	author="Jacob Stordahl"
 />
 
-<div class="header">
-	<h1>{post.title}</h1>
-	<p class="date">Published {formatDate(post.date)}</p>
-</div>
+<a href="/writing" class="back">&larr; Back</a>
 <article>
+	<header>
+		<h1>{post.title}</h1>
+		<p class="date">Published {formatDate(post.date)}</p>
+	</header>
+	<hr />
 	<div class="content">
 		{@html post.content}
 	</div>
 </article>
 
 <style>
-	.header {
-		padding: 2rem 0 1.25rem;
-		border-bottom: 1px solid var(--secondary);
-	}
-
-	.date {
-		margin: 0;
+	hr {
+		margin: 15px 0;
 	}
 
 	article {
-		max-width: 100%;
-		position: relative;
 		padding-top: 1rem;
 	}
 </style>

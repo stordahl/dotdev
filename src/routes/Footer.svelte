@@ -1,5 +1,6 @@
 <script>
 	import Bluesky from '$lib/icons/Bluesky.svelte';
+	import DiscordStatus from '$lib/DiscordStatus.svelte';
 	import Github from '$lib/icons/Github.svelte';
 	import Linkedin from '$lib/icons/Linkedin.svelte';
 </script>
@@ -7,6 +8,7 @@
 <footer>
 	<div class="copyright">
 		<span>© {new Date().getFullYear()} Jacob Stordahl</span>
+		<DiscordStatus />
 	</div>
 	<div class="social-links">
 		<a href="https://bsky.app/profile/stordahl.dev">
@@ -29,11 +31,15 @@
 		margin: 30px auto;
 	}
 
-	.copyright span {
+	.copyright {
 		display: flex;
 		align-items: center;
-		justify-content: center;
-		gap: 7px;
+		span {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 7px;
+		}
 	}
 
 	.social-links {

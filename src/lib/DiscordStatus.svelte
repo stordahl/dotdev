@@ -68,12 +68,12 @@
 
 	.tooltip {
 		position: absolute;
-		top: 100%;
+		bottom: 100%;
 		left: 50%;
-		transform: translateX(-50%) translateY(4px);
-		background-color: var(--black, #1a1a1a);
-		color: var(--white, #fff);
-		padding: 4px 8px;
+		transform: translateX(-50%) translateY(1px);
+		background-color: var(--background);
+		color: var(--foreground);
+		padding: 4px 6px;
 		border-radius: 4px;
 		font-size: 0.75rem;
 		white-space: nowrap;
@@ -84,7 +84,7 @@
 			visibility 0.2s ease;
 		pointer-events: none;
 		z-index: 100;
-		border: 1px solid var(--border-color, rgba(255, 255, 255, 0.2));
+		border: 1px solid var(--light-grey);
 	}
 
 	.status-indicator:hover .tooltip {

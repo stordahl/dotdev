@@ -1,5 +1,5 @@
 <script lang="ts">
-	import DiscordStatus from '$lib/DiscordStatus.svelte';
+	import ThemePicker from '$lib/ThemePicker.svelte';
 </script>
 
 <header>
@@ -8,7 +8,7 @@
 	<nav>
 		<a href="/writing">writing</a>
 		<a href="/sketch-book">sketches</a>
-		<DiscordStatus />
+		<ThemePicker />
 	</nav>
 </header>
 

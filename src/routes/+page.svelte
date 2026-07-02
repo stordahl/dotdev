@@ -31,7 +31,8 @@
 	.banner {
 		height: 150px;
 		width: 100%;
-		background-image: light-dark(url('/images/blue-light.jpg'), url('/images/blue-dark.jpg'));
+		border-radius: var(--radius);
+		background-image: var(--banner-image);
 		background-size: cover;
 		margin-bottom: 30px;
 	}

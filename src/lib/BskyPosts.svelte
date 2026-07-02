@@ -87,6 +87,7 @@
 		justify-content: space-between;
 		padding: 1rem;
 		border: 1px solid color-mix(in srgb, var(--white) 20%, transparent);
+		border-radius: var(--radius);
 		background-color: color-mix(in srgb, var(--secondary) 2%, transparent);
 		text-decoration: none;
 		color: inherit;

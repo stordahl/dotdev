@@ -1,0 +1,9 @@
+{
+  "title": "Moleskin",
+  "service": "design & dev",
+  "link": "https://github.com/stordahl/moleskin",
+  "linkText": "visit",
+  "description": "A personal web journal you self host on Cloudflare",
+  "type": "work",
+  "order": 4
+}

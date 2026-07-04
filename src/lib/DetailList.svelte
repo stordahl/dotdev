@@ -12,9 +12,10 @@
 	type Props = {
 		items: ListItem[];
 		title: string;
+		startOpen?: boolean;
 	};
 
-	const { items, title }: Props = $props();
+	const { items, startOpen = false, title }: Props = $props();
 </script>
 
 <section>
@@ -25,9 +26,9 @@
 				<Detail
 					title={item.title}
 					service={item.service}
-					index={index + 1}
 					link={item.link}
 					linkText={item.linkText}
+					defaultOpen={startOpen && index === 0}
 				>
 					<p>{item.description}</p>
 				</Detail>

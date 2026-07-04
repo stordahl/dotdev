@@ -22,9 +22,13 @@
 	});
 </script>
 
+<a href="#main-content" class="skip-link">Skip to content</a>
+
 <div>
 	<Header />
-	{@render children()}
+	<main id="main-content" tabindex="-1">
+		{@render children()}
+	</main>
 	<Footer />
 </div>
 

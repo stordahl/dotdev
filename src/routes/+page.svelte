@@ -12,7 +12,7 @@
 
 <section>
 	<div class="banner"></div>
-	<h1>Hi, I'm Jacob</h1>
+	<h1>Hi, I'm Jacob.</h1>
 	<p>
 		I'm a Software Engineer, Web Developer, and recovering musician. I've been building stuff on the
 		web for a decade, and still love crafting exceptional user experiences. Currently, I'm a

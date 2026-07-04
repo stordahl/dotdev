@@ -344,4 +344,26 @@
   article ol {
     margin-bottom: 20px;
   }
+
+  .skip-link {
+    position: absolute;
+    top: -100%;
+    left: 0;
+    z-index: 100;
+    padding: 8px 16px;
+    background: var(--foreground);
+    color: var(--background);
+    font-size: var(--font-sm);
+    text-decoration: none;
+    transition: top 0.1s;
+  }
+
+  .skip-link:focus {
+    top: 0;
+    outline: none;
+  }
+
+  #main-content:focus {
+    outline: none;
+  }
 }

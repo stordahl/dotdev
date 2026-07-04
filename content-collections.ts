@@ -1,5 +1,6 @@
 import { defineCollection, defineConfig } from '@content-collections/core';
 import { compileMarkdown } from '@content-collections/markdown';
+import remarkGfm from 'remark-gfm';
 import rehypeShiki from '@shikijs/rehype';
 import * as v from 'valibot';
 
@@ -24,6 +25,7 @@ const posts = defineCollection({
       return context.skip('document is a draft');
     }
     const content = await compileMarkdown(context, doc, {
+      remarkPlugins: [remarkGfm],
       rehypePlugins: [[rehypeShiki, {
         themes: {
           light: "github-light",
@@ -57,7 +59,9 @@ const sketches = defineCollection({
     if (!doc.published) {
       return context.skip('document is a draft');
     }
-    const content = await compileMarkdown(context, doc);
+    const content = await compileMarkdown(context, doc, {
+      remarkPlugins: [remarkGfm],
+    });
 
     return {
       ...doc,
@@ -82,7 +86,8 @@ const projects = defineCollection({
     link: v.string(),
     linkText: v.string(),
     description: v.string(),
-    type: v.union([v.literal('work'), v.literal('tools')])
+    type: v.union([v.literal('work'), v.literal('tools')]),
+    order: v.optional(v.number())
   }),
   transform: async (doc) => {
     return {

@@ -26,7 +26,13 @@
 </script>
 
 {#if contributions.weeks.length}
-	<a class="graph" href="https://github.com/stordahl" target="_blank" rel="noopener">
+	<a
+		class="graph"
+		href="https://github.com/stordahl"
+		target="_blank"
+		rel="noopener"
+		aria-labelledby="github-graph-label"
+	>
 		<svg viewBox="0 0 {width} {height}" xmlns="http://www.w3.org/2000/svg">
 			{#each contributions.weeks as week, w}
 				{#each week.days as day, d}
@@ -41,6 +47,7 @@
 				{/each}
 			{/each}
 		</svg>
+		<span id="github-graph-label">view my github</span>
 	</a>
 {/if}
 
@@ -54,5 +61,12 @@
 	.graph svg {
 		width: 100%;
 		height: auto;
+	}
+
+	#github-graph-label {
+		display: block;
+		font-size: var(--font-xs);
+		text-align: right;
+		font-style: italic;
 	}
 </style>

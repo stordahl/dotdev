@@ -53,11 +53,12 @@ async function fetchBluesky(): Promise<BlueskyPost[]> {
 				return true;
 			})
 			.slice(0, 5)
-			.map((item: { post: BlueskyPost }) => ({
+			.map((item: { post: BlueskyPost & { likeCount?: number } }) => ({
 				uri: item.post.uri,
 				cid: item.post.cid,
 				author: item.post.author,
 				record: { text: item.post.record.text, createdAt: item.post.record.createdAt },
+				likeCount: item.post.likeCount ?? 0,
 				indexedAt: item.post.indexedAt
 			}));
 

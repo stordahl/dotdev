@@ -12,9 +12,9 @@
 </script>
 
 <Seo
-	title="Writing | Jacob Stordahl"
+	title="writing | Jacob Stordahl"
 	description="A collection of my writing"
 	ogImage="/images/og/writing.jpg"
 />
 
-<LinkList basePath="writing" items={data.posts} title="Writing" />
+<LinkList basePath="writing" items={data.posts} title="writing" />

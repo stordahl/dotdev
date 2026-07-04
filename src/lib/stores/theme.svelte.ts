@@ -7,6 +7,7 @@ export interface Theme {
 export const themes: Record<string, Theme> = {
   blue: { label: 'Blue', color: '#0412e3', image: 'blue' },
   green: { label: 'Green', color: '#2e7d32', image: 'green' },
+  pink: { label: 'Pink', color: '#B355AD', image: 'pink' },
 };
 
 export type ThemeMode = 'system' | 'light' | 'dark';

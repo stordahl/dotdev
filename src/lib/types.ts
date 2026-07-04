@@ -25,5 +25,6 @@ export interface BlueskyPost {
 		text: string;
 		createdAt: string;
 	};
+	likeCount: number;
 	indexedAt: string;
 }

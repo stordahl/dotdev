@@ -4,5 +4,6 @@
 	"link": "https://github.com/stordahl/crumbs",
 	"linkText": "source",
 	"description": "Crumbs is a CLI for local AI agent and human task sharing",
-	"type": "tools"
+	"type": "tools",
+	"order": 6
 }

@@ -1,20 +1,19 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import { slide } from 'svelte/transition';
-	import { roman } from './utils';
-	import ArrowUpRight from './icons/ArrowUpRight.svelte';
 
 	type Props = {
 		children: Snippet;
-		index: number;
 		service?: string | undefined;
 		title: string;
 		link: string | undefined;
 		linkText: string | undefined;
+		defaultOpen?: boolean;
 	};
-	let { children, link, linkText, service, title }: Props = $props();
+	let { children, defaultOpen = false, link, linkText, service, title }: Props = $props();
 
-	let open = $state(false);
+	// svelte-ignore state_referenced_locally
+	let open = $state(defaultOpen);
 	let detailsEl: HTMLDetailsElement;
 
 	function handleSummaryClick(e: MouseEvent) {
@@ -26,6 +25,12 @@
 			open = true;
 		}
 	}
+
+	$effect(() => {
+		if (open) {
+			detailsEl?.setAttribute('open', '');
+		}
+	});
 </script>
 
 <details bind:this={detailsEl}>
@@ -38,7 +43,13 @@
 		{/if}
 	</summary>
 	{#if open}
-		<div class="content" transition:slide onoutroend={() => { if (!open) detailsEl?.removeAttribute('open'); }}>
+		<div
+			class="content"
+			transition:slide
+			onoutroend={() => {
+				if (!open) detailsEl?.removeAttribute('open');
+			}}
+		>
 			<div class="content-inner">
 				{@render children()}
 			</div>
@@ -107,17 +118,21 @@
 
 			margin: 0;
 		}
+
 		display: flex;
 		flex-direction: column;
 		gap: 5px;
 		padding-top: 5px;
+
+		.content-inner {
+			padding-left: 20px;
+		}
+
 		a {
 			font-size: var(--font-sm);
 			font-weight: 500;
+			text-align: right;
 			border: none;
-			display: flex;
-			gap: 5px;
-			align-items: center;
 		}
 	}
 

@@ -36,7 +36,27 @@
 			{#each posts as post}
 				<a class="card" href={getPostUrl(post.uri)} target="_blank" rel="noopener">
 					<div class="text">{@html formatText(post.record.text)}</div>
-					<span class="date">{formatDate(post.record.createdAt)}</span>
+					<div class="meta">
+						<span class="date">{formatDate(post.record.createdAt)}</span>
+						<span class="likes">
+							<svg
+								class="heart"
+								viewBox="0 0 24 24"
+								width="12"
+								height="12"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							>
+								<path
+									d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8z"
+								/>
+							</svg>
+							{post.likeCount}
+						</span>
+					</div>
 				</a>
 			{/each}
 		</div>
@@ -114,9 +134,28 @@
 		text-decoration: underline;
 	}
 
+	.meta {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		justify-content: space-between;
+		flex-shrink: 0;
+	}
+
+	.likes {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.2rem;
+		color: color-mix(in srgb, var(--secondary) 70%, var(--light-grey));
+		font-size: var(--font-xs);
+	}
+
+	.heart {
+		flex-shrink: 0;
+	}
+
 	.date {
 		color: color-mix(in srgb, var(--secondary) 70%, var(--light-grey));
 		font-size: var(--font-xs);
-		flex-shrink: 0;
 	}
 </style>

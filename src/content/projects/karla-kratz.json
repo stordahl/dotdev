@@ -4,5 +4,6 @@
 	"link": "https://www.karlakratz.com/",
 	"linkText": "visit",
 	"description": "Karla Kratz is a poet based in Pennsylvania. I connected with Karla's son Andy, who was looking for a Developer to build the site he designed. We worked together to build out a Sanity backend to power the site, and then implemented Andy's design as a SvelteKit website.",
-	"type": "work"
+	"type": "work",
+	"order": 2
 }

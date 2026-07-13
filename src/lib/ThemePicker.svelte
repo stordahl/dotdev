@@ -112,9 +112,8 @@
 
 	.dropdown {
 		position: absolute;
-		top: 100%;
-		left: 50%;
-		transform: translateX(-50%);
+		top: 125%;
+		right: 0px;
 		margin-top: 8px;
 		min-width: 140px;
 		background: var(--background);

@@ -15,10 +15,6 @@
 
 <svelte:window bind:innerWidth={vw} />
 
-<Seo
-	title="Sketch Book | Jacob Stordahl"
-	description="A collection of small UI ideas"
-	ogImage="/images/og/sketches.jpg"
-/>
+<Seo title="Sketch Book | Jacob Stordahl" description="A collection of small UI ideas" />
 
 <LinkList basePath="sketch-book" items={data.sketches} title="sketches" />

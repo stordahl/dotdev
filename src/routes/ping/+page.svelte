@@ -33,11 +33,7 @@
 	}
 </script>
 
-<Seo
-	title="Ping Me | Jacob Stordahl"
-	description="Ask me a question anonymously."
-	ogImage="/images/og/base.jpg"
-/>
+<Seo title="Ping Me | Jacob Stordahl" description="Ask me a question anonymously." />
 
 <div class="question-form">
 	<h3>Ping Me</h3>

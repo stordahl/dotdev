@@ -1,34 +1,47 @@
 <script>
 	import Bluesky from '$lib/icons/Bluesky.svelte';
-	import DiscordStatus from '$lib/DiscordStatus.svelte';
 	import Github from '$lib/icons/Github.svelte';
 	import Linkedin from '$lib/icons/Linkedin.svelte';
 </script>
 
 <footer>
-	<div class="copyright">
-		<span>© {new Date().getFullYear()} Jacob Stordahl</span>
-		<DiscordStatus />
+	<div class="footer-header">
+		<div class="copyright">
+			<span>© {new Date().getFullYear()} Jacob Stordahl</span>
+		</div>
+		<div class="social-links">
+			<a href="https://bsky.app/profile/stordahl.dev">
+				<Bluesky />
+			</a>
+			<a href="https://github.com/stordahl">
+				<Github />
+			</a>
+			<a href="https://linkedin.com/in/jacobstordahl">
+				<Linkedin />
+			</a>
+		</div>
 	</div>
-	<div class="social-links">
-		<a href="https://bsky.app/profile/stordahl.dev">
-			<Bluesky />
-		</a>
-		<a href="https://github.com/stordahl">
-			<Github />
-		</a>
-		<a href="https://linkedin.com/in/jacobstordahl">
-			<Linkedin />
-		</a>
+	<div class="footer-links">
+		<ul>
+			<li><a href="/">home</a></li>
+			<li><a href="/writing">writing</a></li>
+			<li><a href="/sketches">sketches</a></li>
+			<li><a href="/ping">ping</a></li>
+			<li><a href="/ai">how i use ai</a></li>
+		</ul>
+		<span class="tagline">don't be<br />careful, you'll<br />live too long</span>
 	</div>
 </footer>
 
 <style>
 	footer {
-		display: flex;
-		justify-content: space-between;
 		font-size: var(--font-sm);
 		margin: 30px auto;
+	}
+
+	.footer-header {
+		display: flex;
+		justify-content: space-between;
 	}
 
 	.copyright {
@@ -48,6 +61,23 @@
 		:global(svg) {
 			width: 20px;
 			fill: var(--foreground);
+		}
+	}
+
+	.footer-links {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-end;
+		margin-top: 15px;
+		ul {
+			padding-left: 0px;
+			list-style: none;
+			font-size: var(--font-xs);
+		}
+		.tagline {
+			text-align: right;
+			font-family: 'Rock Salt', cursive;
+			color: var(--secondary);
 		}
 	}
 </style>

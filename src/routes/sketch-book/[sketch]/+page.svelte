@@ -20,11 +20,7 @@
 	let visibleTab: 'code' | 'preview' = $state('preview');
 </script>
 
-<Seo
-	title="{markdown?.title} | Jacob Stordahl"
-	description="from my sketchbook"
-	ogImage="/images/og/sketches.jpg"
-/>
+<Seo title="{markdown?.title} | Jacob Stordahl" description="from my sketchbook" />
 
 <article>
 	<a href="/sketch-book" class="back">&larr; Back</a>

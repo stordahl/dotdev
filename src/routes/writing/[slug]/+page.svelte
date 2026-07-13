@@ -14,7 +14,6 @@
 <Seo
 	title={`${post.title} | Jacob Stordahl`}
 	description={post.description}
-	ogImage="/images/og/writing.jpg"
 	author="Jacob Stordahl"
 />
 

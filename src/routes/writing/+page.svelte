@@ -11,10 +11,6 @@
 	const { data }: Props = $props();
 </script>
 
-<Seo
-	title="writing | Jacob Stordahl"
-	description="A collection of my writing"
-	ogImage="/images/og/writing.jpg"
-/>
+<Seo title="writing | Jacob Stordahl" description="A collection of my writing" />
 
 <LinkList basePath="writing" items={data.posts} title="writing" />

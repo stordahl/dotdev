@@ -116,7 +116,6 @@
 
 <style>
 	.ascii-container {
-		--foreground: #fff;
 		width: 100%;
 		box-sizing: border-box;
 	}
@@ -136,7 +135,6 @@
 		padding: 0;
 		margin: 0;
 		color: color-mix(in srgb, var(--foreground), transparent 90%);
-		margin-bottom: -1rem;
 		overflow: hidden;
 	}
 </style>

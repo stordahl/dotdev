@@ -2,9 +2,16 @@
 	import DetailList from '$lib/DetailList.svelte';
 	import { allProjects } from 'content-collections';
 
-	const workItems = allProjects.filter((project) => project.type === 'work');
-	const openSourceItems = allProjects.filter((project) => project.type === 'open-source');
+	const sorted = [...allProjects].sort((a, b) => (a.order ?? 99) - (b.order ?? 99));
 </script>
 
-<DetailList items={workItems} title="Selected Work" />
-<DetailList items={openSourceItems} title="Open Source" />
+<div>
+	<DetailList items={sorted} title="Selected Work" startOpen={true} />
+</div>
+
+<style>
+	div {
+		max-width: 800px;
+		margin: auto;
+	}
+</style>

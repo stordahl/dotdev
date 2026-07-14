@@ -1,210 +1,365 @@
-@layer reset, base, elements;
+@layer reset, variables, base, elements;
 
 @layer reset {
-	*,
-	*::before,
-	*::after {
-		box-sizing: border-box;
-	}
 
-	* {
-		margin: 0;
-	}
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
 
-	body {
-		line-height: 1.5;
-		-webkit-font-smoothing: antialiased;
-		overflow-x: hidden;
-	}
+  * {
+    margin: 0;
+  }
 
-	img,
-	picture,
-	video,
-	canvas,
-	svg {
-		display: block;
-		max-width: 100%;
-	}
+  body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    color-scheme: light dark;
+  }
 
-	input,
-	button,
-	textarea,
-	select {
-		font: inherit;
-	}
+  img,
+  picture,
+  video,
+  canvas,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
 
-	p,
-	h1,
-	h2,
-	h3,
-	h4,
-	h5,
-	h6 {
-		overflow-wrap: break-word;
-	}
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    overflow-wrap: break-word;
+  }
+}
+
+@layer variables {
+  :root {
+    --theme-secondary: var(--blue);
+    --banner-light: url('/images/blue-light.jpg');
+    --banner-dark: url('/images/dark.jpg');
+  }
+
+  body {
+    --white: #fffef9;
+    --black: #161614;
+    --light-grey: #8d8d8d;
+    --grey: #403d39;
+    --orange: #eb5e28;
+    --blue: #0412e3;
+
+    --banner-image: var(--banner-light);
+    --background: light-dark(var(--white), var(--black));
+    --foreground: light-dark(var(--black), var(--white));
+    --secondary: light-dark(var(--theme-secondary), var(--light-grey));
+
+    --border: 1px solid var(--foreground);
+    --radius: 2px;
+
+    --font-xs: 0.75rem;
+    --font-sm: 0.875rem;
+    --font-md: 1rem;
+    --font-lg: 1.2rem;
+    --font-xl: 1.5rem;
+    --font-2xl: 1.75rem;
+    --font-3xl: 2.25rem;
+  }
 }
 
 @layer base {
-	@font-face {
-		font-family: 'Basheq';
-		src: url('/fonts/BasheqVintageDemoVersionRegular-ov13x.ttf') format('truetype');
-	}
 
-	html {
-		scroll-behavior: smooth;
-	}
+  /**
+* @license
+*
+* Font Family: Sentient
+* Designed by: Noopur Choksi
+* URL: https://www.fontshare.com/fonts/sentient
+* © 2026 Indian Type Foundry
+*
+* Sentient Regular 
+* Sentient Italic 
+* Sentient Medium 
+* Sentient MediumItalic 
+* Sentient Bold 
+* Sentient BoldItalic 
+*/
+  @font-face {
+    font-family: 'Sentient';
+    src: url('/fonts/Sentient-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-display: swap;
+    font-style: normal;
+  }
 
-	body {
-		--white: #fffcf2;
-		--black: #1c1c1b;
-		--light-grey: #ccc5b9;
-		--grey: #403d39;
-		--orange: #eb5e28;
+  @font-face {
+    font-family: 'Sentient';
+    src: url('/fonts/Sentient-Italic.woff2') format('woff2');
+    font-weight: 400;
+    font-display: swap;
+    font-style: italic;
+  }
 
-		--border: 1px solid var(--white);
+  @font-face {
+    font-family: 'Sentient';
+    src: url('/fonts/Sentient-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-display: swap;
+    font-style: normal;
+  }
 
-		--font-size-large: clamp(2rem, calc(2rem + 5vw), 6rem);
+  @font-face {
+    font-family: 'Sentient';
+    src: url('/fonts/Sentient-MediumItalic.woff2') format('woff2');
+    font-weight: 500;
+    font-display: swap;
+    font-style: italic;
+  }
 
-		background-color: var(--black);
-		background-image: url('/images/noise.svg');
-		color: var(--white);
-		max-width: 1000px;
-		margin: 0 auto;
-		padding: 0 20px;
-		font-family: 'Fraunces', serif;
-		font-size: 14px;
-		scroll-behavior: smooth;
+  @font-face {
+    font-family: 'Sentient';
+    src: url('/fonts/Sentient-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-display: swap;
+    font-style: normal;
+  }
 
-		@supports (-moz-appearance: none) {
-			& {
-				background-blend-mode: soft-light;
-			}
-		}
-	}
+  @font-face {
+    font-family: 'Sentient';
+    src: url('/fonts/Sentient-BoldItalic.woff2') format('woff2');
+    font-weight: 700;
+    font-display: swap;
+    font-style: italic;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    scroll-behavior: smooth;
+
+    @supports (-moz-appearance: none) {
+      & {
+        background-blend-mode: soft-light;
+      }
+    }
+  }
 }
 
 @layer elements {
-	h1,
-	h2,
-	h3,
-	h4 {
-		font-family: 'Basheq', serif;
-		font-weight: 300;
-	}
 
-	h1 {
-		font-size: clamp(2rem, calc(2vw + 2rem), 2.3rem);
-	}
+  h1,
+  h2,
+  h3 {
+    font-weight: 500;
+  }
 
-	h2 {
-		font-size: clamp(1.25rem, calc(2vw + 1.25rem), 1.7rem);
-	}
+  h1 {
+    font-size: var(--font-xl);
+  }
 
-	h3 {
-		font-size: clamp(1.15rem, calc(2vw + 1.15rem), 1.3rem);
-	}
+  h2 {
+    font-size: var(--font-lg);
+  }
 
-	p {
-		font-size: clamp(1rem, calc(1vw + 1rem), 1.2rem);
-		font-weight: 300;
-	}
+  h3 {
+    font-size: var(--font-md);
+  }
 
-	a {
-		--link-color: var(--orange);
-		color: var(--link-color);
-		text-decoration: none;
-		border-bottom: 2px solid transparent;
-		position: relative;
+  p {
+    font-size: var(--font-md);
+    line-height: 1.3;
+    margin-bottom: 30px;
+  }
 
-		&:after {
-			content: '';
-			background-color: var(--link-color);
-			position: absolute;
-			bottom: 0;
-			left: 0;
-			height: 1px;
-			width: 0;
-			transition: 0.2s;
-		}
+  a {
+    --link-color: var(--secondary);
+    color: var(--link-color);
+    text-decoration: none;
+    transition: text-decoration 0.2s ease-in-out 0s;
 
-		&:hover:after {
-			width: 100%;
-		}
-	}
+    &:hover {
+      text-decoration: underline;
+    }
 
-	ul,
-	ol {
-		padding-left: 2ch;
-		font-size: clamp(1rem, calc(1vw + 1rem), 1.3rem);
-		font-weight: 300;
-	}
+    /*
+    border-bottom: 2px solid transparent;
+    position: relative;
 
-	blockquote {
-		margin: 3rem auto;
-		border-left: 1px solid var(--orange);
-		font-size: clamp(1rem, calc(0.5vw + 1.2rem), 1.8rem);
-		padding-left: 1.2rem;
-		font-style: italic;
-	}
+    &:after {
+      content: '';
+      background-color: var(--link-color);
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 1px;
+      width: 0;
+      transition: 0.2s;
+    }
 
-	blockquote p {
-		font-size: clamp(1rem, calc(0.5vw + 1.2rem), 1.4rem);
-		line-height: 1.8rem;
-	}
+    &:hover:after {
+      width: 100%;
+    }
+    */
+  }
 
-	table {
-		width: 100%;
-		text-align: left;
-		font-family: monospace;
-		border-collapse: collapse;
-		border: 1px solid var(--white);
-		padding: 0.5rem;
-		margin-bottom: 2rem;
-	}
+  ul,
+  ol {
+    padding-left: 2ch;
+    font-size: var(--font-md);
+  }
 
-	table th {
-		font-size: 0.9rem;
-	}
+  blockquote {
+    margin: 30px auto;
+    border-left: 1px solid var(--secondary);
+    font-size: var(--font-md);
+    padding-left: 1rem;
+    font-style: italic;
+  }
 
-	table td,
-	table th {
-		border: 1px solid var(--white);
-		padding: 5px;
-	}
+  blockquote p {
+    font-size: var(--font-sm);
+  }
 
-	.twitter-tweet.twitter-tweet-rendered {
-		margin: 10px auto;
-	}
+  table {
+    width: 100%;
+    text-align: left;
+    font-family: monospace;
+    border-collapse: collapse;
+    border: 1px solid var(--white);
+    padding: 0.5rem;
+    margin-bottom: 2rem;
+  }
 
-	code[class*='language-'],
-	pre[class*='language-'],
-	code * {
-		font-family: monospace !important;
-	}
+  table th {
+    font-size: 0.9rem;
+  }
 
-	pre {
-		padding: 20px;
-		border-radius: 8px;
-		margin-bottom: 20px;
-		overflow-x: auto;
-	}
+  table td,
+  table th {
+    border: 1px solid var(--white);
+    padding: 5px;
+  }
 
-	code:not(pre > code) {
-		background-color: #2e353b;
-		color: #d3c6aa;
-		font-size: 1rem;
-		padding: 3px 5px;
-		border-radius: 5px;
-	}
+  code[class*='language-'],
+  pre[class*='language-'],
+  code * {
+    font-family: monospace !important;
+    font-size: var(--font-sm)
+  }
 
-	article *:is(h2, h3, h4, h5, h6) {
-		font-family: 'Fraunces', serif;
-		margin-bottom: 0.75rem;
-	}
+  pre {
+    padding: 20px;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    border: 1px solid light-dark(var(--grey), transparent);
+  }
 
-	article p,
-	article ul,
-	article ol {
-		margin-bottom: 1.75rem;
-	}
+  /* Force color-scheme when mode is pinned via data-mode */
+  html[data-mode='light'] body {
+    color-scheme: light;
+  }
+
+  html[data-mode='dark'] body {
+    color-scheme: dark;
+  }
+
+  /* Dark mode overrides: OS preference + forced dark */
+  @media (prefers-color-scheme: dark) {
+    body {
+      --banner-image: var(--banner-dark);
+    }
+  }
+
+  html[data-mode='light'] body {
+    --banner-image: var(--banner-light);
+  }
+
+  html[data-mode='dark'] body {
+    --banner-image: var(--banner-dark);
+  }
+
+  @media (prefers-color-scheme: dark) {
+
+    .shiki,
+    .shiki span {
+      color: var(--shiki-dark) !important;
+      background-color: var(--shiki-dark-bg) !important;
+      font-style: var(--shiki-dark-font-style) !important;
+      font-weight: var(--shiki-dark-font-weight) !important;
+      text-decoration: var(--shiki-dark-text-decoration) !important;
+    }
+  }
+
+  html[data-mode='dark'] {
+
+    .shiki,
+    .shiki span {
+      color: var(--shiki-dark) !important;
+      background-color: var(--shiki-dark-bg) !important;
+      font-style: var(--shiki-dark-font-style) !important;
+      font-weight: var(--shiki-dark-font-weight) !important;
+      text-decoration: var(--shiki-dark-text-decoration) !important;
+    }
+  }
+
+  code:not(pre > code) {
+    background-color: light-dark(#e9e9e9, var(--grey));
+    font-size: var(--font-sm);
+    padding: 1px 4px;
+    border-radius: 5px;
+  }
+
+  article *:is(h2, h3, h4, h5, h6) {
+    margin-bottom: 0.75rem;
+  }
+
+  article p,
+  article ul,
+  article ol {
+    margin-bottom: 20px;
+  }
+
+  .skip-link {
+    position: absolute;
+    top: -100%;
+    left: 0;
+    z-index: 100;
+    padding: 8px 16px;
+    background: var(--foreground);
+    color: var(--background);
+    font-size: var(--font-sm);
+    text-decoration: none;
+    transition: top 0.1s;
+  }
+
+  .skip-link:focus {
+    top: 0;
+    outline: none;
+  }
+
+  #main-content:focus {
+    outline: none;
+  }
 }

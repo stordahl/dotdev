@@ -27,22 +27,22 @@ For e-commerce retailers, unified UI styles are critical for cohesive pages, esp
 <!-- before update -->
 <!-- HTML -->
 <div class="container">
-	<button>
-		<span>Shop</span>
-	</button>
+  <button>
+    <span>Shop</span>
+  </button>
 </div>
 
 <!-- Client Custom CSS --->
 <style>
-	.container button span {
-		color: red;
-	}
+  .container button span {
+    color: red;
+  }
 </style>
 
 <!-- after update -->
 <!-- HTML -->
 <div class="container">
-	<button>Shop</button>
+  <button>Shop</button>
 </div>
 ```
 
@@ -78,7 +78,7 @@ The main difference here is that Cloudflare Workers have a feature called the Wo
 Since we already have multiple GCP Functions in our codebase, we need to make a pretty good case for diverging from that norm, so I set out to do some basic testing of these two prototypes. For these tests I used [autocannon](https://github.com/mcollina/autocannon), a popular Node based http 1.1 testing tool. Besides testing the prototypes, I wanted some kind of control so I ran autocannon against a static CSS file from our storage bucket. For each test I spawned 100 connections. The results were pretty convincing...
 
 | Service     | Total requests | p50  | p90   | p99    |
-| ----------- | -------------- | ---- | ----- | ------ |
+|-------------|----------------|------|-------|--------|
 | Static File | 11k            | 89ms | 117ms | 188ms  |
 | GCP         | 9k             | 96ms | 117ms | 1255ms |
 | CF          | 25k            | 36ms | 48ms  | 70ms   |

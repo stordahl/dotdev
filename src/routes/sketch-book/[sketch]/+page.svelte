@@ -20,11 +20,7 @@
 	let visibleTab: 'code' | 'preview' = $state('preview');
 </script>
 
-<Seo
-	title="{markdown?.title} | Jacob Stordahl"
-	description="from my sketchbook"
-	ogImage="/images/og/sketches.jpg"
-/>
+<Seo title="{markdown?.title} | Jacob Stordahl" description="from my sketchbook" />
 
 <article>
 	<a href="/sketch-book" class="back">&larr; Back</a>
@@ -63,18 +59,10 @@
 </article>
 
 <style>
-	article {
-		margin: 2rem auto;
-	}
-
 	.back {
 		display: block;
 		margin-bottom: 10px;
 		width: max-content;
-	}
-
-	.tabs {
-		border-bottom: 1px solid var(--grey);
 	}
 
 	.tabs button {
@@ -89,7 +77,8 @@
 	}
 
 	.tabs button.active {
-		color: var(--orange);
+		color: var(--secondary);
+		text-decoration: underline;
 	}
 
 	.tabs-content {
@@ -104,6 +93,5 @@
 		width: 100%;
 		height: 100%;
 		overflow: scroll;
-		border-radius: 8px;
 	}
 </style>

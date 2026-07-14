@@ -33,12 +33,7 @@
 	}
 </script>
 
-<Seo
-	title="Ping Me | Jacob Stordahl"
-	description="Ask me a question anonymously."
-	ogImage="/images/og/base.jpg"
-	author="Jacob Stordahl"
-/>
+<Seo title="Ping Me | Jacob Stordahl" description="Ask me a question anonymously." />
 
 <div class="question-form">
 	<h3>Ping Me</h3>
@@ -107,22 +102,19 @@
 	}
 
 	h3 {
-		font-family: 'Basheq', serif;
-		font-size: clamp(2.5rem, calc(2.5rem + 2vw), 4rem);
-		font-weight: 300;
+		font-size: var(--font-2xl);
 		text-align: center;
 	}
 
 	.description {
-		font-size: 1.5rem;
-		font-weight: 300;
+		font-size: var(--font-md);
 		text-align: center;
 		text-wrap: balance;
-		margin-bottom: 1rem;
 	}
 
 	.disclaimer {
-		font-size: 1rem;
+		font-size: var(--font-sm);
+		font-style: italic;
 		text-align: center;
 		color: var(--light-grey);
 		margin-bottom: 1rem;
@@ -138,11 +130,10 @@
 		padding: 1rem;
 		padding-bottom: 2rem;
 		background-color: transparent;
-		border: 1px solid var(--grey);
-		border-radius: 0px;
-		color: var(--white);
-		font-size: 1.1rem;
-		font-family: 'Fraunces', serif;
+		border: 1px solid var(--light-grey);
+		border-radius: var(--radius);
+		color: var(--foreground);
+		font-size: var(--font-lg);
 		resize: vertical;
 		transition: border-color 0.2s;
 		resize: none;
@@ -150,7 +141,7 @@
 
 	textarea:focus {
 		outline: none;
-		border-color: var(--white);
+		border-color: var(--foreground);
 	}
 
 	textarea::placeholder {
@@ -180,13 +171,12 @@
 		display: inline-flex;
 		align-items: center;
 		gap: 0.5rem;
-		padding: 0.75rem 1.5rem;
+		padding: 5px 10px;
 		background: none;
-		border: 1px solid var(--orange);
-		color: var(--white);
-		border-radius: 0px;
-		font-size: 1.1rem;
-		font-family: 'Fraunces', serif;
+		border: 1px solid var(--secondary);
+		color: var(--secondary);
+		border-radius: var(--radius);
+		font-size: var(--font-md);
 		font-weight: 500;
 		cursor: pointer;
 	}

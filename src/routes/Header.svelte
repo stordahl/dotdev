@@ -1,17 +1,14 @@
 <script lang="ts">
-	import DiscordStatus from '$lib/DiscordStatus.svelte';
+	import ThemePicker from '$lib/ThemePicker.svelte';
 </script>
 
 <header>
-	<a href="/" aria-label="home page">
-		<img src="/images/star-pair.svg" alt="a pair of star icons" />
-	</a>
+	<a href="/" aria-label="home">stordahl.dev</a>
 
 	<nav>
-		<a href="/work">work</a>
 		<a href="/writing">writing</a>
 		<a href="/sketch-book">sketches</a>
-		<DiscordStatus />
+		<ThemePicker />
 	</nav>
 </header>
 
@@ -21,7 +18,8 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		border-bottom: var(--border);
+		max-width: 800px;
+		margin: auto;
 	}
 
 	nav {
@@ -31,19 +29,7 @@
 	}
 
 	a {
-		color: var(--white);
-		font-size: 1.25rem;
-	}
-
-	a:has(img) {
-		transform: scale(0.8);
-		transition: transform 0.2s ease-in-out 0s;
-		border: none;
-		&:hover {
-			transform: scale(0.9);
-		}
-		&:after {
-			display: none;
-		}
+		color: var(--foreground);
+		font-size: var(--font-sm);
 	}
 </style>

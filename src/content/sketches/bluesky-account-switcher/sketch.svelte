@@ -119,6 +119,7 @@
 			color: rgb(251, 251, 254);
 			text-align: left;
 			font-weight: 500;
+			font-size: 14px;
 
 			span {
 				white-space: nowrap;

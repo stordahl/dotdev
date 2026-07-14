@@ -14,7 +14,7 @@
 	<div class="banner"></div>
 	<h1>Hi, I'm Jacob.</h1>
 	<p>
-		I'm a Software Engineer, Web Developer, and recovering musician. I've been building stuff on the
+		I'm a Software Engineer, Web Developer, and recovering artist. I've been building stuff on the
 		web for a decade, and still love crafting exceptional user experiences. Currently, I'm a
 		Software Engineer at <a href="https://stylitics.com">Stylitics</a>. I'm also a maintainer of a
 		number of open source projects, including the

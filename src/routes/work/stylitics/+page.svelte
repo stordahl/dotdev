@@ -60,4 +60,8 @@
 		max-width: 800px;
 		margin: auto;
 	}
+
+	h1 {
+		margin-bottom: 30px;
+	}
 </style>

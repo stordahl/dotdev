@@ -30,7 +30,7 @@
 		gap: 5px;
 	}
 	li {
-		font-size: var(--font-lg);
+		font-size: var(--font-md);
 		a {
 			width: 100%;
 			display: flex;

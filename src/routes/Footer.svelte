@@ -27,7 +27,6 @@
 			<li><a href="/writing">writing</a></li>
 			<li><a href="/sketches">sketches</a></li>
 			<li><a href="/ping">ping</a></li>
-			<li><a href="/ai">how i use ai</a></li>
 		</ul>
 		<span class="tagline">don't be<br />careful, you'll<br />live too long</span>
 	</div>

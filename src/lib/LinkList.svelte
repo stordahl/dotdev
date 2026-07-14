@@ -42,12 +42,6 @@
 			}
 			.date {
 				text-align: right;
-				width: min-content;
-				@media screen and (min-width: 550px) {
-					& {
-						width: max-content;
-					}
-				}
 			}
 		}
 	}

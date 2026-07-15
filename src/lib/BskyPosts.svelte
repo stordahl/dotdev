@@ -132,6 +132,7 @@
 	.text :global(a) {
 		color: var(--secondary);
 		text-decoration: underline;
+		text-decoration-style: wavy;
 	}
 
 	.meta {

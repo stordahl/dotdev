@@ -201,6 +201,7 @@
 
     &:hover {
       text-decoration: underline;
+      text-decoration-style: wavy;
     }
 
     /*

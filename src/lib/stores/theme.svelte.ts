@@ -6,7 +6,7 @@ export interface Theme {
 
 export const themes: Record<string, Theme> = {
   blue: { label: 'Blue', color: '#0412e3', image: 'blue' },
-  green: { label: 'Green', color: '#2e7d32', image: 'green' },
+  green: { label: 'Green', color: '#195f1c', image: 'green' },
   pink: { label: 'Pink', color: '#B355AD', image: 'pink' },
   purple: { label: 'Purple', color: '#8263A8', image: 'purple' },
 };

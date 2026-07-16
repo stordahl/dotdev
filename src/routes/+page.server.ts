@@ -27,9 +27,13 @@ interface GitHubResponse {
 }
 
 export const load: PageServerLoad = async (event) => {
+	const token = event.platform?.env?.GITHUB_TOKEN;
+	console.log('=== DIAGNOSTIC === platform keys:', Object.keys(event.platform?.env ?? {}).join(', '));
+	console.log('=== DIAGNOSTIC === GITHUB_TOKEN present:', !!token);
+	console.log('=== DIAGNOSTIC === GITHUB_TOKEN length:', token?.length ?? 0);
 	const [posts, contributions] = await Promise.all([
 		fetchBluesky(),
-		fetchGithub(event.platform?.env.GITHUB_TOKEN ?? '')
+		fetchGithub(token ?? '')
 	]);
 	return { posts, contributions };
 };

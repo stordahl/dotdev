@@ -1,6 +1,5 @@
 import type { PageServerLoad } from './$types';
 import type { BlueskyPost, Contributions } from '../lib/types';
-import { env } from '$env/dynamic/private';
 
 const BLUESKY_DID = 'did:plc:6ghbu76mogjyfcvx446mep5o';
 const GITHUB_USERNAME = 'stordahl';
@@ -27,8 +26,11 @@ interface GitHubResponse {
 	};
 }
 
-export const load: PageServerLoad = async () => {
-	const [posts, contributions] = await Promise.all([fetchBluesky(), fetchGithub()]);
+export const load: PageServerLoad = async (event) => {
+	const [posts, contributions] = await Promise.all([
+		fetchBluesky(),
+		fetchGithub(event.platform?.env.GITHUB_TOKEN ?? '')
+	]);
 	return { posts, contributions };
 };
 
@@ -69,8 +71,7 @@ async function fetchBluesky(): Promise<BlueskyPost[]> {
 	}
 }
 
-async function fetchGithub(): Promise<Contributions | null> {
-	const token = env.GITHUB_TOKEN;
+async function fetchGithub(token: string): Promise<Contributions | null> {
 	if (!token) {
 		console.warn('GITHUB_TOKEN not set — skipping contribution graph');
 		return null;

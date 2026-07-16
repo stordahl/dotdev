@@ -1,7 +1,9 @@
 <script lang="ts">
 	import ThemePicker from '$lib/ThemePicker.svelte';
+	import AudioPlayer from '$lib/AudioPlayer.svelte';
 </script>
 
+<AudioPlayer />
 <header>
 	<a href="/" aria-label="home">stordahl.dev</a>
 

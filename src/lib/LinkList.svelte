@@ -1,10 +1,25 @@
 <script lang="ts">
 	import { formatDateToMonthYear } from './utils';
+	import type { Snippet } from 'svelte';
 
-	const { basePath, items, title } = $props();
+	const {
+		basePath,
+		items,
+		title = undefined,
+		header = undefined
+	}: {
+		basePath: string;
+		items: { slug: string; title: string; date: Date | string }[];
+		title?: string;
+		header?: Snippet;
+	} = $props();
 </script>
 
-<h1>{title}</h1>
+{#if header}
+	{@render header()}
+{:else if title}
+	<h1>{title}</h1>
+{/if}
 
 <section>
 	<ul class="items">

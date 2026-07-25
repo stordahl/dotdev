@@ -67,6 +67,7 @@
     --secondary: light-dark(var(--theme-secondary), var(--light-grey));
 
     --border: 1px solid var(--foreground);
+    --border_subtle: 1px solid color-mix(in srgb, var(--foreground) 12%, transparent);
     --radius: 2px;
 
     --font-xs: 0.75rem;
@@ -80,69 +81,6 @@
 }
 
 @layer base {
-
-  /**
-* @license
-*
-* Font Family: Sentient
-* Designed by: Noopur Choksi
-* URL: https://www.fontshare.com/fonts/sentient
-* © 2026 Indian Type Foundry
-*
-* Sentient Regular 
-* Sentient Italic 
-* Sentient Medium 
-* Sentient MediumItalic 
-* Sentient Bold 
-* Sentient BoldItalic 
-*/
-  @font-face {
-    font-family: 'Sentient';
-    src: url('/fonts/Sentient-Regular.woff2') format('woff2');
-    font-weight: 400;
-    font-display: swap;
-    font-style: normal;
-  }
-
-  @font-face {
-    font-family: 'Sentient';
-    src: url('/fonts/Sentient-Italic.woff2') format('woff2');
-    font-weight: 400;
-    font-display: swap;
-    font-style: italic;
-  }
-
-  @font-face {
-    font-family: 'Sentient';
-    src: url('/fonts/Sentient-Medium.woff2') format('woff2');
-    font-weight: 500;
-    font-display: swap;
-    font-style: normal;
-  }
-
-  @font-face {
-    font-family: 'Sentient';
-    src: url('/fonts/Sentient-MediumItalic.woff2') format('woff2');
-    font-weight: 500;
-    font-display: swap;
-    font-style: italic;
-  }
-
-  @font-face {
-    font-family: 'Sentient';
-    src: url('/fonts/Sentient-Bold.woff2') format('woff2');
-    font-weight: 700;
-    font-display: swap;
-    font-style: normal;
-  }
-
-  @font-face {
-    font-family: 'Sentient';
-    src: url('/fonts/Sentient-BoldItalic.woff2') format('woff2');
-    font-weight: 700;
-    font-display: swap;
-    font-style: italic;
-  }
 
   html {
     scroll-behavior: smooth;
@@ -203,26 +141,6 @@
       text-decoration: underline;
       text-decoration-style: wavy;
     }
-
-    /*
-    border-bottom: 2px solid transparent;
-    position: relative;
-
-    &:after {
-      content: '';
-      background-color: var(--link-color);
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      height: 1px;
-      width: 0;
-      transition: 0.2s;
-    }
-
-    &:hover:after {
-      width: 100%;
-    }
-    */
   }
 
   ul,
@@ -241,6 +159,57 @@
 
   blockquote p {
     font-size: var(--font-sm);
+  }
+
+
+  button {
+    padding: 2px 5px;
+    width: max-content;
+    font-size: var(--font-xs);
+    border: 1px solid var(--secondary);
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  button:hover:not(:disabled) {
+    background: var(--secondary);
+    opacity: 0.8;
+  }
+
+  button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  button[data-variant="danger"] {
+    border-color: #e74c3c;
+    color: #e74c3c;
+  }
+
+  button[data-variant="danger"]:hover:not(:disabled) {
+    background: #e74c3c;
+    color: var(--white);
+    opacity: 1;
+  }
+
+  button[data-variant="success"] {
+    border-color: #2ecc71;
+    color: #2ecc71;
+  }
+
+  button[data-variant="success"]:hover:not(:disabled) {
+    background: #2ecc71;
+    color: var(--white);
+    opacity: 1;
+  }
+
+  input {
+    border: 1px solid var(--secondary);
+    background: transparent;
+    color: inherit;
+    width: 100%;
+    font-size: var(--font-xs);
   }
 
   table {

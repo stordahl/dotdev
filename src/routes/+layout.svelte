@@ -5,7 +5,7 @@
 	import Scripts from '$lib/Scripts.svelte';
 	import { theme, themes } from '$lib/stores/theme.svelte';
 
-	let { children } = $props();
+	let { children, data } = $props();
 
 	$effect(() => {
 		if (typeof document === 'undefined') return;
@@ -29,7 +29,7 @@
 	<main id="main-content" tabindex="-1">
 		{@render children()}
 	</main>
-	<Footer />
+	<Footer authenticated={data.authenticated} />
 </div>
 
 <Scripts />

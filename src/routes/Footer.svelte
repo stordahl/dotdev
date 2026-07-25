@@ -2,6 +2,13 @@
 	import Bluesky from '$lib/icons/Bluesky.svelte';
 	import Github from '$lib/icons/Github.svelte';
 	import Linkedin from '$lib/icons/Linkedin.svelte';
+
+	let { authenticated } = $props();
+
+	async function logout() {
+		await fetch('/api/logout', { method: 'POST' });
+		location.reload();
+	}
 </script>
 
 <footer>
@@ -27,6 +34,11 @@
 			<li><a href="/writing">writing</a></li>
 			<li><a href="/sketches">sketches</a></li>
 			<li><a href="/ping">ping</a></li>
+			{#if authenticated}
+				<li><button class="logout-link" onclick={logout}>logout</button></li>
+			{:else}
+				<li><a href="/admin">admin</a></li>
+			{/if}
 		</ul>
 		<span class="tagline">don't be<br />careful, you'll<br />live too long</span>
 	</div>
@@ -72,11 +84,34 @@
 			padding-left: 0px;
 			list-style: none;
 			font-size: var(--font-xs);
+			color: var(--secondary);
+			li *:not(:hover) {
+				text-decoration: none;
+			}
+			li *:hover {
+				color: var(--secondary);
+			}
 		}
 		.tagline {
 			text-align: right;
 			font-family: 'Rock Salt', cursive;
 			color: var(--secondary);
 		}
+	}
+
+	.logout-link {
+		background: none;
+		border: none;
+		padding: 0;
+		margin: 0;
+		font: inherit;
+		font-size: inherit;
+		color: inherit;
+		text-decoration: underline;
+		cursor: pointer;
+	}
+
+	.logout-link:hover {
+		opacity: 0.7;
 	}
 </style>

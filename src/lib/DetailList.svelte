@@ -7,6 +7,8 @@
 		link: string;
 		linkText: string;
 		description: string;
+		type?: 'work' | 'tools';
+		slug?: string;
 	};
 
 	type Props = {
@@ -22,12 +24,13 @@
 	<h2>{title}</h2>
 	<ul>
 		{#each items as item, index}
+			{@const isTool = item.type === 'tools'}
 			<li>
 				<Detail
 					title={item.title}
 					service={item.service}
-					link={item.link}
-					linkText={item.linkText}
+					link={isTool ? `/tools/${item.slug}` : item.link}
+					linkText={isTool ? 'docs' : item.linkText}
 					defaultOpen={startOpen && index === 0}
 				>
 					<p>{item.description}</p>

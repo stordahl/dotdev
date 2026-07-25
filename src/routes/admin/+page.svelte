@@ -17,6 +17,41 @@
 	const draftItems = $derived(
 		data.drafts.map((d) => ({ slug: d.slug, title: d.title, date: d.updatedAt }))
 	);
+
+	let statusText = $state('');
+	let statusSubmitting = $state(false);
+	let statusResult = $state<{ uri: string; cid: string } | null>(null);
+	let statusError = $state('');
+
+	async function submitStatus() {
+		if (!statusText.trim()) return;
+		statusSubmitting = true;
+		statusError = '';
+		statusResult = null;
+		try {
+			const res = await fetch('/api/status', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ text: statusText.trim() })
+			});
+			if (res.ok) {
+				statusResult = await res.json();
+				statusText = '';
+			} else {
+				const err = await res.json();
+				statusError = err.error || 'Failed to post status';
+			}
+		} catch {
+			statusError = 'Network error';
+		} finally {
+			statusSubmitting = false;
+		}
+	}
+
+	function statusPostUrl(uri: string): string {
+		const rkey = uri.split('/').pop() ?? '';
+		return `https://bsky.app/profile/now.stordahl.dev/post/${rkey}`;
+	}
 </script>
 
 <svelte:head>
@@ -37,6 +72,30 @@
 			</LinkList>
 			{#if data.drafts.length === 0}
 				<p class="empty">No drafts yet.</p>
+			{/if}
+		</div>
+		<div class="status-composer">
+			<h2>now</h2>
+			<textarea
+				bind:value={statusText}
+				placeholder="What are you doing now?"
+				maxlength="300"
+				rows="3"
+			></textarea>
+			<div class="status-actions">
+				<span class="char-count">{statusText.length}/300</span>
+				<button onclick={submitStatus} disabled={statusSubmitting || !statusText.trim()}>
+					{statusSubmitting ? 'Posting...' : 'Post'}
+				</button>
+			</div>
+			{#if statusError}
+				<p class="error">{statusError}</p>
+			{/if}
+			{#if statusResult}
+				<p class="success">
+					Posted!
+					<a href={statusPostUrl(statusResult.uri)} target="_blank" rel="noopener">View on Bluesky</a>
+				</p>
 			{/if}
 		</div>
 	{:else}
@@ -98,5 +157,49 @@
 		color: #e74c3c;
 		font-size: 0.9rem;
 		margin-top: 0.5rem;
+	}
+
+	.status-composer {
+		margin-top: 2rem;
+		padding-top: 1.5rem;
+		border-top: 1px solid var(--secondary);
+	}
+
+	.status-composer h2 {
+		margin-bottom: 0.75rem;
+		font-size: var(--font-md);
+	}
+
+	.status-composer textarea {
+		width: 100%;
+		padding: 0.5rem;
+		border: 1px solid var(--secondary);
+		border-radius: var(--radius);
+		background: transparent;
+		color: inherit;
+		font-family: inherit;
+		font-size: var(--font-sm);
+		resize: vertical;
+	}
+
+	.status-actions {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-top: 0.5rem;
+	}
+
+	.char-count {
+		font-size: var(--font-xs);
+		opacity: 0.5;
+	}
+
+	.success {
+		font-size: 0.9rem;
+		margin-top: 0.5rem;
+	}
+
+	.success a {
+		text-decoration: underline;
 	}
 </style>

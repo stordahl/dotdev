@@ -3,6 +3,7 @@
 	import Seo from '$lib/Seo.svelte';
 	import BskyPosts from '$lib/BskyPosts.svelte';
 	import GithubContributions from '$lib/GithubContributions.svelte';
+	import NowStatus from '$lib/NowStatus.svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
@@ -20,6 +21,9 @@
 		number of open source projects, including the
 		<a href="https://counterscale.dev">Counterscale</a> analytics project.
 	</p>
+	{#if data.status}
+		<NowStatus post={data.status} />
+	{/if}
 </section>
 {#if data.contributions}
 	<GithubContributions contributions={data.contributions} />

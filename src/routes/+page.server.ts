@@ -89,7 +89,6 @@ async function fetchLatestStatus(): Promise<BlueskyPost | null> {
     const listData = (await listRes.json()) as {
       records?: { uri: string; cid: string; value: { text?: string; createdAt?: string } }[];
     };
-    console.log(listRes)
     const record = listData.records?.[0];
     if (!record?.value?.text || !record.value.createdAt) return null;
 

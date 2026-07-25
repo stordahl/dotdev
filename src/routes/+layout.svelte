@@ -19,6 +19,11 @@
 		} else {
 			document.documentElement.setAttribute('data-mode', mode);
 		}
+
+		const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+		if (metaThemeColor) {
+			metaThemeColor.setAttribute('content', t.color);
+		}
 	});
 </script>
 

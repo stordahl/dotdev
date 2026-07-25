@@ -1,0 +1,56 @@
+name: Syndicate to standard.site
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/content/blog/**'
+
+concurrency:
+  group: syndicate-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  syndicate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Sequoia CLI
+        run: pnpm install -g sequoia-cli
+
+      - name: Authenticate with AT Protocol
+        run: |
+          echo "${{ secrets.SEQUOIA_APP_PASSWORD }}" | \
+            npx -y sequoia-cli auth
+        env:
+          SEQUOIA_APP_PASSWORD: ${{ secrets.SEQUOIA_APP_PASSWORD }}
+
+      - name: Publish new posts
+        run: npx sequoia publish
+
+      - name: Sync state and update frontmatter
+        run: npx sequoia sync --update-frontmatter
+
+      - name: Commit atUri updates back to main
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'chore: update AT Protocol URIs'
+          file_pattern: src/content/blog/*.md .sequoia-state.json

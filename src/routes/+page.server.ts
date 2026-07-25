@@ -103,12 +103,17 @@ async function fetchGithub(): Promise<Contributions | null> {
 			method: 'POST',
 			headers: {
 				Authorization: `Bearer ${token}`,
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
+				'User-Agent': 'dotdev'
 			},
 			body: JSON.stringify({ query, variables: { username: GITHUB_USERNAME, from, to } })
 		});
 
-		if (!response.ok) throw new Error(`GitHub API responded with ${response.status}`);
+		if (!response.ok) {
+			const body = await response.text();
+			console.error(`GitHub API ${response.status}: ${body}`);
+			throw new Error(`GitHub API responded with ${response.status}: ${body.slice(0, 200)}`);
+		}
 
 		const json: GitHubResponse = await response.json();
 		const calendar = json.data?.user?.contributionsCollection?.contributionCalendar;

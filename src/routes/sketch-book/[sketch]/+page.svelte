@@ -2,13 +2,14 @@
 	import { codeToHtml } from 'shiki/bundle/web';
 	import { browser, dev } from '$app/environment';
 	import Seo from '$lib/Seo.svelte';
+	import Tabs from '$lib/Tabs.svelte';
 	import type { PageData } from './$types';
 
 	const { data }: { data: PageData } = $props();
 
 	const { code = undefined, component: Component, markdown } = $derived(data);
 
-	const parsedCodeFn = $derived(async () => {
+	const parsedCodeFn = $derived.by(async () => {
 		return code && !dev
 			? await codeToHtml(code, {
 					lang: 'svelte',
@@ -31,31 +32,35 @@
 		</div>
 	{/if}
 
-	<div class="tabs">
-		<button class:active={visibleTab === 'preview'} onclick={() => (visibleTab = 'preview')}
-			>Preview</button
-		>
-		<button class:active={visibleTab === 'code'} onclick={() => (visibleTab = 'code')}>Code</button>
-	</div>
-	<div class="tabs-content">
-		{#if visibleTab === 'preview'}
-			{#if browser}
-				<Component />
-			{/if}
-		{:else}
-			<div class="code">
-				{#if !dev}
-					{#await parsedCodeFn()}
-						<p>loading code...</p>
-					{:then parsedCode}
-						{@html parsedCode}
-					{/await}
+	<Tabs
+		tabs={[
+			{ id: 'preview', label: 'Preview' },
+			{ id: 'code', label: 'Code' }
+		]}
+		bind:active={visibleTab}
+	>
+		{#snippet children(active)}
+			<div class="tabs-content">
+				{#if active === 'preview'}
+					{#if browser}
+						<Component />
+					{/if}
 				{:else}
-					<p>No code in dev</p>
+					<div class="code">
+						{#if !dev}
+							{#await parsedCodeFn()}
+								<p>loading code...</p>
+							{:then parsedCode}
+								{@html parsedCode}
+							{/await}
+						{:else}
+							<p>No code in dev</p>
+						{/if}
+					</div>
 				{/if}
 			</div>
-		{/if}
-	</div>
+		{/snippet}
+	</Tabs>
 </article>
 
 <style>
@@ -63,23 +68,6 @@
 		display: block;
 		margin-bottom: 10px;
 		width: max-content;
-	}
-
-	.tabs button {
-		background: none;
-		border: none;
-		color: var(--light-grey);
-		padding: 5px 10px;
-	}
-
-	.tabs button:hover {
-		cursor: pointer;
-	}
-
-	.tabs button.active {
-		color: var(--secondary);
-		text-decoration: underline;
-		text-decoration-style: wavy;
 	}
 
 	.tabs-content {

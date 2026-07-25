@@ -1,4 +1,11 @@
 {
-  "compatibility_flags": ["nodejs_als"],
-  "compatibility_date": "2026-07-15"
+  "compatibility_flags": ["nodejs_compat"],
+  "compatibility_date": "2026-07-15",
+  "kv_namespaces": [
+    {
+      "binding": "DRAFTS",
+      "id": "d6c192752deb4872b87237bc2838bd17",
+      "preview_id": "d6c192752deb4872b87237bc2838bd17"
+    }
+  ]
 }

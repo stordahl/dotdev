@@ -1,0 +1,48 @@
+import { json } from '@sveltejs/kit';
+import { validateSession } from '$lib/server/auth';
+import { getDraftStore } from '$lib/server/draft-store';
+
+export async function GET(event) {
+	if (!await validateSession(event)) {
+		return json({ error: 'Unauthorized' }, { status: 401 });
+	}
+
+	const store = getDraftStore(event);
+	const draft = await store.get(event.params.slug);
+	if (!draft) return json({ error: 'Not found' }, { status: 404 });
+
+	return json(draft);
+}
+
+export async function PUT(event) {
+	if (!await validateSession(event)) {
+		return json({ error: 'Unauthorized' }, { status: 401 });
+	}
+
+	const store = getDraftStore(event);
+	const existing = await store.get(event.params.slug);
+	if (!existing) return json({ error: 'Not found' }, { status: 404 });
+
+	const { title, description, body, published } = await event.request.json();
+
+	await store.put(event.params.slug, {
+		...existing,
+		title: title ?? existing.title,
+		description: description ?? existing.description,
+		body: body ?? existing.body,
+		published: published ?? existing.published,
+		updatedAt: new Date().toISOString()
+	});
+
+	return json({ success: true });
+}
+
+export async function DELETE(event) {
+	if (!await validateSession(event)) {
+		return json({ error: 'Unauthorized' }, { status: 401 });
+	}
+
+	const store = getDraftStore(event);
+	await store.delete(event.params.slug);
+	return json({ success: true });
+}

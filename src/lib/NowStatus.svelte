@@ -8,7 +8,29 @@
 	let { post }: Props = $props();
 
 	function formatDate(dateString: string): string {
-		return new Date(dateString).toLocaleDateString('en-US', {
+		const date = new Date(dateString);
+		const now = new Date();
+
+		const dateDay = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+		const nowDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+		const diffTime = nowDay.getTime() - dateDay.getTime();
+		const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
+
+		const timeStr = date.toLocaleTimeString('en-US', {
+			hour: 'numeric',
+			minute: '2-digit'
+		});
+
+		if (diffDays === 0) {
+			return `today at ${timeStr}`;
+		} else if (diffDays === 1) {
+			return `yesterday at ${timeStr}`;
+		} else if (diffDays > 1 && diffDays <= 7) {
+			return `last week at ${timeStr}`;
+		}
+
+		return date.toLocaleDateString('en-US', {
 			month: 'short',
 			day: 'numeric',
 			hour: 'numeric',
@@ -26,48 +48,40 @@
 </script>
 
 {#if post}
-	<div class="now-status">
+	<a href={getPostUrl(post.uri)} target="_blank">
 		<span class="label">status: </span>
-		<a href={getPostUrl(post.uri)} target="_blank" rel="noopener" class="text">
-			{post.record.text}
-		</a>
+		{post.record.text}
 		<span class="time">{formatDate(post.record.createdAt)}</span>
-	</div>
+	</a>
 {/if}
 
 <style>
-	.now-status {
+	a {
 		display: flex;
 		align-items: baseline;
-		gap: 0.5rem;
+		gap: 5px;
 		flex-wrap: wrap;
 		margin-top: 1rem;
 		padding: 0.75rem 1rem;
 		border-radius: var(--radius);
 		border: 1px solid color-mix(in srgb, var(--white) 20%, transparent);
 		background-color: color-mix(in srgb, var(--secondary) 2%, transparent);
-	}
-
-	.label {
 		font-size: var(--font-xs);
-		opacity: 0.6;
-		font-weight: 600;
+		color: var(--foreground);
+		transition: border 0.1s ease-in-out 0s;
 	}
 
-	.text {
-		color: inherit;
+	a:hover {
 		text-decoration: none;
-		font-size: var(--font-sm);
+		border: 1px solid color-mix(in srgb, var(--secondary) 60%, transparent);
 	}
 
-	.text:hover {
-		text-decoration: underline;
-		text-decoration-style: wavy;
+	.label,
+	.time {
+		opacity: 0.6;
 	}
 
 	.time {
-		font-size: var(--font-xs);
-		opacity: 0.5;
 		margin-left: auto;
 	}
 </style>

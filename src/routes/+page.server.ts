@@ -103,7 +103,8 @@ async function fetchGithub(): Promise<Contributions | null> {
 			method: 'POST',
 			headers: {
 				Authorization: `Bearer ${token}`,
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
+				'User-Agent': 'dotdev'
 			},
 			body: JSON.stringify({ query, variables: { username: GITHUB_USERNAME, from, to } })
 		});

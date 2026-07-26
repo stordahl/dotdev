@@ -3,59 +3,61 @@ import type { RequestEvent } from '@sveltejs/kit';
 
 const SESSION_EXPIRY_MS = 24 * 60 * 60 * 1000;
 
-interface Session {
-	token: string;
-	createdAt: number;
+let cachedKey: CryptoKey | null = null;
+let cachedSecret: string | null = null;
+
+async function getSigningKey(secret: string): Promise<CryptoKey> {
+	if (cachedKey && cachedSecret === secret) return cachedKey;
+	const encoder = new TextEncoder();
+	cachedKey = await crypto.subtle.importKey(
+		'raw',
+		encoder.encode(secret),
+		{ name: 'HMAC', hash: 'SHA-256' },
+		false,
+		['sign', 'verify']
+	);
+	cachedSecret = secret;
+	return cachedKey;
 }
 
-class InMemorySessionStore {
-	private sessions = new Map<string, Session>();
-
-	create(): string {
-		const token = crypto.randomUUID();
-		this.sessions.set(token, { token, createdAt: Date.now() });
-		return token;
-	}
-
-	validate(token: string): boolean {
-		const session = this.sessions.get(token);
-		if (!session) return false;
-		if (Date.now() - session.createdAt > SESSION_EXPIRY_MS) {
-			this.sessions.delete(token);
-			return false;
-		}
-		return true;
-	}
-
-	delete(token: string): void {
-		this.sessions.delete(token);
-	}
+function getSessionSecret(): string {
+	// Prefer a dedicated secret, but fall back to admin password so
+	// existing deploys don't break immediately. Set SESSION_SECRET in
+	// production for proper isolation.
+	const secret = env.SESSION_SECRET || env.ADMIN_PASSWORD;
+	if (!secret) throw new Error('SESSION_SECRET or ADMIN_PASSWORD must be set');
+	return secret;
 }
 
-let devStore = new InMemorySessionStore();
-
-interface KVLike {
-	get: (key: string) => Promise<string | null>;
-	put: (key: string, value: string) => Promise<void>;
-	delete: (key: string) => Promise<void>;
-	list: (opts: { prefix: string }) => Promise<{ keys: { name: string }[] }>;
+async function signSession(token: string, createdAt: number): Promise<string> {
+	const secret = getSessionSecret();
+	const key = await getSigningKey(secret);
+	const payload = `${token}:${createdAt}`;
+	const encoder = new TextEncoder();
+	const signature = await crypto.subtle.sign('HMAC', key, encoder.encode(payload));
+	const sigB64 = btoa(String.fromCharCode(...new Uint8Array(signature)));
+	return `${payload}:${sigB64}`;
 }
 
-function getKV(event: RequestEvent): KVLike | null {
-	const platform = event.platform as { env?: { DRAFTS?: KVLike } } | undefined;
-	return platform?.env?.DRAFTS ?? null;
-}
+async function verifySession(value: string): Promise<boolean> {
+	const parts = value.split(':');
+	if (parts.length !== 3) return false;
 
-function getTokenFromCookie(cookie: string): string | undefined {
-	let token: string | undefined;
-	for (const part of cookie.split(';')) {
-		const [name, ...rest] = part.trim().split('=');
-		if (name === 'admin_token') {
-			token = rest.join('=');
-			break;
-		}
-	}
-	return token;
+	const [token, createdAtStr, sigB64] = parts;
+	const createdAt = Number(createdAtStr);
+	if (!token || !Number.isFinite(createdAt)) return false;
+	if (Date.now() - createdAt > SESSION_EXPIRY_MS) return false;
+
+	const secret = getSessionSecret();
+	const key = await getSigningKey(secret);
+	const payload = `${token}:${createdAt}`;
+	const encoder = new TextEncoder();
+	const signature = new Uint8Array(
+		atob(sigB64)
+			.split('')
+			.map((c) => c.charCodeAt(0))
+	);
+	return crypto.subtle.verify('HMAC', key, signature, encoder.encode(payload));
 }
 
 export function verifyPassword(password: string): boolean {
@@ -64,53 +66,18 @@ export function verifyPassword(password: string): boolean {
 	return password === pw;
 }
 
-export async function createSession(event: RequestEvent): Promise<string> {
-	const kv = getKV(event);
-	if (kv) {
-		const token = crypto.randomUUID();
-		await kv.put(`session:${token}`, JSON.stringify({ token, createdAt: Date.now() }));
-		return token;
-	}
-	return devStore.create();
+export async function createSession(_event: RequestEvent): Promise<string> {
+	const token = crypto.randomUUID();
+	const createdAt = Date.now();
+	return signSession(token, createdAt);
 }
 
 export async function validateSession(event: RequestEvent): Promise<boolean> {
-	const cookie = event.request.headers.get('cookie');
-	if (!cookie) return false;
-
-	const token = getTokenFromCookie(cookie);
-	if (!token) return false;
-
-	const kv = getKV(event);
-	if (kv) {
-		const val = await kv.get(`session:${token}`);
-		if (!val) return false;
-		try {
-			const session = JSON.parse(val) as Session;
-			if (Date.now() - session.createdAt > SESSION_EXPIRY_MS) {
-				await kv.delete(`session:${token}`);
-				return false;
-			}
-			return true;
-		} catch {
-			return false;
-		}
-	}
-
-	return devStore.validate(token);
+	const value = event.cookies.get('admin_token');
+	if (!value) return false;
+	return verifySession(value);
 }
 
 export async function destroySession(event: RequestEvent): Promise<void> {
-	const cookie = event.request.headers.get('cookie');
-	if (!cookie) return;
-
-	const token = getTokenFromCookie(cookie);
-	if (!token) return;
-
-	const kv = getKV(event);
-	if (kv) {
-		await kv.delete(`session:${token}`);
-	} else {
-		devStore.delete(token);
-	}
+	event.cookies.delete('admin_token', { path: '/' });
 }

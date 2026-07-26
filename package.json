@@ -48,7 +48,14 @@
 	},
 	"dependencies": {
 		"@content-collections/markdown": "^0.1.4",
+		"@lucide/svelte": "^1.26.0",
+		"@tiptap/core": "^3.29.0",
+		"@tiptap/extension-image": "^3.29.0",
+		"@tiptap/extension-link": "^3.29.0",
+		"@tiptap/extension-placeholder": "^3.29.0",
+		"@tiptap/starter-kit": "^3.29.0",
 		"just-kebab-case": "^4.2.0",
-		"remark-gfm": "^4.0.1"
+		"remark-gfm": "^4.0.1",
+		"tiptap-markdown": "^0.9.0"
 	}
 }

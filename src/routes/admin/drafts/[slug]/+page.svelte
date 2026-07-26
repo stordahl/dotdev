@@ -2,6 +2,7 @@
 	import { goto } from '$app/navigation';
 	import Tabs from '$lib/Tabs.svelte';
 	import AlertDialog from '$lib/AlertDialog.svelte';
+	import TiptapEditor from '$lib/TiptapEditor.svelte';
 	import { toMarkdown } from '$lib/draft-markdown';
 
 	type Props = {
@@ -184,11 +185,7 @@
 		{#snippet children(active)}
 			<div class="tabs-content">
 				{#if active === 'editor'}
-					<textarea
-						bind:value={body}
-						placeholder="Write your markdown here..."
-						oninput={onInput}
-						class="editor-pane"></textarea>
+					<TiptapEditor content={body} onChange={(markdown) => { body = markdown; onInput(); }} />
 				{:else}
 					<div class="preview-pane">
 						{#if previewHtml}
@@ -271,8 +268,7 @@
 		flex-direction: column;
 		margin-bottom: 0.75rem;
 	}
-	.fields *:focus,
-	textarea:focus {
+	.fields *:focus {
 		outline: none;
 	}
 
@@ -296,20 +292,6 @@
 		flex: 1;
 		min-height: 0;
 		padding: 1rem 0;
-	}
-
-	.editor-pane {
-		width: 100%;
-		height: 100%;
-		padding: 0.75rem;
-		border: none;
-		border-radius: 4px;
-		background: transparent;
-		color: inherit;
-		font-family: monospace;
-		font-size: 0.9rem;
-		line-height: 1.6;
-		resize: none;
 	}
 
 	.preview-pane {

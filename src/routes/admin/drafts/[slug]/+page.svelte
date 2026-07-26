@@ -145,13 +145,20 @@
 <div class="editor">
 	<div class="toolbar">
 		<a href="/admin" class="back">&larr; Back</a>
-		<span class="status">{status}</span>
-		<span class="saved">Last saved: {new Date(lastSaved).toLocaleString()}</span>
-		<button onclick={save} disabled={isSaving}>{isSaving ? 'Saving...' : 'Save'}</button>
-		<button onclick={deleteDraft} data-variant="danger">Delete</button>
-		<button onclick={publish} disabled={publishing} data-variant="success">
-			{publishing ? 'Publishing...' : 'Publish'}
-		</button>
+		<div class="actions">
+			<div class="tooltip-wrap">
+				<button onclick={save} disabled={isSaving}>
+					{isSaving ? 'Saving...' : status === 'Saved' ? 'Saved' : 'Save'}
+				</button>
+				<span class="tooltip">
+					Last saved: {new Date(lastSaved).toLocaleString()}
+				</span>
+			</div>
+			<button onclick={deleteDraft} data-variant="danger">Delete</button>
+			<button onclick={publish} disabled={publishing} data-variant="success">
+				{publishing ? 'Publishing...' : 'Publish'}
+			</button>
+		</div>
 	</div>
 
 	<div class="fields">
@@ -217,6 +224,7 @@
 	.toolbar {
 		display: flex;
 		align-items: center;
+		justify-content: space-between;
 		gap: 0.75rem;
 		padding-bottom: 0.75rem;
 		border-bottom: 1px solid var(--secondary);
@@ -224,15 +232,38 @@
 		flex-wrap: wrap;
 	}
 
-	.status {
-		font-size: 0.85rem;
-		opacity: 0.6;
-		flex: 1;
+	.actions {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
 	}
 
-	.saved {
-		font-size: 0.8rem;
-		opacity: 0.4;
+	.tooltip-wrap {
+		position: relative;
+		display: inline-block;
+	}
+
+	.tooltip-wrap .tooltip {
+		visibility: hidden;
+		position: absolute;
+		top: calc(100% + 6px);
+		left: 50%;
+		transform: translateX(-50%);
+		background: var(--background);
+		border: 1px solid var(--light-grey);
+		border-radius: var(--radius);
+		color: var(--foreground);
+		padding: 6px;
+		font-size: 0.75rem;
+		white-space: nowrap;
+		z-index: 100;
+		opacity: 0;
+		transition: opacity 0.15s;
+	}
+
+	.tooltip-wrap:hover .tooltip {
+		visibility: visible;
+		opacity: 1;
 	}
 
 	.fields {

@@ -1,3 +1,4 @@
+import { dev } from '$app/environment';
 import type { RequestEvent } from '@sveltejs/kit';
 import type { Draft } from '$lib/draft-markdown';
 
@@ -64,6 +65,11 @@ export function getDraftStore(event: RequestEvent): InMemoryDraftStore | KVDraft
 	const kv = platform?.env?.DRAFTS;
 	if (kv) return new KVDraftStore(kv);
 
+	if (!dev) {
+		throw new Error('DRAFTS KV binding is not available in production. Check your Cloudflare Pages project settings to ensure the KV namespace is bound.');
+	}
+
+	console.warn('DRAFTS KV binding not found, falling back to in-memory store. Drafts will be lost on server restart.');
 	if (!devStore) devStore = new InMemoryDraftStore();
 	return devStore;
 }

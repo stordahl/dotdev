@@ -30,8 +30,11 @@
 	let autoSaveTimer: ReturnType<typeof setTimeout> | undefined;
 	let lastSaved = $state(draftInit.updatedAt);
 	let deleteDialogOpen = $state(false);
+	let isSaving = $state(false);
 
-	async function save() {
+	async function save(): Promise<boolean> {
+		if (isSaving) return false;
+		isSaving = true;
 		status = 'Saving...';
 		try {
 			const res = await fetch(`/api/drafts/${draftInit.slug}`, {
@@ -45,12 +48,23 @@
 				draftInit.title = title;
 				draftInit.description = description;
 				draftInit.body = body;
+				return true;
 			} else {
-				throw new Error('Save failed');
+				const errData = await res.json().catch(() => ({ error: `HTTP ${res.status}` }));
+				const message = errData.error || `HTTP ${res.status}`;
+				status = `Save failed: ${message}`;
+
+				if (res.status === 401) {
+					await goto('/admin');
+				}
+				return false;
 			}
 		} catch (err) {
-			status = 'Save failed';
-			throw err;
+			status = 'Save failed (network error)';
+			console.error('Save error:', err);
+			return false;
+		} finally {
+			isSaving = false;
 		}
 	}
 
@@ -67,7 +81,11 @@
 		publishing = true;
 		status = 'Publishing...';
 		try {
-			await save();
+			const saved = await save();
+			if (!saved) {
+				status = 'Publish failed: could not save draft';
+				return;
+			}
 			const res = await fetch('/api/publish', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
@@ -129,7 +147,7 @@
 		<a href="/admin" class="back">&larr; Back</a>
 		<span class="status">{status}</span>
 		<span class="saved">Last saved: {new Date(lastSaved).toLocaleString()}</span>
-		<button onclick={save}>Save</button>
+		<button onclick={save} disabled={isSaving}>{isSaving ? 'Saving...' : 'Save'}</button>
 		<button onclick={deleteDraft} data-variant="danger">Delete</button>
 		<button onclick={publish} disabled={publishing} data-variant="success">
 			{publishing ? 'Publishing...' : 'Publish'}

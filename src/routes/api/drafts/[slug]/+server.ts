@@ -19,22 +19,27 @@ export async function PUT(event) {
 		return json({ error: 'Unauthorized' }, { status: 401 });
 	}
 
-	const store = getDraftStore(event);
-	const existing = await store.get(event.params.slug);
-	if (!existing) return json({ error: 'Not found' }, { status: 404 });
+	try {
+		const store = getDraftStore(event);
+		const existing = await store.get(event.params.slug);
+		if (!existing) return json({ error: 'Not found' }, { status: 404 });
 
-	const { title, description, body, published } = await event.request.json();
+		const { title, description, body, published } = await event.request.json();
 
-	await store.put(event.params.slug, {
-		...existing,
-		title: title ?? existing.title,
-		description: description ?? existing.description,
-		body: body ?? existing.body,
-		published: published ?? existing.published,
-		updatedAt: new Date().toISOString()
-	});
+		await store.put(event.params.slug, {
+			...existing,
+			title: title ?? existing.title,
+			description: description ?? existing.description,
+			body: body ?? existing.body,
+			published: published ?? existing.published,
+			updatedAt: new Date().toISOString()
+		});
 
-	return json({ success: true });
+		return json({ success: true });
+	} catch (err) {
+		console.error('Draft PUT error:', err);
+		return json({ error: 'Internal server error' }, { status: 500 });
+	}
 }
 
 export async function DELETE(event) {

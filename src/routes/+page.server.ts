@@ -43,7 +43,7 @@ async function fetchBluesky(): Promise<BlueskyPost[]> {
   try {
     const response = await fetch(
       `https://api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed?actor=${encodeURIComponent(BLUESKY_DID)}&filter=posts_no_replies&limit=30`,
-      { headers: { Accept: 'application/json' }, cache: 'no-store' }
+      { headers: { Accept: 'application/json' } }
     );
 
     if (!response.ok) throw new Error(`Bluesky API responded with ${response.status}`);
@@ -95,8 +95,7 @@ async function fetchLatestStatus(): Promise<BlueskyPost | null> {
       if (cursor) url.searchParams.set('cursor', cursor);
 
       const res = await fetch(url.toString(), {
-        headers: { Accept: 'application/json' },
-        cache: 'no-store'
+        headers: { Accept: 'application/json' }
       });
       if (!res.ok) throw new Error(`listRecords ${res.status}`);
 

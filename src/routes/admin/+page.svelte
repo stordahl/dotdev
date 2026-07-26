@@ -76,12 +76,12 @@
 		</div>
 		<div class="status-composer">
 			<h2>now</h2>
-			<textarea
+			<input
+				type="text"
 				bind:value={statusText}
 				placeholder="What are you doing now?"
-				maxlength="300"
-				rows="3"
-			></textarea>
+				maxlength="100"
+			/>
 			<div class="status-actions">
 				<span class="char-count">{statusText.length}/300</span>
 				<button onclick={submitStatus} disabled={statusSubmitting || !statusText.trim()}>
@@ -94,7 +94,9 @@
 			{#if statusResult}
 				<p class="success">
 					Posted!
-					<a href={statusPostUrl(statusResult.uri)} target="_blank" rel="noopener">View on Bluesky</a>
+					<a href={statusPostUrl(statusResult.uri)} target="_blank" rel="noopener"
+						>View on Bluesky</a
+					>
 				</p>
 			{/if}
 		</div>
@@ -170,18 +172,6 @@
 		font-size: var(--font-md);
 	}
 
-	.status-composer textarea {
-		width: 100%;
-		padding: 0.5rem;
-		border: 1px solid var(--secondary);
-		border-radius: var(--radius);
-		background: transparent;
-		color: inherit;
-		font-family: inherit;
-		font-size: var(--font-sm);
-		resize: vertical;
-	}
-
 	.status-actions {
 		display: flex;
 		align-items: center;
@@ -201,5 +191,11 @@
 
 	.success a {
 		text-decoration: underline;
+	}
+
+	@media screen and (max-width: 768px) {
+		input {
+			font-size: 16px;
+		}
 	}
 </style>

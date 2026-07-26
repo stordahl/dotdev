@@ -9,7 +9,7 @@
 		header = undefined
 	}: {
 		basePath: string;
-		items: { slug: string; title: string; date: Date | string }[];
+		items: { slug: string; title: string; date?: Date | string }[];
 		title?: string;
 		header?: Snippet;
 	} = $props();
@@ -24,11 +24,13 @@
 <section>
 	<ul class="items">
 		{#each items as item}
-			{@const date = formatDateToMonthYear(item.date, true)}
+			{@const date = item.date ? formatDateToMonthYear(item.date, true) : null}
 			<li class="post">
 				<a href="/{basePath}/{item.slug}" class="title">
 					<span class="title">{item.title}</span>
-					<span class="date">{date}</span>
+					{#if date}
+						<span class="date">{date}</span>
+					{/if}
 				</a>
 			</li>
 		{/each}

@@ -9,6 +9,7 @@
 
 	<nav>
 		<a href="/writing">writing</a>
+		<a href="/tools">tools</a>
 		<a href="/sketch-book">sketches</a>
 		<ThemePicker />
 	</nav>

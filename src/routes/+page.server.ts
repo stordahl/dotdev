@@ -43,7 +43,7 @@ async function fetchBluesky(): Promise<BlueskyPost[]> {
   try {
     const response = await fetch(
       `https://api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed?actor=${encodeURIComponent(BLUESKY_DID)}&filter=posts_no_replies&limit=30`,
-      { headers: { Accept: 'application/json' } }
+      { headers: { Accept: 'application/json' }, cache: 'no-store' }
     );
 
     if (!response.ok) throw new Error(`Bluesky API responded with ${response.status}`);
@@ -78,27 +78,61 @@ async function fetchBluesky(): Promise<BlueskyPost[]> {
 
 async function fetchLatestStatus(): Promise<BlueskyPost | null> {
   try {
-    // Fetch records in reverse chronological order directly from the PDS.
-    // `reverse=true` returns newest first; we grab the first one.
-    const listRes = await fetch(
-      `${BLUESKY_PDS_URL}/xrpc/com.atproto.repo.listRecords?repo=${encodeURIComponent(BLUESKY_STATUS_DID)}&collection=app.bsky.feed.post&reverse=true`,
-      { headers: { Accept: 'application/json' } }
-    );
-    if (!listRes.ok) throw new Error(`listRecords ${listRes.status}`);
+    // Fetch ALL records from the PDS using forward pagination.
+    // reverse=true has a severe pagination bug on this PDS (drops newest
+    // records with small limits; limit=1 returns posts from 2025). The
+    // Bluesky AppView is also stale for this account. Forward pagination
+    // (reverse=false) is the only reliable approach.
+    const seen = new Set<string>();
+    const records: { uri: string; cid: string; value: { text?: string; createdAt?: string } }[] = [];
+    let cursor: string | undefined;
 
-    const listData = (await listRes.json()) as {
-      records?: { uri: string; cid: string; value: { text?: string; createdAt?: string } }[];
-    };
-    const record = listData.records?.[0];
-    if (!record?.value?.text || !record.value.createdAt) return null;
+    do {
+      const url = new URL(`${BLUESKY_PDS_URL}/xrpc/com.atproto.repo.listRecords`);
+      url.searchParams.set('repo', BLUESKY_STATUS_DID);
+      url.searchParams.set('collection', 'app.bsky.feed.post');
+      url.searchParams.set('limit', '50');
+      if (cursor) url.searchParams.set('cursor', cursor);
+
+      const res = await fetch(url.toString(), {
+        headers: { Accept: 'application/json' },
+        cache: 'no-store'
+      });
+      if (!res.ok) throw new Error(`listRecords ${res.status}`);
+
+      const data = (await res.json()) as {
+        records?: { uri: string; cid: string; value: { text?: string; createdAt?: string } }[];
+        cursor?: string;
+      };
+
+      for (const r of data.records || []) {
+        if (!seen.has(r.uri)) {
+          seen.add(r.uri);
+          records.push(r);
+        }
+      }
+      cursor = data.cursor;
+    } while (cursor);
+
+    if (records.length === 0) return null;
+
+    // Sort by createdAt descending and pick the latest.
+    // createdAt is client-set, but for status posts it's accurate enough.
+    const latest = records.sort(
+      (a, b) =>
+        new Date(b.value.createdAt || 0).getTime() -
+        new Date(a.value.createdAt || 0).getTime()
+    )[0];
+
+    if (!latest.value?.text || !latest.value.createdAt) return null;
 
     return {
-      uri: record.uri,
-      cid: record.cid,
+      uri: latest.uri,
+      cid: latest.cid,
       author: { did: BLUESKY_STATUS_DID, handle: BLUESKY_STATUS_HANDLE },
-      record: { text: record.value.text, createdAt: record.value.createdAt },
+      record: { text: latest.value.text, createdAt: latest.value.createdAt },
       likeCount: 0,
-      indexedAt: record.value.createdAt
+      indexedAt: latest.value.createdAt
     };
   } catch (error) {
     console.error('Error fetching latest status:', error);

@@ -3,9 +3,8 @@
 	import { browser, dev } from '$app/environment';
 	import Seo from '$lib/Seo.svelte';
 	import Tabs from '$lib/Tabs.svelte';
-	import type { PageData } from './$types';
 
-	const { data }: { data: PageData } = $props();
+	const { data } = $props();
 
 	const { code = undefined, component: Component, markdown } = $derived(data);
 
@@ -48,11 +47,11 @@
 				{:else}
 					<div class="code">
 						{#if !dev}
-							{#await parsedCodeFn()}
-								<p>loading code...</p>
-							{:then parsedCode}
-								{@html parsedCode}
-							{/await}
+						{#await parsedCodeFn}
+							<p>loading code...</p>
+						{:then parsedCode}
+							{@html parsedCode}
+						{/await}
 						{:else}
 							<p>No code in dev</p>
 						{/if}

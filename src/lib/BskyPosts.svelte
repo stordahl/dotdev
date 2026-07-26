@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { getPostUrl } from './utils';
 	import type { BlueskyPost } from './types';
 
 	interface Props {
@@ -12,14 +13,6 @@
 			month: 'short',
 			day: 'numeric'
 		});
-	}
-
-	function getPostUrl(uri: string): string {
-		const match = uri.match(/at:\/\/([^/]+)\/app\.bsky\.feed\.post\/(.+)/);
-		if (match) {
-			return `https://bsky.app/profile/${match[1]}/post/${match[2]}`;
-		}
-		return 'https://bsky.app';
 	}
 
 	function formatText(text: string): string {

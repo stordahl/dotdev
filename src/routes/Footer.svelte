@@ -5,10 +5,6 @@
 
 	let { authenticated } = $props();
 
-	async function logout() {
-		await fetch('/api/logout', { method: 'POST' });
-		location.reload();
-	}
 </script>
 
 <footer>
@@ -35,7 +31,11 @@
 			<li><a href="/sketches">sketches</a></li>
 			<li><a href="/ping">ping</a></li>
 			{#if authenticated}
-				<li><button class="logout-link" onclick={logout}>logout</button></li>
+				<li>
+					<a href="/admin">admin</a>
+					<span class="separator">|</span>
+					<a href="/logout">logout</a>
+				</li>
 			{:else}
 				<li><a href="/admin">admin</a></li>
 			{/if}
@@ -99,19 +99,7 @@
 		}
 	}
 
-	.logout-link {
-		background: none;
-		border: none;
-		padding: 0;
-		margin: 0;
-		font: inherit;
-		font-size: inherit;
-		color: inherit;
-		text-decoration: underline;
-		cursor: pointer;
-	}
-
-	.logout-link:hover {
-		opacity: 0.7;
+	.separator {
+		margin: 0 3px;
 	}
 </style>

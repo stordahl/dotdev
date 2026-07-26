@@ -1,4 +1,6 @@
 <script lang="ts">
+	import type { Snippet } from 'svelte';
+
 	let {
 		tabs,
 		active = $bindable(tabs[0]?.id),
@@ -8,33 +10,23 @@
 		tabs: { id: string; label: string }[];
 		active?: string;
 		onchange?: (id: string) => void;
-		children: (active: string) => void;
+		children: Snippet<[string]>;
 	} = $props();
 
-	let current = $state(active);
-
-	$effect(() => {
-		active = current;
-	});
-
-	$effect(() => {
-		current = active;
-	});
-
 	function setActive(id: string) {
-		current = id;
+		active = id;
 		onchange?.(id);
 	}
 </script>
 
 <div class="tabs">
 	{#each tabs as tab (tab.id)}
-		<button class:active={current === tab.id} onclick={() => setActive(tab.id)}>
+		<button class:active={active === tab.id} onclick={() => setActive(tab.id)}>
 			{tab.label}
 		</button>
 	{/each}
 </div>
-{@render children(current)}
+{@render children(active)}
 
 <style>
 	.tabs {

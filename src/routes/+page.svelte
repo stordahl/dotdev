@@ -4,9 +4,7 @@
 	import BskyPosts from '$lib/BskyPosts.svelte';
 	import GithubContributions from '$lib/GithubContributions.svelte';
 	import NowStatus from '$lib/NowStatus.svelte';
-	import type { PageData } from './$types';
-
-	let { data }: { data: PageData } = $props();
+	let { data } = $props();
 </script>
 
 <Seo />

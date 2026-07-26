@@ -1,9 +1,8 @@
 <script lang="ts">
 	import { formatDate } from '$lib/utils';
-	import type { PageData } from './$types';
 	import Seo from '$lib/Seo.svelte';
 
-	const { data }: { data: PageData } = $props();
+	const { data } = $props();
 	const post = $derived(data.post);
 </script>
 

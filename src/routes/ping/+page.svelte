@@ -13,16 +13,6 @@
 	let charCount = $derived(question.length);
 	let isOverLimit = $derived(charCount > MAX_CHARS);
 
-	$effect(() => {
-		if (form?.success) {
-			status = 'success';
-			question = '';
-		} else if (form?.error) {
-			status = 'error';
-			errorMessage = form.error;
-		}
-	});
-
 	function handleInput(event: Event) {
 		const target = event.target as HTMLTextAreaElement;
 		question = target.value;

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import Tabs from '$lib/Tabs.svelte';
 	import AlertDialog from '$lib/AlertDialog.svelte';
 	import { toMarkdown } from '$lib/draft-markdown';
@@ -28,7 +29,7 @@
 
 	let autoSaveTimer: ReturnType<typeof setTimeout> | undefined;
 	let lastSaved = $state(draftInit.updatedAt);
-	let deleteDialog: { show: () => void; close: () => void };
+	let deleteDialogOpen = $state(false);
 
 	async function save() {
 		status = 'Saving...';
@@ -45,7 +46,6 @@
 				draftInit.description = description;
 				draftInit.body = body;
 			} else {
-				status = 'Save failed';
 				throw new Error('Save failed');
 			}
 		} catch (err) {
@@ -89,14 +89,14 @@
 	}
 
 	function deleteDraft() {
-		deleteDialog.show();
+		deleteDialogOpen = true;
 	}
 
 	async function confirmDelete() {
 		try {
 			const res = await fetch(`/api/drafts/${draftInit.slug}`, { method: 'DELETE' });
 			if (res.ok) {
-				location.href = '/admin';
+				await goto('/admin');
 			} else {
 				status = 'Delete failed';
 			}
@@ -179,7 +179,7 @@
 </div>
 
 <AlertDialog
-	bind:this={deleteDialog}
+	bind:open={deleteDialogOpen}
 	title="Delete this draft?"
 	description="This action cannot be undone."
 	confirmLabel="Delete"

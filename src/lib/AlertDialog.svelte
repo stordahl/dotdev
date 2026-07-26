@@ -15,28 +15,29 @@
 		confirmLabel = 'Confirm',
 		cancelLabel = 'Cancel',
 		danger = false,
+		open = $bindable(false),
 		onconfirm,
 		oncancel
-	}: Props = $props();
+	}: Props & { open?: boolean } = $props();
 
 	let dialog: HTMLDialogElement;
 
-	export function show() {
-		dialog.showModal();
-	}
-
-	export function close() {
-		dialog.close();
-	}
+	$effect(() => {
+		if (open) {
+			dialog.showModal();
+		} else {
+			dialog.close();
+		}
+	});
 
 	function handleConfirm() {
 		onconfirm?.();
-		close();
+		open = false;
 	}
 
 	function handleCancel() {
 		oncancel?.();
-		close();
+		open = false;
 	}
 
 	function handleClick(e: MouseEvent) {

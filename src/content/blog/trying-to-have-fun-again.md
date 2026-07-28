@@ -2,7 +2,7 @@
 title: Trying To Have Fun Again
 date: 2026-07-26
 description: Rediscovering my love for the internet.
-published: false
+published: true
 ---
 
 It’s been nearly a year and a half since I published an article on this blog. In that time I (like many other software engineers) have been learning to cope with the exponentially faster shifts our industry and jobs seem to be making. It got to a point where I was so burnt out on all of this change that I felt incapable of sharing anything like I had previously on this blog.

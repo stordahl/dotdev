@@ -32,6 +32,10 @@ export function roman(num: number): string {
 	return result;
 }
 
+function adjustForTimezone(date: Date): Date {
+	return new Date(date.getTime() + date.getTimezoneOffset() * 60000);
+}
+
 export function formatDateToMonthYear(
 	dateInput: Date | string,
 	shortMonth: boolean = false
@@ -40,13 +44,15 @@ export function formatDateToMonthYear(
 	return new Intl.DateTimeFormat('en-US', {
 		year: 'numeric',
 		month: shortMonth ? 'short' : 'long'
-	}).format(date);
+	}).format(adjustForTimezone(date));
 }
 
 type DateStyle = Intl.DateTimeFormatOptions['dateStyle'];
 
 export function formatDate(date: Date | string, dateStyle: DateStyle = 'medium', locales = 'en') {
-	const dateToFormat = typeof date === 'string' ? new Date(date.replaceAll('-', '/')) : date;
+	const dateToFormat = typeof date === 'string'
+		? new Date(date.replaceAll('-', '/'))
+		: adjustForTimezone(date);
 	const dateFormatter = new Intl.DateTimeFormat(locales, { dateStyle });
 	return dateFormatter.format(dateToFormat);
 }

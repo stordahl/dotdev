@@ -1,6 +1,6 @@
 import { json } from '@sveltejs/kit';
 import { validateSession } from '$lib/server/auth';
-import { getDraftStore } from '$lib/server/draft-store';
+import { getDraftStore, generateSlug } from '$lib/server/draft-store';
 
 export async function GET(event) {
 	if (!await validateSession(event)) {
@@ -24,7 +24,29 @@ export async function PUT(event) {
 		const existing = await store.get(event.params.slug);
 		if (!existing) return json({ error: 'Not found' }, { status: 404 });
 
-		const { title, description, body, published } = await event.request.json();
+		const { title, description, body, published, slug: newSlugRaw } = await event.request.json();
+
+		let newSlug: string | undefined;
+		if (newSlugRaw && newSlugRaw !== event.params.slug) {
+			newSlug = generateSlug(newSlugRaw);
+			if (newSlug !== event.params.slug) {
+				const collision = await store.get(newSlug);
+				if (collision) {
+					return json({ error: 'Slug already in use' }, { status: 409 });
+				}
+				await store.put(newSlug, {
+					...existing,
+					slug: newSlug,
+					title: title ?? existing.title,
+					description: description ?? existing.description,
+					body: body ?? existing.body,
+					published: published ?? existing.published,
+					updatedAt: new Date().toISOString()
+				});
+				await store.delete(event.params.slug);
+				return json({ success: true, newSlug });
+			}
+		}
 
 		await store.put(event.params.slug, {
 			...existing,

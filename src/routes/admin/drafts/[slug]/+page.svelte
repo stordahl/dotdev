@@ -23,6 +23,7 @@
 	let title = $state(draftInit.title);
 	let description = $state(draftInit.description);
 	let body = $state(draftInit.body);
+	let slug = $state(draftInit.slug);
 	let status = $state('');
 	let publishing = $state(false);
 	let previewHtml = $state('');
@@ -41,7 +42,7 @@
 			const res = await fetch(`/api/drafts/${draftInit.slug}`, {
 				method: 'PUT',
 				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ title, description, body })
+				body: JSON.stringify({ title, description, body, slug })
 			});
 			if (res.ok) {
 				lastSaved = new Date().toISOString();
@@ -49,6 +50,11 @@
 				draftInit.title = title;
 				draftInit.description = description;
 				draftInit.body = body;
+				const data = await res.json();
+				if (data.newSlug && data.newSlug !== draftInit.slug) {
+					draftInit.slug = data.newSlug;
+					await goto(`/admin/drafts/${data.newSlug}`, { replaceState: true });
+				}
 				return true;
 			} else {
 				const errData = await res.json().catch(() => ({ error: `HTTP ${res.status}` }));
@@ -72,7 +78,7 @@
 	function onInput() {
 		status = 'Unsaved changes';
 		if (autoSaveTimer) clearTimeout(autoSaveTimer);
-		const hasUserInput = title !== draftInit.title || description !== draftInit.description || body !== draftInit.body;
+		const hasUserInput = title !== draftInit.title || description !== draftInit.description || body !== draftInit.body || slug !== draftInit.slug;
 		if (hasUserInput) {
 			autoSaveTimer = setTimeout(save, 2000);
 		}
@@ -168,6 +174,12 @@
 			bind:value={description}
 			placeholder="Description / excerpt"
 			class="desc-input"
+			oninput={onInput}
+		/>
+		<input
+			bind:value={slug}
+			placeholder="Slug (used as filename)"
+			class="slug-input"
 			oninput={onInput}
 		/>
 	</div>
@@ -286,6 +298,16 @@
 		border: none;
 		background: transparent;
 		color: inherit;
+	}
+
+	.slug-input {
+		padding: 0.5rem;
+		border: none;
+		background: transparent;
+		color: inherit;
+		font-size: 0.875rem;
+		font-family: ui-monospace, monospace;
+		opacity: 0.8;
 	}
 
 	.tabs-content {

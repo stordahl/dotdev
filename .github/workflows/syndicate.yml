@@ -39,6 +39,9 @@ jobs:
         run: pnpm exec sequoia publish
 
       - name: Sync state and update frontmatter
+        env:
+          ATP_IDENTIFIER: ${{ secrets.ATP_IDENTIFIER }}
+          ATP_APP_PASSWORD: ${{ secrets.ATP_APP_PASSWORD }}
         run: pnpm exec sequoia sync --update-frontmatter
 
       - name: Commit atUri updates back to main

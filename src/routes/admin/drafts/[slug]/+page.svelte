@@ -314,4 +314,21 @@
 	.rendered :global(img) {
 		max-width: 100%;
 	}
+
+	@media (max-width: 640px) {
+		.editor {
+			height: auto;
+			min-height: auto;
+		}
+
+		.tabs-content {
+			flex: none;
+			min-height: auto;
+		}
+
+		.preview-pane {
+			height: auto;
+			min-height: 200px;
+		}
+	}
 </style>

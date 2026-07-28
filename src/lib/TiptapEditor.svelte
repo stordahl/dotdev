@@ -42,8 +42,6 @@
 		flex-direction: column;
 		flex: 1;
 		min-height: 0;
-		border: 1px solid var(--secondary);
-		border-radius: 4px;
 		overflow: hidden;
 	}
 
@@ -52,8 +50,22 @@
 		min-height: 0;
 		padding: 0.75rem;
 		overflow-y: auto;
-		font-size: 0.95rem;
+		font-size: 16px;
 		line-height: 1.6;
+	}
+
+	@media (max-width: 640px) {
+		.tiptap-editor {
+			flex: none;
+			min-height: auto;
+			overflow: visible;
+		}
+
+		.editor-content {
+			flex: none;
+			min-height: auto;
+			overflow-y: visible;
+		}
 	}
 
 	.editor-content :global(.ProseMirror) {

@@ -159,7 +159,8 @@
 		align-items: center;
 		gap: 0.25rem;
 		padding: 0.5rem;
-		border-bottom: 1px solid var(--secondary);
+		border: 1px solid var(--secondary);
+		border-radius: 4px;
 		flex-wrap: wrap;
 	}
 

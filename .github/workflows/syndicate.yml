@@ -32,9 +32,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Install Sequoia CLI
-        run: pnpm install -g sequoia-cli
-
       - name: Authenticate with AT Protocol
         run: |
           echo "${{ secrets.SEQUOIA_APP_PASSWORD }}" | \

@@ -13,7 +13,7 @@ export function toMarkdown(draft: Draft): string {
 		title: draft.title,
 		date: draft.createdAt.split('T')[0],
 		description: draft.description,
-		published: false
+		published: draft.published
 	};
 
 	let md = '---\n';

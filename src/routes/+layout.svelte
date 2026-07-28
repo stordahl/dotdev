@@ -11,7 +11,10 @@
 		if (typeof document === 'undefined') return;
 		const t = themes[theme.current];
 		document.documentElement.style.setProperty('--theme-secondary', t.color);
-		document.documentElement.style.setProperty('--banner-light', `url('/images/${t.image}-light.jpg')`);
+		document.documentElement.style.setProperty(
+			'--banner-light',
+			`url('/images/${t.image}-light.jpg')`
+		);
 
 		const mode = theme.mode;
 		if (mode === 'system') {
@@ -41,7 +44,15 @@
 
 <style>
 	div {
+		min-height: 98dvh;
+		display: flex;
+		flex-direction: column;
+	}
+
+	main {
+		flex: 1;
 		max-width: 525px;
-		margin: auto;
+		width: 100%;
+		margin: 0 auto;
 	}
 </style>

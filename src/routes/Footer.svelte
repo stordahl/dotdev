@@ -47,6 +47,8 @@
 <style>
 	footer {
 		font-size: var(--font-sm);
+		max-width: 525px;
+		width: 100%;
 		margin: 30px auto;
 	}
 

@@ -1,6 +1,6 @@
 ---
 title: Trying To Have Fun Again
-date: 2026-07-26
+date: 2026-07-28
 description: Rediscovering my love for the internet.
 published: true
 ---

@@ -32,18 +32,14 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Authenticate with AT Protocol
-        run: |
-          echo "${{ secrets.SEQUOIA_APP_PASSWORD }}" | \
-            npx -y sequoia-cli auth
+      - name: Publish to atproto
         env:
-          SEQUOIA_APP_PASSWORD: ${{ secrets.SEQUOIA_APP_PASSWORD }}
-
-      - name: Publish new posts
-        run: npx sequoia publish
+          ATP_IDENTIFIER: ${{ secrets.ATP_IDENTIFIER }}
+          ATP_APP_PASSWORD: ${{ secrets.ATP_APP_PASSWORD }}
+        run: pnpm exec sequoia publish
 
       - name: Sync state and update frontmatter
-        run: npx sequoia sync --update-frontmatter
+        run: pnpm exec sequoia sync --update-frontmatter
 
       - name: Commit atUri updates back to main
         uses: stefanzweifel/git-auto-commit-action@v5

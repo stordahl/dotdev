@@ -28,3 +28,13 @@ export interface BlueskyPost {
 	likeCount: number;
 	indexedAt: string;
 }
+
+export interface SembleCard {
+	url: string;
+	title: string;
+	author?: string;
+	siteName?: string;
+	imageUrl?: string;
+	description?: string;
+	createdAt: string;
+}

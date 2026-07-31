@@ -1,5 +1,5 @@
 import type { PageServerLoad } from './$types';
-import type { BlueskyPost, Contributions } from '../lib/types';
+import type { BlueskyPost, Contributions, SembleCard } from '../lib/types';
 import { env } from '$env/dynamic/private';
 
 const BLUESKY_DID = 'did:plc:6ghbu76mogjyfcvx446mep5o';
@@ -7,6 +7,8 @@ const BLUESKY_STATUS_HANDLE = 'now.stordahl.dev';
 const BLUESKY_STATUS_DID = 'did:plc:aztiyk6whivsi4q7tqji6fz4';
 const BLUESKY_PDS_URL = env.BLUESKY_PDS_URL ?? 'https://now.stordahl.dev';
 const GITHUB_USERNAME = 'stordahl';
+const SEMBLE_COLLECTION_ID = '3mrv5hzbfdz27';
+const SEMBLE_HANDLE = 'stordahl.dev';
 
 interface GitHubDay {
   contributionCount: number;
@@ -31,12 +33,13 @@ interface GitHubResponse {
 }
 
 export const load: PageServerLoad = async () => {
-  const [posts, contributions, status] = await Promise.all([
-    fetchBluesky(),
-    fetchGithub(),
-    fetchLatestStatus()
-  ]);
-  return { posts, contributions, status };
+	const [posts, contributions, status, readingListItem] = await Promise.all([
+		fetchBluesky(),
+		fetchGithub(),
+		fetchLatestStatus(),
+		fetchReadingListItem()
+	]);
+	return { posts, contributions, status, readingListItem };
 };
 
 async function fetchBluesky(): Promise<BlueskyPost[]> {
@@ -200,4 +203,53 @@ async function fetchGithub(): Promise<Contributions | null> {
     console.error('Error fetching GitHub contributions:', error);
     return null;
   }
+}
+
+async function fetchReadingListItem(): Promise<SembleCard | null> {
+	const apiKey = env.SEMBLE_API_KEY;
+	if (!apiKey) {
+		console.warn('SEMBLE_API_KEY not set — skipping reading list');
+		return null;
+	}
+
+	try {
+		const url = new URL(
+			'https://api.semble.so/xrpc/network.cosmik.collection.getByAtUri'
+		);
+		url.searchParams.set('handle', SEMBLE_HANDLE);
+		url.searchParams.set('recordKey', SEMBLE_COLLECTION_ID);
+		url.searchParams.set('sortBy', 'createdAt');
+		url.searchParams.set('sortOrder', 'asc');
+		url.searchParams.set('limit', '1');
+
+		const response = await fetch(url.toString(), {
+			headers: {
+				Accept: 'application/json',
+				'X-API-Key': apiKey
+			}
+		});
+
+		if (!response.ok)
+			throw new Error(`Semble API responded with ${response.status}`);
+
+		const data = await response.json();
+
+		if (!data.urlCards?.length) return null;
+
+		const card = data.urlCards[0];
+		const content = card.cardContent ?? {};
+
+		return {
+			url: content.url ?? card.url ?? '',
+			title: content.title ?? '',
+			author: content.author,
+			siteName: content.siteName,
+			imageUrl: content.imageUrl,
+			description: content.description,
+			createdAt: card.createdAt ?? ''
+		};
+	} catch (error) {
+		console.error('Error fetching Semble reading list:', error);
+		return null;
+	}
 }

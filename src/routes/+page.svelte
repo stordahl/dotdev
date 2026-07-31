@@ -4,6 +4,7 @@
 	import BskyPosts from '$lib/BskyPosts.svelte';
 	import GithubContributions from '$lib/GithubContributions.svelte';
 	import NowStatus from '$lib/NowStatus.svelte';
+	import NextReadingListItem from '$lib/NextReadingListItem.svelte';
 	let { data } = $props();
 </script>
 
@@ -19,15 +20,22 @@
 		number of open source projects, including the
 		<a href="https://counterscale.dev">Counterscale</a> analytics project.
 	</p>
+</section>
+<section>
 	{#if data.status}
 		<NowStatus post={data.status} />
 	{/if}
+	{#if data.contributions}
+		<GithubContributions contributions={data.contributions} />
+	{/if}
+	{#if data.posts}
+		<BskyPosts posts={data.posts} />
+	{/if}
 </section>
-{#if data.contributions}
-	<GithubContributions contributions={data.contributions} />
-{/if}
-<BskyPosts posts={data.posts} />
 <Work />
+{#if data.readingListItem}
+	<NextReadingListItem item={data.readingListItem} />
+{/if}
 
 <style>
 	.banner {

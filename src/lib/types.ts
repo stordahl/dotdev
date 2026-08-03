@@ -38,3 +38,13 @@ export interface SembleCard {
 	description?: string;
 	createdAt: string;
 }
+
+export interface ScrobbleCard {
+	trackName: string;
+	artistNames?: string[];
+	artists?: { artistName: string; artistMbId?: string }[];
+	releaseName?: string;
+	originUrl?: string;
+	musicServiceBaseDomain?: string;
+	playedTime: string;
+}

@@ -61,6 +61,105 @@
 		const rkey = uri.split('/').pop() ?? '';
 		return `https://bsky.app/profile/now.stordahl.dev/post/${rkey}`;
 	}
+
+	let scrobbleUrl = $state('');
+	let scrobbleResolving = $state(false);
+	let scrobbleData = $state({
+		trackName: '',
+		artistNames: '',
+		releaseName: '',
+		duration: '',
+		playedTime: ''
+	});
+	let scrobbleSubmitting = $state(false);
+	let scrobbleResult = $state<{ uri: string; cid: string } | null>(null);
+	let scrobbleError = $state('');
+	let scrobbleResolveError = $state('');
+
+	function nowLocal() {
+		const d = new Date();
+		d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+		return d.toISOString().slice(0, 16);
+	}
+
+	async function resolveScrobbleUrl() {
+		if (!scrobbleUrl.trim()) return;
+		scrobbleResolving = true;
+		scrobbleResolveError = '';
+		try {
+			const res = await fetch('/api/scrobbles/resolve', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ url: scrobbleUrl.trim() })
+			});
+			if (res.ok) {
+				const info = await res.json();
+				scrobbleData = {
+					trackName: info.trackName || '',
+					artistNames: info.artistNames?.join(', ') || '',
+					releaseName: info.releaseName || '',
+					duration: info.duration ? String(info.duration) : '',
+					playedTime: scrobbleData.playedTime || nowLocal()
+				};
+			} else {
+				const err = await res.json();
+				scrobbleResolveError = err.error || 'Could not resolve URL';
+			}
+		} catch {
+			scrobbleResolveError = 'Network error';
+		} finally {
+			scrobbleResolving = false;
+		}
+	}
+
+	async function submitScrobble() {
+		if (!scrobbleData.trackName.trim()) return;
+		scrobbleSubmitting = true;
+		scrobbleError = '';
+		scrobbleResult = null;
+		try {
+			const artistArr = scrobbleData.artistNames
+				.split(',')
+				.map((s) => s.trim())
+				.filter(Boolean);
+
+			const res = await fetch('/api/scrobbles', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					trackName: scrobbleData.trackName.trim(),
+					artistNames: artistArr.length > 0 ? artistArr : undefined,
+					releaseName: scrobbleData.releaseName.trim() || undefined,
+					duration: scrobbleData.duration ? Number(scrobbleData.duration) : undefined,
+					originUrl: scrobbleUrl.trim(),
+					playedTime: scrobbleData.playedTime || undefined
+				})
+			});
+			if (res.ok) {
+				scrobbleResult = await res.json();
+				scrobbleUrl = '';
+				scrobbleData = {
+					trackName: '',
+					artistNames: '',
+					releaseName: '',
+					duration: '',
+					playedTime: ''
+				};
+			} else {
+				const err = await res.json();
+				scrobbleError = err.error || 'Failed to scrobble';
+			}
+		} catch {
+			scrobbleError = 'Network error';
+		} finally {
+			scrobbleSubmitting = false;
+		}
+	}
+
+	function scrobblePostUrl(uri: string): string {
+		const rkey = uri.split('/').pop() ?? '';
+		return `https://bsky.app/profile/now.stordahl.dev/post/${rkey}`;
+	}
 </script>
 
 <svelte:head>
@@ -87,7 +186,12 @@
 			<h2>reading list</h2>
 			{#if data.readingListItem}
 				<div class="reading-card">
-					<a href={data.readingListItem.url} target="_blank" rel="noopener noreferrer" class="reading-link">
+					<a
+						href={data.readingListItem.url}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="reading-link"
+					>
 						<span class="reading-title">{data.readingListItem.title}</span>
 						<span class="reading-attribution">
 							{data.readingListItem.author || data.readingListItem.siteName || ''}
@@ -134,6 +238,65 @@
 				<p class="success">
 					Posted!
 					<a href={statusPostUrl(statusResult.uri)} target="_blank" rel="noopener"
+						>View on Bluesky</a
+					>
+				</p>
+			{/if}
+		</div>
+		<div class="status-composer">
+			<h2>scrobble</h2>
+			<div class="scrobble-url-row">
+				<input
+					type="url"
+					bind:value={scrobbleUrl}
+					placeholder="Paste Apple Music, YouTube, or SoundCloud URL..."
+				/>
+				<button onclick={resolveScrobbleUrl} disabled={scrobbleResolving || !scrobbleUrl.trim()}>
+					{scrobbleResolving ? 'Resolving...' : 'Resolve'}
+				</button>
+			</div>
+			{#if scrobbleResolveError}
+				<p class="error">{scrobbleResolveError}</p>
+			{/if}
+
+			<div class="scrobble-fields">
+				<label>
+					<span>Track</span>
+					<input type="text" bind:value={scrobbleData.trackName} />
+				</label>
+				<label>
+					<span>Artist(s)</span>
+					<input type="text" bind:value={scrobbleData.artistNames} placeholder="Comma separated" />
+				</label>
+				<label>
+					<span>Release</span>
+					<input type="text" bind:value={scrobbleData.releaseName} />
+				</label>
+				<label>
+					<span>Duration (seconds)</span>
+					<input type="number" bind:value={scrobbleData.duration} min="0" />
+				</label>
+				<label>
+					<span>Played at</span>
+					<input type="datetime-local" bind:value={scrobbleData.playedTime} />
+				</label>
+				<div class="scrobble-actions">
+					<button
+						onclick={submitScrobble}
+						disabled={scrobbleSubmitting || !scrobbleData.trackName.trim()}
+					>
+						{scrobbleSubmitting ? 'Posting...' : 'Post'}
+					</button>
+				</div>
+			</div>
+
+			{#if scrobbleError}
+				<p class="error">{scrobbleError}</p>
+			{/if}
+			{#if scrobbleResult}
+				<p class="success">
+					Posted!
+					<a href={scrobblePostUrl(scrobbleResult.uri)} target="_blank" rel="noopener"
 						>View on Bluesky</a
 					>
 				</p>
@@ -295,5 +458,42 @@
 	.reading-actions button.remove:hover {
 		background: color-mix(in srgb, #e74c3c 30%, transparent);
 		border-color: #e74c3c;
+	}
+
+	.scrobble-url-row {
+		display: flex;
+		gap: 0.5rem;
+	}
+
+	.scrobble-url-row input {
+		flex: 1;
+	}
+
+	.scrobble-url-row button {
+		white-space: nowrap;
+	}
+
+	.scrobble-fields {
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+		margin-top: 0.75rem;
+	}
+
+	.scrobble-fields label {
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
+		font-size: var(--font-xs);
+		opacity: 0.7;
+	}
+
+	.scrobble-fields label input {
+		font-size: var(--font-sm);
+	}
+
+	.scrobble-actions {
+		display: flex;
+		justify-content: flex-end;
 	}
 </style>

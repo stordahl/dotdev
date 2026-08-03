@@ -5,6 +5,7 @@
 	import GithubContributions from '$lib/GithubContributions.svelte';
 	import NowStatus from '$lib/NowStatus.svelte';
 	import NextReadingListItem from '$lib/NextReadingListItem.svelte';
+	import LatestScrobble from '$lib/LatestScrobble.svelte';
 	let { data } = $props();
 </script>
 
@@ -22,9 +23,13 @@
 	</p>
 </section>
 <section>
-	{#if data.status}
+	<div class="cards-row">
 		<NowStatus post={data.status} />
-	{/if}
+		<NextReadingListItem item={data.readingListItem} />
+		<LatestScrobble scrobble={data.latestScrobble} />
+	</div>
+</section>
+<section>
 	{#if data.contributions}
 		<GithubContributions contributions={data.contributions} />
 	{/if}
@@ -33,9 +38,6 @@
 	{/if}
 </section>
 <Work />
-{#if data.readingListItem}
-	<NextReadingListItem item={data.readingListItem} />
-{/if}
 
 <style>
 	.banner {
@@ -55,5 +57,36 @@
 
 	p {
 		font-size: var(--font-lg);
+	}
+
+	.cards-row {
+		display: flex;
+		gap: 1rem;
+		overflow-x: auto;
+		scroll-snap-type: x mandatory;
+		-webkit-overflow-scrolling: touch;
+		padding-bottom: 0.5rem;
+		margin-top: 1rem;
+	}
+
+	.cards-row::-webkit-scrollbar {
+		height: 6px;
+	}
+
+	.cards-row::-webkit-scrollbar-track {
+		background: transparent;
+	}
+
+	.cards-row::-webkit-scrollbar-thumb {
+		background: var(--light-grey);
+		border-radius: 3px;
+	}
+
+	@media screen and (min-width: 769px) {
+		.cards-row {
+			overflow-x: visible;
+			scroll-snap-type: none;
+			padding-bottom: 0;
+		}
 	}
 </style>

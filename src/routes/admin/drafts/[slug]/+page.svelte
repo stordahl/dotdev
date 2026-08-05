@@ -78,7 +78,11 @@
 	function onInput() {
 		status = 'Unsaved changes';
 		if (autoSaveTimer) clearTimeout(autoSaveTimer);
-		const hasUserInput = title !== draftInit.title || description !== draftInit.description || body !== draftInit.body || slug !== draftInit.slug;
+		const hasUserInput =
+			title !== draftInit.title ||
+			description !== draftInit.description ||
+			body !== draftInit.body ||
+			slug !== draftInit.slug;
 		if (hasUserInput) {
 			autoSaveTimer = setTimeout(save, 2000);
 		}
@@ -197,7 +201,13 @@
 		{#snippet children(active)}
 			<div class="tabs-content">
 				{#if active === 'editor'}
-					<TiptapEditor content={body} onChange={(markdown) => { body = markdown; onInput(); }} />
+					<TiptapEditor
+						content={body}
+						onChange={(markdown) => {
+							body = markdown;
+							onInput();
+						}}
+					/>
 				{:else}
 					<div class="preview-pane">
 						{#if previewHtml}
@@ -226,7 +236,6 @@
 	.editor {
 		display: flex;
 		flex-direction: column;
-		height: calc(100vh - 120px);
 		padding: 1rem 0;
 	}
 

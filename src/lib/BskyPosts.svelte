@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { getPostUrl } from './utils';
 	import type { BlueskyPost } from './types';
+	import { Slider } from './Slider/index.js';
+	import Heart from './icons/Heart.svelte';
 
 	interface Props {
 		posts: BlueskyPost[];
@@ -25,34 +27,24 @@
 {#if posts.length}
 	<div class="bsky-posts">
 		<h2>Posts</h2>
-		<div class="swiper">
+		<Slider.Root>
 			{#each posts as post}
-				<a class="card" href={getPostUrl(post.uri)} target="_blank" rel="noopener">
-					<div class="text">{@html formatText(post.record.text)}</div>
-					<div class="meta">
-						<span class="date">{formatDate(post.record.createdAt)}</span>
-						<span class="likes">
-							<svg
-								class="heart"
-								viewBox="0 0 24 24"
-								width="12"
-								height="12"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-							>
-								<path
-									d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8z"
-								/>
-							</svg>
-							{post.likeCount}
-						</span>
-					</div>
-				</a>
+				<Slider.Card href={getPostUrl(post.uri)} blank>
+					{#snippet content()}
+						<div class="text">{@html formatText(post.record.text)}</div>
+					{/snippet}
+					{#snippet footer()}
+						<div class="meta">
+							<span class="date">{formatDate(post.record.createdAt)}</span>
+							<span class="likes">
+								<Heart />
+								{post.likeCount}
+							</span>
+						</div>
+					{/snippet}
+				</Slider.Card>
 			{/each}
-		</div>
+		</Slider.Root>
 	</div>
 {/if}
 
@@ -66,54 +58,12 @@
 	.bsky-posts h2 {
 		margin-bottom: 1rem;
 		color: var(--foreground);
-		font-size: var(--font-md);
-	}
-
-	.swiper {
-		display: flex;
-		gap: 1rem;
-		overflow-x: auto;
-		scroll-snap-type: x mandatory;
-		-webkit-overflow-scrolling: touch;
-		padding-bottom: 0.5rem;
-	}
-
-	.swiper::-webkit-scrollbar {
-		height: 6px;
-	}
-
-	.swiper::-webkit-scrollbar-track {
-		background: transparent;
-	}
-
-	.swiper::-webkit-scrollbar-thumb {
-		background: var(--light-grey);
-		border-radius: 3px;
-	}
-
-	.card {
-		flex: 0 0 200px;
-		height: 200px;
-		scroll-snap-align: start;
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-		padding: 1rem;
-		border: 1px solid color-mix(in srgb, var(--white) 20%, transparent);
-		border-radius: var(--radius);
-		background-color: color-mix(in srgb, var(--secondary) 2%, transparent);
-		text-decoration: none;
-		color: inherit;
-		transition: border-color 0.2s;
-	}
-
-	.card:hover {
-		border-color: var(--secondary);
+		font-size: var(--font-sm);
 	}
 
 	.text {
-		font-size: var(--font-sm);
-		line-height: 1.5;
+		font-size: var(--font-xs);
+		line-height: 1.3;
 		overflow: hidden;
 		display: -webkit-box;
 		-webkit-line-clamp: 7;
@@ -142,10 +92,6 @@
 		gap: 0.2rem;
 		color: color-mix(in srgb, var(--secondary) 70%, var(--light-grey));
 		font-size: var(--font-xs);
-	}
-
-	.heart {
-		flex-shrink: 0;
 	}
 
 	.date {

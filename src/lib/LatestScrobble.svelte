@@ -1,13 +1,12 @@
 <script lang="ts">
-	import { getPostUrl } from './utils';
-	import type { BlueskyPost } from './types';
+	import type { ScrobbleCard } from './types';
 	import { Slider } from './Slider/index.js';
 
 	interface Props {
-		post: BlueskyPost | null;
+		scrobble: ScrobbleCard | null;
 	}
 
-	let { post }: Props = $props();
+	let { scrobble }: Props = $props();
 
 	function formatDate(dateString: string): string {
 		const date = new Date(dateString);
@@ -26,27 +25,37 @@
 
 		if (diffDays === 0) return `today at ${timeStr}`;
 		if (diffDays === 1) return `yesterday at ${timeStr}`;
-		if (diffDays > 1 && diffDays <= 7) return `last week at ${timeStr}`;
+		if (diffDays > 1 && diffDays <= 7) {
+			const dayName = date.toLocaleDateString('en-US', { weekday: 'short' });
+			return `${dayName} at ${timeStr}`;
+		}
 
 		return date.toLocaleDateString('en-US', {
 			month: 'short',
-			day: 'numeric',
-			hour: 'numeric',
-			minute: '2-digit'
+			day: 'numeric'
 		});
 	}
+
+	const artistStr = $derived(
+		scrobble?.artists?.length
+			? scrobble.artists.map((a) => a.artistName).join(', ')
+			: scrobble?.artistNames?.join(', ')
+	);
 </script>
 
-{#if post}
-	<Slider.Card href={getPostUrl(post.uri)} blank>
+{#if scrobble}
+	<Slider.Card href={scrobble.originUrl} blank>
 		{#snippet header()}
-			status
+			listening
 		{/snippet}
 		{#snippet content()}
-			<span class="text">“{post.record.text}”</span>
+			<span>{scrobble.trackName}</span>
+			{#if artistStr}
+				<span>&mdash; {artistStr}</span>
+			{/if}
 		{/snippet}
 		{#snippet footer()}
-			<span class="time">{formatDate(post.record.createdAt)}</span>
+			<span>{formatDate(scrobble.playedTime)}</span>
 		{/snippet}
 	</Slider.Card>
 {/if}

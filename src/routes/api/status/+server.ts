@@ -1,7 +1,9 @@
 import { json } from '@sveltejs/kit';
 import { validateSession } from '$lib/server/auth';
-import { createPdsSession, createPost } from '$lib/server/bluesky-pds';
+import { getNowSession, createPost } from '$lib/server/bluesky-pds';
 import { env } from '$env/dynamic/private';
+
+const NOW_PDS = env.PDS_NOW_URL ?? 'https://now.stordahl.dev';
 
 export async function POST(event) {
 	if (!(await validateSession(event))) {
@@ -13,15 +15,9 @@ export async function POST(event) {
 		return json({ error: 'Text is required' }, { status: 400 });
 	}
 
-	const handle = env.BLUESKY_STATUS_HANDLE;
-	const password = env.BLUESKY_STATUS_APP_PASSWORD;
-	if (!handle || !password) {
-		return json({ error: 'Bluesky credentials not configured' }, { status: 500 });
-	}
-
 	try {
-		const session = await createPdsSession(handle, password);
-		const result = await createPost(session.accessJwt, session.did, text.trim());
+		const session = await getNowSession();
+		const result = await createPost(session.accessJwt, session.did, text.trim(), NOW_PDS);
 		return json(result, { status: 201 });
 	} catch (error) {
 		const message = error instanceof Error ? error.message : 'Unknown error';

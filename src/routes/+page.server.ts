@@ -1,8 +1,9 @@
 import type { PageServerLoad } from './$types';
-import type { BlueskyPost, Contributions, SembleCard } from '../lib/types';
+import type { BlueskyPost, Contributions, SembleCard, ScrobbleCard } from '../lib/types';
 import { env } from '$env/dynamic/private';
 
 const BLUESKY_DID = 'did:plc:6ghbu76mogjyfcvx446mep5o';
+const BLUESKY_HANDLE = 'stordahl.dev';
 const BLUESKY_STATUS_HANDLE = 'now.stordahl.dev';
 const BLUESKY_STATUS_DID = 'did:plc:aztiyk6whivsi4q7tqji6fz4';
 const BLUESKY_PDS_URL = env.BLUESKY_PDS_URL ?? 'https://now.stordahl.dev';
@@ -33,13 +34,14 @@ interface GitHubResponse {
 }
 
 export const load: PageServerLoad = async () => {
-	const [posts, contributions, status, readingListItem] = await Promise.all([
-		fetchBluesky(),
-		fetchGithub(),
-		fetchLatestStatus(),
-		fetchReadingListItem()
-	]);
-	return { posts, contributions, status, readingListItem };
+  const [posts, contributions, status, readingListItem, latestScrobble] = await Promise.all([
+    fetchBluesky(),
+    fetchGithub(),
+    fetchLatestStatus(),
+    fetchReadingListItem(),
+    fetchLatestScrobble()
+  ]);
+  return { posts, contributions, status, readingListItem, latestScrobble };
 };
 
 async function fetchBluesky(): Promise<BlueskyPost[]> {
@@ -52,16 +54,19 @@ async function fetchBluesky(): Promise<BlueskyPost[]> {
     if (!response.ok) throw new Error(`Bluesky API responded with ${response.status}`);
 
     const data = await response.json();
-    if (!data.feed || !Array.isArray(data.feed)) throw new Error('Invalid response from Bluesky API');
+    if (!data.feed || !Array.isArray(data.feed))
+      throw new Error('Invalid response from Bluesky API');
 
     const textOnlyPosts: BlueskyPost[] = data.feed
-      .filter((item: { post: { record: { text?: string; embed?: unknown } }; reason?: unknown }) => {
-        const record = item.post?.record;
-        if (!record?.text) return false;
-        if (record.embed) return false;
-        if (item.reason) return false;
-        return true;
-      })
+      .filter(
+        (item: { post: { record: { text?: string; embed?: unknown } }; reason?: unknown }) => {
+          const record = item.post?.record;
+          if (!record?.text) return false;
+          if (record.embed) return false;
+          if (item.reason) return false;
+          return true;
+        }
+      )
       .slice(0, 5)
       .map((item: { post: BlueskyPost & { likeCount?: number } }) => ({
         uri: item.post.uri,
@@ -87,7 +92,8 @@ async function fetchLatestStatus(): Promise<BlueskyPost | null> {
     // Bluesky AppView is also stale for this account. Forward pagination
     // (reverse=false) is the only reliable approach.
     const seen = new Set<string>();
-    const records: { uri: string; cid: string; value: { text?: string; createdAt?: string } }[] = [];
+    const records: { uri: string; cid: string; value: { text?: string; createdAt?: string } }[] =
+      [];
     let cursor: string | undefined;
 
     do {
@@ -122,8 +128,7 @@ async function fetchLatestStatus(): Promise<BlueskyPost | null> {
     // createdAt is client-set, but for status posts it's accurate enough.
     const latest = records.sort(
       (a, b) =>
-        new Date(b.value.createdAt || 0).getTime() -
-        new Date(a.value.createdAt || 0).getTime()
+        new Date(b.value.createdAt || 0).getTime() - new Date(a.value.createdAt || 0).getTime()
     )[0];
 
     if (!latest.value?.text || !latest.value.createdAt) return null;
@@ -206,50 +211,95 @@ async function fetchGithub(): Promise<Contributions | null> {
 }
 
 async function fetchReadingListItem(): Promise<SembleCard | null> {
-	const apiKey = env.SEMBLE_API_KEY;
-	if (!apiKey) {
-		console.warn('SEMBLE_API_KEY not set — skipping reading list');
-		return null;
-	}
+  const apiKey = env.SEMBLE_API_KEY;
+  if (!apiKey) {
+    console.warn('SEMBLE_API_KEY not set — skipping reading list');
+    return null;
+  }
 
-	try {
-		const url = new URL(
-			'https://api.semble.so/xrpc/network.cosmik.collection.getByAtUri'
-		);
-		url.searchParams.set('handle', SEMBLE_HANDLE);
-		url.searchParams.set('recordKey', SEMBLE_COLLECTION_ID);
-		url.searchParams.set('sortBy', 'createdAt');
-		url.searchParams.set('sortOrder', 'asc');
-		url.searchParams.set('limit', '1');
+  try {
+    const url = new URL('https://api.semble.so/xrpc/network.cosmik.collection.getByAtUri');
+    url.searchParams.set('handle', SEMBLE_HANDLE);
+    url.searchParams.set('recordKey', SEMBLE_COLLECTION_ID);
+    url.searchParams.set('sortBy', 'createdAt');
+    url.searchParams.set('sortOrder', 'asc');
+    url.searchParams.set('limit', '1');
 
-		const response = await fetch(url.toString(), {
-			headers: {
-				Accept: 'application/json',
-				'X-API-Key': apiKey
-			}
-		});
+    const response = await fetch(url.toString(), {
+      headers: {
+        Accept: 'application/json',
+        'X-API-Key': apiKey
+      }
+    });
 
-		if (!response.ok)
-			throw new Error(`Semble API responded with ${response.status}`);
+    if (!response.ok) throw new Error(`Semble API responded with ${response.status}`);
 
-		const data = await response.json();
+    const data = await response.json();
 
-		if (!data.urlCards?.length) return null;
+    if (!data.urlCards?.length) return null;
 
-		const card = data.urlCards[0];
-		const content = card.cardContent ?? {};
+    const card = data.urlCards[0];
+    const content = card.cardContent ?? {};
 
-		return {
-			url: content.url ?? card.url ?? '',
-			title: content.title ?? '',
-			author: content.author,
-			siteName: content.siteName,
-			imageUrl: content.imageUrl,
-			description: content.description,
-			createdAt: card.createdAt ?? ''
-		};
-	} catch (error) {
-		console.error('Error fetching Semble reading list:', error);
-		return null;
-	}
+    return {
+      url: content.url ?? card.url ?? '',
+      title: content.title ?? '',
+      author: content.author,
+      siteName: content.siteName,
+      imageUrl: content.imageUrl,
+      description: content.description,
+      createdAt: card.createdAt ?? ''
+    };
+  } catch (error) {
+    console.error('Error fetching Semble reading list:', error);
+    return null;
+  }
+}
+
+async function fetchLatestScrobble(): Promise<ScrobbleCard | null> {
+  try {
+    console.log('[scrobble] resolving handle:', BLUESKY_HANDLE);
+    const resolveUrl = `https://api.bsky.app/xrpc/com.atproto.identity.resolveHandle?handle=${encodeURIComponent(BLUESKY_HANDLE)}`;
+    const resolveRes = await fetch(resolveUrl, { headers: { Accept: 'application/json' } });
+    console.log('[scrobble] resolveHandle status:', resolveRes.status);
+    if (!resolveRes.ok) {
+      const body = await resolveRes.text();
+      console.error('[scrobble] resolveHandle error body:', body);
+      throw new Error(`resolveHandle ${resolveRes.status}`);
+    }
+    const resolved = await resolveRes.json();
+    const did = resolved.did as string;
+    console.log('[scrobble] resolved DID:', did);
+
+    const listUrl = new URL('https://bsky.social/xrpc/com.atproto.repo.listRecords');
+    listUrl.searchParams.set('repo', did);
+    listUrl.searchParams.set('collection', 'fm.teal.alpha.feed.play');
+    listUrl.searchParams.set('limit', '1');
+    listUrl.searchParams.set('reverse', 'false');
+    console.log('[scrobble] listRecords URL:', listUrl.toString());
+
+    const res = await fetch(listUrl.toString(), { headers: { Accept: 'application/json' } });
+    console.log('[scrobble] listRecords status:', res.status);
+    const body = await res.text();
+    console.log('[scrobble] listRecords body:', body);
+
+    if (!res.ok) throw new Error(`listRecords ${res.status}`);
+
+    const data = JSON.parse(body) as {
+      records?: { value: ScrobbleCard }[];
+    };
+
+    console.log('[scrobble] record count:', data.records?.length ?? 0);
+    if (data.records?.length) {
+      console.log('[scrobble] first record value:', JSON.stringify(data.records[0].value));
+    }
+
+    if (!data.records?.length) return null;
+
+    const record = data.records[0].value;
+    return record;
+  } catch (error) {
+    console.error('[scrobble] error:', error);
+    return null;
+  }
 }

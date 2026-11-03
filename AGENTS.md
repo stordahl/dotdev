@@ -23,3 +23,12 @@ The site has a user-selectable accent color theme system powered by Svelte 5 run
 **Banner images:** Stored at `/static/images/{name}-light.jpg` and `{name}-dark.jpg` (800×540). Placeholder solid-color JPEGs exist for all themes; replace with real images when ready.
 
 **Color presets:** Blue (`#0412e3`), Green (`#2e7d32`).
+
+## Browser screenshots for pull requests
+
+- Use the project-pinned `agent-browser` CLI via `pnpm exec agent-browser`.
+- Before the first browser automation command in a task, load the current workflow with `pnpm exec agent-browser skills get core` and follow it.
+- For visual UI changes, run the app locally and capture a representative screenshot (desktop, plus mobile when relevant) under `.artifacts/pr-screenshots/`. Use a descriptive filename and `screenshot --full` when the whole page is useful.
+- Include the screenshot in the PR description or comment when possible. The saved local file is not automatically uploaded to GitHub, so attach it through GitHub before linking it; report its path if it still needs attaching.
+- Use a named `--session` for each task and close the session when finished to avoid conflicts with other agents.
+- In sandboxed Linux environments where Chrome reports `No usable sandbox`, add `--args "--no-sandbox"` to the launch command (for example, `pnpm exec agent-browser --session pr-ui --args "--no-sandbox" open http://localhost:5173`).

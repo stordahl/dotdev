@@ -1,5 +1,6 @@
 allowBuilds:
-  core-js: true 
+  agent-browser: true
+  core-js: true
   esbuild: true
   sharp: true
   workerd: true

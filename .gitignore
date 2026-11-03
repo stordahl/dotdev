@@ -23,4 +23,7 @@ vite.config.ts.timestamp-*
 
 .content-collections
 
+# Local visual evidence for pull requests
+.artifacts/
+
 .sequoia-state.json
